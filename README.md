@@ -7,7 +7,7 @@ The main goal of this project was to learn and practice by building a system tha
 
  - SQL Server & ADO.NET
 
- 3-Tier Architecture (Presentation – Business – Data)
+ - 3-Tier Architecture (Presentation – Business – Data)
 
 ## 📚 Key learnings:
 
