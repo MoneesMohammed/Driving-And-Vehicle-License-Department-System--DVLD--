@@ -3,16 +3,16 @@ The main goal of this project was to learn and practice by building a system tha
 
 ## 🔧 Technologies used:
 
- C# (Windows Forms)
+ - C# (Windows Forms)
 
- SQL Server & ADO.NET
+ - SQL Server & ADO.NET
 
  3-Tier Architecture (Presentation – Business – Data)
 
 ## 📚 Key learnings:
 
-Connecting the user interface to the database using a structured design.
+- Connecting the user interface to the database using a structured design.
 
-Implementing basic CRUD operations (Add – Update – Delete – Query) in an organized way.
+- Implementing basic CRUD operations (Add – Update – Delete – Query) in an organized way.
 
-Improving code structure and understanding how to separate layers for easier maintenance and development.
+- Improving code structure and understanding how to separate layers for easier maintenance and development.
