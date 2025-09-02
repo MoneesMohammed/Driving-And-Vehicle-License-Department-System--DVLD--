@@ -16,6 +16,18 @@ It was built for learning purposes and follows the **3-Tier Architecture** patte
 
 ---
 
+## 🏷️ Main Services Provided
+
+1. First-time license issuance service.  
+2. Re-examination service.  
+3. Driving license renewal service.  
+4. Lost license replacement service.  
+5. Damaged license replacement service.  
+6. Driving license release service.  
+7. International license issuance service.  
+
+---
+
 ## 🔧 Technologies used:
 
  - C# (Windows Forms)
