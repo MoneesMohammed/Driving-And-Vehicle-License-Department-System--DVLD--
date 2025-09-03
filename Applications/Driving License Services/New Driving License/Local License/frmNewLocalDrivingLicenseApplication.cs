@@ -47,6 +47,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
                 
             }
 
+            
 
             _GoToTabApplicationInfo();
 
@@ -97,7 +98,10 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
+
+            clsLicenseClass LicenseClass = clsLicenseClass.Find(cbLicenseClass.Text);
+
+
             if (tabControl1.SelectedTab != tabApplicationInfo)
                 return;
 
@@ -113,8 +117,15 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
                 return;
 
             }
+            else if(LicenseClass.MinimumAllowedAge > Person.GetAge())
+            {
 
-            
+                MessageBox.Show("The person age is not suitable for this class of license. Choose a different driving class.", "Not allowed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+
             //Base Application
             Application.ApplicantPersonID = Person.PersonID;
             Application.ApplicationDate   = DateTime.Now;
@@ -128,10 +139,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
             {
                 //Local Driving License Application
 
-                int LicenseClassID = clsLicenseClass.Find(cbLicenseClass.Text).LicenseClassID;
-
                 LocalLDApplication.ApplicationID = Application.ApplicationID;
-                LocalLDApplication.LicenseClassID = LicenseClassID;
+                LocalLDApplication.LicenseClassID = LicenseClass.LicenseClassID; 
 
 
                 if (LocalLDApplication.Save())
