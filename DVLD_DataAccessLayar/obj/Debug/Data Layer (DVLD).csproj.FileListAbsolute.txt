@@ -1,0 +1,6 @@
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\bin\Debug\Data Layer (DVLD).dll
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\bin\Debug\Data Layer (DVLD).pdb
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\obj\Debug\Data Layer (DVLD).csproj.AssemblyReference.cache
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\obj\Debug\Data Layer (DVLD).csproj.CoreCompileInputs.cache
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\obj\Debug\Data Layer (DVLD).dll
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Data Layer (DVLD)\obj\Debug\Data Layer (DVLD).pdb

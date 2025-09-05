@@ -1,0 +1,9 @@
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\bin\Debug\Business Layer (DVLD).dll
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\bin\Debug\Business Layer (DVLD).pdb
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\obj\Debug\Business Layer (DVLD).csproj.AssemblyReference.cache
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\obj\Debug\Business Layer (DVLD).csproj.CoreCompileInputs.cache
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\obj\Debug\Business Layer (DVLD).dll
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\obj\Debug\Business Layer (DVLD).pdb
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\bin\Debug\Data Layer (DVLD).dll
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\bin\Debug\Data Layer (DVLD).pdb
+C:\Users\nuwmo\OneDrive\Desktop\pogrimming C#\Business Layer (DVLD)\obj\Debug\Business.1624EB74.Up2Date
