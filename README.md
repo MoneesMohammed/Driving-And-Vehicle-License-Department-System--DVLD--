@@ -54,5 +54,5 @@ It was built for learning purposes and follows the **3-Tier Architecture** patte
    ```bash
    git clone https://github.com/USERNAME/Driving-And-Vehicle-License-Department-System--DVLD-.git
    
-2. Run the project from the "DVLD_PresentationLayer" file
+2. Run the project from the "DVLD_PresentationLayer" file : 
 DVLD_PresentationLayer\Driving & Vehicle License Department (DVLD).sln
