@@ -56,7 +56,7 @@ It was built for learning purposes and follows the **3-Tier Architecture** patte
    
 Then Open The **DVLD_PresentationLayer** Folder You Will Find :
 
-Then just run the Driving & Vehicle License Department (DVLD).sln
+Then just run the **Driving & Vehicle License Department (DVLD).sln**
 
 To enter the system user the following user:
 
