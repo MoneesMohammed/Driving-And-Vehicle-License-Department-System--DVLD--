@@ -54,5 +54,12 @@ It was built for learning purposes and follows the **3-Tier Architecture** patte
    ```bash
    git clone https://github.com/USERNAME/Driving-And-Vehicle-License-Department-System--DVLD-.git
    
-2. Run the project from the "DVLD_PresentationLayer" file : 
-DVLD_PresentationLayer\Driving & Vehicle License Department (DVLD).sln
+Then Open The **DVLD_PresentationLayer** Folder You Will Find :
+
+Then just run the Driving & Vehicle License Department (DVLD).sln
+
+To enter the system user the following user:
+
+username: Msaqer77
+
+Password : 1234
