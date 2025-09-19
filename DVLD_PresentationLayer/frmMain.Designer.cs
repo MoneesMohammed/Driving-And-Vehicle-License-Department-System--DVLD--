@@ -345,7 +345,7 @@
             this.lblUserWelcome.Name = "lblUserWelcome";
             this.lblUserWelcome.Size = new System.Drawing.Size(1721, 33);
             this.lblUserWelcome.TabIndex = 1;
-            this.lblUserWelcome.Text = "👋 Welcome! label1";
+            this.lblUserWelcome.Text = "👋 Welcome! UserName";
             this.lblUserWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1

@@ -13,19 +13,29 @@ namespace DVLD_BusinessLayer
         public enum enMode {AddNew = 0 , Update = 1}
         private enMode Mode = enMode.AddNew;
 
-       public int PersonID              { get; set; }
-       public string NationalNo         { get; set; }
-       public string FirstName          { get; set; }
-       public string SecondName         { get; set; }
-       public string ThirdName          { get; set; }
-       public string LastName           { get; set; }
-       public DateTime DateOfBirth      { get; set; }
-       public byte Gendor               { get; set; }
-       public string Address            { get; set; }
-       public string Phone              { get; set; }
-       public string Email              { get; set; }
-       public int NationalityCountryID  { get; set; }
-        public string ImagePath          { get; set; }
+        public int PersonID              { get; set; }
+        public string NationalNo         { get; set; }
+        public string FirstName          { get; set; }
+        public string SecondName         { get; set; }
+        public string ThirdName          { get; set; }
+        public string LastName           { get; set; }
+        public DateTime DateOfBirth      { get; set; }
+        public byte Gendor               { get; set; }
+        public string Address            { get; set; }
+        public string Phone              { get; set; }
+        public string Email              { get; set; }
+        public int NationalityCountryID  { get; set; }
+        
+        public clsCountry CountryInfo;
+
+        private string _ImagePath;
+        public string ImagePath 
+        {
+            get { return _ImagePath; } 
+            set { _ImagePath = value; }
+        }
+
+       
 
         public clsPerson()
         {
@@ -64,7 +74,7 @@ namespace DVLD_BusinessLayer
             this.Email = Email;
             this.NationalityCountryID = NationalityCountryID;
             this.ImagePath = ImagePath;
-
+            this.CountryInfo = clsCountry.Find(NationalityCountryID);
             Mode = enMode.Update;
 
         }
@@ -214,7 +224,7 @@ namespace DVLD_BusinessLayer
 
         public static bool IsPersonExists(string NationalNo)
         {
-            return clsPeopleDataAccess.IsPersonExistsByNationalNo(NationalNo);
+            return clsPeopleDataAccess.IsPersonExists(NationalNo);
         }
 
         public byte GetAge()

@@ -11,10 +11,6 @@ namespace DVLD_BusinessLayer
     public class clsCountry
     {
 
-        public enum enMode { AddNew = 0, Update = 1 };
-        private enMode Mode = enMode.AddNew;
-
-
         public int CountryID { get; set; }
 
         public string CountryName { get; set; }
@@ -25,7 +21,6 @@ namespace DVLD_BusinessLayer
             CountryID = -1;
             CountryName = "";
            
-            Mode = enMode.AddNew;
         }
 
 
@@ -34,10 +29,6 @@ namespace DVLD_BusinessLayer
             this.CountryID = CountryID;
             this.CountryName = CountryName;
         
-
-            Mode = enMode.Update;
-
-
         }
 
 
@@ -53,7 +44,6 @@ namespace DVLD_BusinessLayer
         }
 
 
-
         public static clsCountry Find(string CountryName)
         {
             int ID = -1;
@@ -67,90 +57,13 @@ namespace DVLD_BusinessLayer
 
         }
 
-        public static bool IsCountryExistsByCountryName(string CountryName)
-        {
-            return clsCountriesDataAccess.IsCountryExistsByCountryName(CountryName);
-
-
-        }
-
-
-        private bool _AddNewCountry()
-        {
-
-            this.CountryID = clsCountriesDataAccess.AddNewCountry(this.CountryName);
-            return (CountryID != -1);
-
-
-        }
-
-        private bool _UpdateCountry()
-        {
-
-            return clsCountriesDataAccess.UpdateCountry(CountryID, CountryName);
-
-
-        }
-
-        public bool Save()
-        {
-            switch (Mode)
-            {
-                case enMode.AddNew:
-                    {
-                        if (_AddNewCountry())
-                        {
-                            Mode = enMode.Update;
-                            return true;
-
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
-                    }
-                case enMode.Update:
-                    {
-                        if (_UpdateCountry())
-                        {
-
-                            return true;
-
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
-                    }
-
-
-
-            }
-
-            return false;
-        }
-
-
-
-        public static bool DeleteCountry(int ID)
-        {
-            return clsCountriesDataAccess.DeleteCountry(ID);
-
-        }
-
-
         public static DataTable GetAllCountries()
         {
             return clsCountriesDataAccess.GetAllCountries();
 
         }
 
-        public static bool IsCountryExists(int ID)
-        {
-            return clsCountriesDataAccess.IsCountryExists(ID);
-        }
+        
 
     }
 }
