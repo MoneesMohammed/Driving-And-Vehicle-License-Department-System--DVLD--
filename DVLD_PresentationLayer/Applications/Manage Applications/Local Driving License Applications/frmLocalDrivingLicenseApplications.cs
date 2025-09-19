@@ -70,11 +70,14 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void frmLocalDrivingLicenseApplications_SizeChanged(object sender, EventArgs e)
         {
-            //1292, 842
+            //size Form =  1292, 842
+            //size dgv = 1242, 335 / 1242 - 1292 = 50 // 842 - 335 = 507
+
             //1107, 196
+
             dgvAllLocalDLApplications.Size = new System.Drawing.Size(this.Size.Width - 50, this.Size.Height - 507);
             dgvAllLocalDLApplications.Location = new System.Drawing.Point(12, 355);
-
+            
             btnClose.Location = new System.Drawing.Point(this.Size.Width - 171, this.Size.Height - 100);
 
             pictureBox1.Location = new System.Drawing.Point((this.Size.Width / 2) - 108, 12);

@@ -96,7 +96,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            label1.Text = $"Welcome : {frmLogin.user.UserName}";
+            lblUserWelcome.Text = $"👋 Welcome! {frmLogin.user.UserName}";
 
         }
 
@@ -161,6 +161,17 @@ namespace Driving___Vehicle_License_Department__DVLD_
         {
             frmReleaseDetainedLicense frmReleaseDetainedLicense = new frmReleaseDetainedLicense();
             frmReleaseDetainedLicense.ShowDialog();
+        }
+
+        private void frmMain_SizeChanged(object sender, EventArgs e)
+        {
+            //Size Form with Maximized =  w 2576 ,h 1408
+
+
+            //1721, 68
+            menuStrip1.Size = new System.Drawing.Size(this.Size.Width - 855 , this.Size.Height - 1340);
+
+
         }
     }
 }
