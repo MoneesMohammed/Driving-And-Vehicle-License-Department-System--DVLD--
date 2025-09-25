@@ -42,7 +42,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void btnAddNewPerson_Click(object sender, EventArgs e)
         {
-            frmAddEditPersonInfo frmAddEditPersonInfo = new frmAddEditPersonInfo(-1);
+            frmAddEditPersonInfo frmAddEditPersonInfo = new frmAddEditPersonInfo();
             frmAddEditPersonInfo.ShowDialog();
 
             _RefreshPeopleList();

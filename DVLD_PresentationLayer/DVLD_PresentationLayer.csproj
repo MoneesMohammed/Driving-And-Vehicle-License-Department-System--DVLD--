@@ -184,6 +184,8 @@
     <Compile Include="Applications\Manage Test Types\frmUpdateTestType.Designer.cs">
       <DependentUpon>frmUpdateTestType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Global Classes\clsUtil.cs" />
+    <Compile Include="Global Classes\clsValidatoin.cs" />
     <Compile Include="Manage Drivers\frmListDrivers.cs">
       <SubType>Form</SubType>
     </Compile>

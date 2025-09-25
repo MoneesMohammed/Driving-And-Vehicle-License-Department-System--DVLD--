@@ -84,23 +84,28 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             _RefreshUCPersonDetails(Person.PersonID);
         }
 
+        frmAddEditPersonInfo frmAddEditPerson = new frmAddEditPersonInfo();
+
         private void btnAddNewPerson_Click(object sender, EventArgs e)
         {
-            frmAddEditPersonInfo frmAddEditPerson = new frmAddEditPersonInfo(-1);
+            frmAddEditPersonInfo frmAddEditPerson = new frmAddEditPersonInfo();
             frmAddEditPerson.ShowDialog();
 
-            int ID = frmAddEditPerson.PersonID;
+            frmAddEditPerson.DataBack += frmAddEditPerson_DataBack;
 
-            if (ID == -1)
-                return;
+        }
 
+        private void frmAddEditPerson_DataBack(object sender,int PersonID )
+        {
             cbFindBy.SelectedIndex = 1;
-            txtFindBy.Text = ID.ToString();
+            txtFindBy.Text = PersonID.ToString();
 
-            Person = clsPerson.Find(ID);
+            Person = clsPerson.Find(PersonID);
 
             _RefreshUCPersonDetails(Person.PersonID);
+
         }
+
 
         private void txtFindBy_TextChanged(object sender, EventArgs e)
         {

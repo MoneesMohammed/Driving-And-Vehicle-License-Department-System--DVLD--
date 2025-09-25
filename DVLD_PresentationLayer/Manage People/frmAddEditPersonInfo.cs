@@ -2,7 +2,7 @@
 using Driving___Vehicle_License_Department__DVLD_.UserControls;
 using DVLD_BusinessLayer;
 using System;
-using System.Collections.Generic;
+using DVLD.Classes;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Contracts;
@@ -19,118 +19,149 @@ namespace Driving___Vehicle_License_Department__DVLD_
 {
     public partial class frmAddEditPersonInfo : Form
     {
+        //Delegate
+        public delegate void DataFoundEventHandler(object sender, int PersonID);
+
+        public event DataFoundEventHandler DataBack;
+
+
         public enum enMode { AddNew = 0, Update = 1 }
-        private enMode _Mode = enMode.AddNew;
+        public enum enGendor {Male = 0 , Female = 1 }
 
+        private enMode _Mode ;
+        private int _PersonID = -1;
+        clsPerson _Person;
 
-        private int _PersonID;
-        private clsPerson _Person;
+        //public int PersonID { get; set; }
 
-        public int PersonID { get; set; }
+        public frmAddEditPersonInfo()
+        {
+            InitializeComponent();
+            _Mode = enMode.AddNew;
+        }
+
 
         public frmAddEditPersonInfo(int PersonID )
         {
             InitializeComponent();
 
+            _Mode = enMode.Update;
             _PersonID = PersonID;
-            this.PersonID = PersonID;
-
-            if (PersonID == -1)
-                _Mode = enMode.AddNew;
-            else
-                _Mode = enMode.Update;
-
 
         }
 
-
-
         private void _FillCountryInComboBox()
         {
-            DataTable dt = clsCountry.GetAllCountries();
+            DataTable dtCountries = clsCountry.GetAllCountries();
 
-            foreach (DataRow dr in dt.Rows)
+            foreach (DataRow row in dtCountries.Rows)
             {
-                cbCountry.Items.Add(dr["CountryName"]);
+                cbCountry.Items.Add(row["CountryName"]);
 
             }
 
 
         }
 
+        private void _ResatDefualtValues()
+        {
+
+            _FillCountryInComboBox();
+
+            if (_Mode == enMode.AddNew)
+            {
+                lblMode.Text = "Add New Person";
+                _Person = new clsPerson();
+            }
+            else
+            {
+                lblMode.Text = "Update Person";
+            }
+
+            if (rbMale.Checked)
+                pbPersonImage.Image = Resources.man;
+            else
+                pbPersonImage.Image = Resources.woman;
+
+
+            llblRemove.Visible = (pbPersonImage.ImageLocation != null);
+
+            dtpDateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
+            dtpDateOfBirth.Value = dtpDateOfBirth.MaxDate;
+
+            dtpDateOfBirth.MinDate = DateTime.Now.AddYears(-100);
+
+            cbCountry.SelectedIndex = cbCountry.FindString("Jordan");
+
+
+            txtFirstName.Text    = "";
+            txtSecondName.Text   = "";
+            txtThirdName.Text    = "";
+            txtLastName.Text     = "";
+            txtNationalNo.Text   = "";
+            rbMale.Checked       = true;
+            txtEmail.Text        = "";
+            txtPhone.Text        = "";
+            txtAddress.Text      = "";
+            
+
+        }
+
+
         private void frmAddEditPersonInfo_Load(object sender, EventArgs e)
         {
-            _LoadData();
+            _ResatDefualtValues();
+
+            if(_Mode == enMode.Update)
+                _LoadData();
 
 
         }
 
         private void _LoadData()
         {
-            _FillCountryInComboBox();
-            cbCountry.SelectedIndex = 89;
-
-            btnSave.Enabled = false;
-
-            dtpDateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
-            dtpDateOfBirth.Value = dtpDateOfBirth.MaxDate;
-
-            pbPerson.Image = Resources.man;
-
-            if (_Mode == enMode.AddNew)
-            {
-                lblMode.Text = "Add New Person";
-                _Person = new clsPerson();
-                return;
-            }
 
             _Person = clsPerson.Find(_PersonID);
 
             if (_Person == null)
             {
-                MessageBox.Show($"this form will be closed because no Person with ID Found {_PersonID}");
+                MessageBox.Show($"No Person with ID= {_PersonID} ","Person Not Found ",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 this.Close();
                 return;
             }
 
-            lblMode.Text = "Update Person";
 
             lblPersonID.Text = _Person.PersonID.ToString();
 
-            txtNationalNo.Text = _Person.NationalNo;
-            txtFirstName.Text = _Person.FirstName;
-            txtSecondName.Text = _Person.SecondName;
-            txtThirdName.Text = _Person.ThirdName;
-            txtLastName.Text = _Person.LastName;
-            txtEmail.Text = _Person.Email;
-            txtPhone.Text = _Person.Phone;
-            txtAddress.Text = _Person.Address;
-            dtpDateOfBirth.Value = _Person.DateOfBirth;
+            txtNationalNo.Text      = _Person.NationalNo;
+            txtFirstName.Text       = _Person.FirstName;
+            txtSecondName.Text      = _Person.SecondName;
+            txtThirdName.Text       = _Person.ThirdName;
+            txtLastName.Text        = _Person.LastName;
+            txtEmail.Text           = _Person.Email;
+            txtPhone.Text           = _Person.Phone;
+            txtAddress.Text         = _Person.Address;
+            dtpDateOfBirth.Value    = _Person.DateOfBirth;
 
             if (_Person.Gendor == 0)
             {
-                rbMale.Checked = true;
-
+               rbMale.Checked = true;
             }
-            else if (_Person.Gendor == 1)
+            else 
             {
-                rbFemale.Checked = true;
-
+              rbFemale.Checked = true;
             }
 
-
+            cbCountry.SelectedIndex = cbCountry.FindString(clsCountry.Find(_Person.NationalityCountryID).CountryName);
 
 
             if (_Person.ImagePath != "")
             {
-                pbPerson.Image = LoadImageWithoutLock(_Person.ImagePath);
+                pbPersonImage.ImageLocation = _Person.ImagePath;
             }
 
             llblRemove.Visible = (_Person.ImagePath != "");
-
-
-
-            cbCountry.SelectedIndex = cbCountry.FindString(clsCountry.Find(_Person.NationalityCountryID).CountryName);
+            
         }
 
         private Image LoadImageWithoutLock(string filePath)
@@ -141,7 +172,6 @@ namespace Driving___Vehicle_License_Department__DVLD_
             }
         }
 
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -149,6 +179,16 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!this.ValidateChildren())
+            {
+                //Here we dont continue becuase the form is not valid
+                MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the erro", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            if (!_HandlePersonImage())
+                return;
 
             int CountryID = clsCountry.Find(cbCountry.Text).CountryID;
 
@@ -157,12 +197,12 @@ namespace Driving___Vehicle_License_Department__DVLD_
             _Person.ThirdName = txtThirdName.Text;
             _Person.LastName = txtLastName.Text;
 
+            _Person.NationalNo = txtNationalNo.Text;
             _Person.Email = txtEmail.Text;
             _Person.Phone = txtPhone.Text;
             _Person.Address = txtAddress.Text;
             _Person.DateOfBirth = dtpDateOfBirth.Value;
             _Person.NationalityCountryID = CountryID;
-            _Person.NationalNo = txtNationalNo.Text;
 
 
 
@@ -175,34 +215,28 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 _Person.Gendor = 1;
             }
 
-            //Copy and rename then grab the file path and send it to the database.
-
-            if (llblRemove.Visible == false && _Person.ImagePath != "")
+            
+            if (pbPersonImage.ImageLocation != null)
             {
-                File.Delete(_Person.ImagePath);
-                _Person.ImagePath = "";
-            }
-            else if (pbPerson.ImageLocation != null && pbPerson.ImageLocation != _Person.ImagePath)
-            {
-                if (_Person.ImagePath != "")
-                {
-                    File.Delete(_Person.ImagePath);
-
-                }
-
-                _Person.ImagePath = _GetPathFileCopied(@"C:\DVLD-People-Images", pbPerson.ImageLocation); ;
+               _Person.ImagePath = pbPersonImage.ImageLocation;
             }
             else
             {
-                _Person.ImagePath = _Person.ImagePath;
+               _Person.ImagePath = "";
             }
-
-
 
             if (_Person.Save())
             {
+                lblPersonID.Text = _Person.PersonID.ToString();
+                _Mode = enMode.Update;
+                lblMode.Text = "Update Person";
+
 
                 MessageBox.Show("Data saved successfully", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //Trigger the event to send data back to the caller form.
+                DataBack?.Invoke(this, _Person.PersonID);
+
             }
             else
             {
@@ -211,52 +245,11 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
             }
 
-            _Mode = enMode.Update;
-
-            lblMode.Text = "Update Person";
-            lblPersonID.Text = _Person.PersonID.ToString();
-
-            this.PersonID = _Person.PersonID;
+           
 
         }
 
-        private string _GetPathFileCopied(string DestinationFolder, string SourcePath)
-        {
-
-            if (!Directory.Exists(DestinationFolder))
-            {
-                Directory.CreateDirectory(DestinationFolder);
-            }
-
-            Guid guid = Guid.NewGuid();
-
-            string extension = Path.GetExtension(SourcePath);
-
-            string FileName = guid.ToString() + extension;
-
-            string DestinationPath = Path.Combine(DestinationFolder, FileName);
-
-            try
-            {
-                File.Copy(SourcePath, DestinationPath, true);
-                MessageBox.Show("Image copied successfully ✅");
-                return DestinationPath;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("You do not have permission to access this path. Try running the program as administrator or choose a different folder..");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while copying : " + ex.Message, "error");
-            }
-
-
-
-            return "";
-        }
-
-
+      
         private void llblSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             openFileDialog1.DefaultExt = "JPG";
@@ -266,49 +259,108 @@ namespace Driving___Vehicle_License_Department__DVLD_
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
-
-                pbPerson.LoadAsync(openFileDialog1.FileName);
-
+                pbPersonImage.Load(openFileDialog1.FileName);
+                llblRemove.Visible = false;
             }
-        }
-
-        private void rbMale_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!llblRemove.Visible)
-                pbPerson.Image = rbMale.Checked ? Resources.man : Resources.woman;
         }
 
         private void llblRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            pbPersonImage.ImageLocation = null;
 
-            pbPerson.ImageLocation = null;
+            pbPersonImage.Image = rbMale.Checked ? Resources.man : Resources.woman;
+
             llblRemove.Visible = false;
-            pbPerson.Image = rbMale.Checked ? Resources.man : Resources.woman;
-
+        }
+       
+        private void rbMale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!llblRemove.Visible)
+                pbPersonImage.Image = rbMale.Checked ? Resources.man : Resources.woman;
         }
 
-        private void pbPerson_LoadCompleted(object sender, AsyncCompletedEventArgs e)
+        private bool _HandlePersonImage()
         {
-            llblRemove.Visible = true;
+
+            // Copy and rename then grab the file path and send it to the database.
+            if (_Person.ImagePath != pbPersonImage.ImageLocation)
+            {
+                if (_Person.ImagePath != "")
+                {
+                    try
+                    {
+                        File.Delete(_Person.ImagePath);
+                    }
+                    catch (IOException)
+                    {
+                        //Log 
+                    }
+                    
+                    
+                }
+
+            }
+
+            if (pbPersonImage.ImageLocation != null)
+            {
+                string sourceImageFile = pbPersonImage.ImageLocation.ToString();
+
+                if (clsUtil.CopyImageToProjectImagesFolder(ref sourceImageFile))
+                {
+                    pbPersonImage.ImageLocation = sourceImageFile;
+
+                    return true;
+                }
+                else
+                {
+
+                    MessageBox.Show("Error Copying Image File", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+
+                }
+
+            }
+            
+             return true;
         }
 
-        private void txtFirstName_Validating(object sender, CancelEventArgs e)
+        private void ValidateEmptyTextBox(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFirstName.Text))
+            TextBox Tepm = ((TextBox)sender);
+
+            if (string.IsNullOrEmpty(Tepm.Text.Trim()))
             {
                 e.Cancel = true;
-                //txtFirstName.Focus();
-                errorProvider1.SetError(txtFirstName, "First Name should have a Value!");
-               
+
+                errorProvider1.SetError(Tepm, "this field is required!");
+
             }
             else
             {
-                e.Cancel = false;
-                errorProvider1.SetError(txtFirstName, "");
-               
+                //e.Cancel = false;
+                errorProvider1.SetError(Tepm, null);
+
             }
 
 
+
+        }
+
+        private void txtEmail_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtEmail.Text.Trim()))
+                return;
+
+            //Validate Email Format
+            if (!clsValidatoin.ValidateEmail(txtEmail.Text))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtEmail, "Invalid Email Address Format!");
+            }
+            else 
+            {
+               errorProvider1.SetError(txtEmail, null);
+            }
 
         }
 
@@ -317,186 +369,18 @@ namespace Driving___Vehicle_License_Department__DVLD_
             if (string.IsNullOrEmpty(txtNationalNo.Text))
             {
                 e.Cancel = true;
-                //txtNationalNo.Focus();
                 errorProvider1.SetError(txtNationalNo, "National Number should have a Value!");
-               
-
             }
-            else if (clsPerson.IsPersonExists(txtNationalNo.Text) && txtNationalNo.Text != _Person.NationalNo.ToString())
+            else if (clsPerson.IsPersonExists(txtNationalNo.Text) && txtNationalNo.Text.Trim() != _Person.NationalNo)
             {
                 e.Cancel = true;
-               // txtNationalNo.Focus();
                 errorProvider1.SetError(txtNationalNo, "National Number is used by another Person");
-                btnSave.Enabled = false;
             }
             else
             {
-                e.Cancel = false;
-                errorProvider1.SetError(txtNationalNo, "");
-                if (!_OneOftxtBoxIsEmpty())
-                    btnSave.Enabled = true;
+                errorProvider1.SetError(txtNationalNo, null);
             }
 
-
-
-
-
-        }
-
-
-        private bool _IsCorrectEmail(string Email)
-        {
-            if (Email.Contains("@gmail.com"))
-                return true;
-            else if (Email.Contains("@icloud.com"))
-                return true;
-            else if (Email.Contains("@outlook.com"))
-                return true;
-            else if (Email.Contains("@yahoo.com"))
-                return true;
-
-
-            return false;
-
-        }
-
-
-
-        private void txtEmail_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtEmail.Text) || _IsCorrectEmail(txtEmail.Text))
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(txtEmail, "");
-
-                if(!_OneOftxtBoxIsEmpty())
-                     btnSave.Enabled = true;
-
-            }
-            else if (!_IsCorrectEmail(txtEmail.Text))
-            {
-                e.Cancel = true;
-               // txtEmail.Focus();
-                errorProvider1.SetError(txtEmail, "Invalid Email!");
-                btnSave.Enabled = false;
-            }
-
-
-        }
-
-        private void txtAddress_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtAddress.Text))
-            {
-                e.Cancel = true;
-                //txtAddress.Focus();
-                errorProvider1.SetError(txtAddress, "Address should have a Value!");
-                
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(txtAddress, "");
-                
-            }
-        }
-
-        private void txtSecondName_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtSecondName.Text))
-            {
-                e.Cancel = true;
-                //txtSecondName.Focus();
-                errorProvider1.SetError(txtSecondName, "Second Name should have a Value!");
-                
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(txtSecondName, "");
-                
-            }
-
-        }
-
-        private void txtLastName_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtLastName.Text))
-            {
-                e.Cancel = true;
-               // txtSecondName.Focus();
-                errorProvider1.SetError(txtLastName, "Last Name should have a Value!");
-               
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(txtLastName, "");
-                
-            }
-        }
-
-        private void txtPhone_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtPhone.Text))
-            {
-                e.Cancel = true;
-                //txtSecondName.Focus();
-                errorProvider1.SetError(txtPhone, "Phone should have a Value!");
-
-                
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(txtPhone, "");
-                
-            }
-        }
-
-        private bool _OneOftxtBoxIsEmpty()
-        {
-
-            bool OneOfIsEmpty = string.IsNullOrWhiteSpace(txtFirstName.Text) ||
-                               string.IsNullOrWhiteSpace(txtSecondName.Text) ||
-                               string.IsNullOrWhiteSpace(txtLastName.Text) ||
-                               string.IsNullOrWhiteSpace(txtNationalNo.Text) ||
-                               string.IsNullOrWhiteSpace(txtPhone.Text) ||
-                               string.IsNullOrWhiteSpace(txtAddress.Text);
-
-            return OneOfIsEmpty;
-        }
-
-        private void AllTextBoxes_TextChanged(object sender, EventArgs e)
-        {
-            TextBox currentTextBox = (TextBox)sender ;
-
-            bool IsPersonExists = clsPerson.IsPersonExists(txtNationalNo.Text) && txtNationalNo.Text != _Person.NationalNo.ToString();
-
-           //||  errorProvider1.GetError(txtEmail) != ""
-
-            if (_OneOftxtBoxIsEmpty() || IsPersonExists )
-            {
-                if (IsPersonExists)
-                {
-                    txtNationalNo.Focus();
-                    errorProvider1.SetError(txtNationalNo, "National Number is used by another Person");
-
-                }
-                else
-                {
-                    errorProvider1.SetError(txtNationalNo, "");
-                }
-
-                btnSave.Enabled = false;
-            }
-            else
-            {
-                btnSave.Enabled = true;
-            }
-
-
-            
 
         }
 
