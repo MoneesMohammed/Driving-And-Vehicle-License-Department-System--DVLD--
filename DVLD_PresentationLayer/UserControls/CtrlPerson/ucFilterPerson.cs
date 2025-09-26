@@ -28,7 +28,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
         private void _RefreshUCPersonDetails(int PersonID = -1)
         {
 
-            ucPersonDetails1.RefreshUCPersonDetails(PersonID);
+            ucPersonDetails1.LoadPersonInfo(PersonID);
 
 
         }
@@ -44,7 +44,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             gbFind.Enabled = false;
             cbFindBy.SelectedIndex = 1;
             txtFindBy.Text = Person.PersonID.ToString();
-            ucPersonDetails1.RefreshUCPersonDetails(Person.PersonID);
+            ucPersonDetails1.LoadPersonInfo(Person.PersonID);
 
 
         }

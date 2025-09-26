@@ -78,7 +78,7 @@
             this.gbPersonInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPersonInformation.Location = new System.Drawing.Point(3, 3);
             this.gbPersonInformation.Name = "gbPersonInformation";
-            this.gbPersonInformation.Size = new System.Drawing.Size(1172, 396);
+            this.gbPersonInformation.Size = new System.Drawing.Size(1041, 396);
             this.gbPersonInformation.TabIndex = 0;
             this.gbPersonInformation.TabStop = false;
             this.gbPersonInformation.Text = "Person Information";
@@ -87,7 +87,7 @@
             // 
             this.llblEditPersonInfo.AutoSize = true;
             this.llblEditPersonInfo.Enabled = false;
-            this.llblEditPersonInfo.Location = new System.Drawing.Point(974, 62);
+            this.llblEditPersonInfo.Location = new System.Drawing.Point(876, 64);
             this.llblEditPersonInfo.Name = "llblEditPersonInfo";
             this.llblEditPersonInfo.Size = new System.Drawing.Size(123, 20);
             this.llblEditPersonInfo.TabIndex = 19;
@@ -98,7 +98,7 @@
             // pbPerson
             // 
             this.pbPerson.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.man;
-            this.pbPerson.Location = new System.Drawing.Point(933, 113);
+            this.pbPerson.Location = new System.Drawing.Point(829, 113);
             this.pbPerson.Name = "pbPerson";
             this.pbPerson.Size = new System.Drawing.Size(200, 231);
             this.pbPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -111,9 +111,9 @@
             this.lblPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPhone.Location = new System.Drawing.Point(659, 221);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(50, 24);
+            this.lblPhone.Size = new System.Drawing.Size(120, 24);
             this.lblPhone.TabIndex = 17;
-            this.lblPhone.Text = "[???]";
+            this.lblPhone.Text = "[??????????]";
             // 
             // lblcountry
             // 
@@ -143,9 +143,9 @@
             this.lblDateOfBirth.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDateOfBirth.Location = new System.Drawing.Point(659, 167);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
-            this.lblDateOfBirth.Size = new System.Drawing.Size(50, 24);
+            this.lblDateOfBirth.Size = new System.Drawing.Size(110, 24);
             this.lblDateOfBirth.TabIndex = 14;
-            this.lblDateOfBirth.Text = "[???]";
+            this.lblDateOfBirth.Text = "[????/??/??]";
             // 
             // label17
             // 
@@ -311,7 +311,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gbPersonInformation);
             this.Name = "ucPersonDetails";
-            this.Size = new System.Drawing.Size(1182, 417);
+            this.Size = new System.Drawing.Size(1050, 417);
             this.Load += new System.EventHandler(this.ucPersonDetails_Load);
             this.gbPersonInformation.ResumeLayout(false);
             this.gbPersonInformation.PerformLayout();

@@ -260,7 +260,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             {
 
                 pbPersonImage.Load(openFileDialog1.FileName);
-                llblRemove.Visible = false;
+                llblRemove.Visible = true;
             }
         }
 

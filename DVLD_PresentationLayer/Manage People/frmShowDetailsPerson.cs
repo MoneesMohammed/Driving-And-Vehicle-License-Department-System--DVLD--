@@ -24,7 +24,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void frmShowDetailsPerson_Load(object sender, EventArgs e)
         {
-            ucPersonDetails1.RefreshUCPersonDetails(_PersonID);
+            ucPersonDetails1.LoadPersonInfo(_PersonID);
 
         }
 

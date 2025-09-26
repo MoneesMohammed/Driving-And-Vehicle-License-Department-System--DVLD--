@@ -284,16 +284,16 @@
     <Compile Include="UserControls\ucFilterDriverLicenseInfo.Designer.cs">
       <DependentUpon>ucFilterDriverLicenseInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucFilterPerson.cs">
+    <Compile Include="UserControls\CtrlPerson\ucFilterPerson.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ucFilterPerson.Designer.cs">
+    <Compile Include="UserControls\CtrlPerson\ucFilterPerson.Designer.cs">
       <DependentUpon>ucFilterPerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucPersonDetails.cs">
+    <Compile Include="UserControls\CtrlPerson\ucPersonDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ucPersonDetails.Designer.cs">
+    <Compile Include="UserControls\CtrlPerson\ucPersonDetails.Designer.cs">
       <DependentUpon>ucPersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucUserDetails.cs">
@@ -429,10 +429,10 @@
     <EmbeddedResource Include="UserControls\ucFilterDriverLicenseInfo.resx">
       <DependentUpon>ucFilterDriverLicenseInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucFilterPerson.resx">
+    <EmbeddedResource Include="UserControls\CtrlPerson\ucFilterPerson.resx">
       <DependentUpon>ucFilterPerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucPersonDetails.resx">
+    <EmbeddedResource Include="UserControls\CtrlPerson\ucPersonDetails.resx">
       <DependentUpon>ucPersonDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucUserDetails.resx">

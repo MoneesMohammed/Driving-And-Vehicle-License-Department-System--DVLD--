@@ -38,7 +38,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void _LoaducPersonDetails()
         {
-            ucPersonDetails1.RefreshUCPersonDetails(User.PersonID);
+            ucPersonDetails1.LoadPersonInfo(User.PersonID);
         }
 
         public void RefreshUCUserDetails(int UserID)
