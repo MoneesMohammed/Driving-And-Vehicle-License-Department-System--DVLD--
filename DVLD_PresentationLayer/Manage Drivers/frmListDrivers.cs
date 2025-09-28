@@ -1,4 +1,6 @@
-﻿using DVLD_BusinessLayer;
+﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Driving_License_Services.New_Driving_License.International_License;
+using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_Person_License_History;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -180,9 +182,29 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
 
         }
 
+        private void tsmShowPersonInfo_Click(object sender, EventArgs e)
+        {
+            int PersonID = (int)dgvAllDrivers.CurrentRow.Cells[1].Value;
+
+            frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(PersonID);
+            frmShowDetailsPerson.ShowDialog();
+        }
+
+        private void tsmIssueInternationalLicense_Click(object sender, EventArgs e)
+        {
+            frmNewInternationalLicenseApplication frm = new frmNewInternationalLicenseApplication();
+            frm.ShowDialog();
+        }
 
 
+        private void tsmShowPersonLicenseHistory_Click(object sender, EventArgs e)
+        {
 
+            int PersonID = (int)dgvAllDrivers.CurrentRow.Cells[1].Value;
+            frmLicenseHistory LicenseHistory = new frmLicenseHistory(PersonID);
+            LicenseHistory.ShowDialog();
+        }
 
+       
     }
 }

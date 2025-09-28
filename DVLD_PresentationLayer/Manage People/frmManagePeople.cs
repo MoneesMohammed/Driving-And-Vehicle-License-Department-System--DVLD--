@@ -92,7 +92,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmAddNewPerson_Click(object sender, EventArgs e)
         {
-            frmAddEditPersonInfo frmAddEditPersonInfo = new frmAddEditPersonInfo(-1);
+            frmAddEditPersonInfo frmAddEditPersonInfo = new frmAddEditPersonInfo();
             frmAddEditPersonInfo.ShowDialog();
 
             _RefreshPeopleList();
@@ -159,14 +159,14 @@ namespace Driving___Vehicle_License_Department__DVLD_
             {
                 case enFilterBy.PersonID :
                 {
-                        FilterBy(dt, ResultRows, $"PersonID = '{txtFilterBy.Text}' ");
+                        FilterBy(dt, ResultRows, $"[Person ID] = {txtFilterBy.Text} ");
 
                         break;
                 }
                 case enFilterBy.NationalNo:
                 {
 
-                        FilterBy(dt,ResultRows, $"[National No] = '{txtFilterBy.Text}' ");
+                        FilterBy(dt,ResultRows, $"[National No.] = '{txtFilterBy.Text}' ");
 
                   break;
                 }

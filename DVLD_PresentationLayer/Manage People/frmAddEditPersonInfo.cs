@@ -232,7 +232,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 lblMode.Text = "Update Person";
 
 
-                MessageBox.Show("Data saved successfully", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 //Trigger the event to send data back to the caller form.
                 DataBack?.Invoke(this, _Person.PersonID);
@@ -241,7 +241,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             else
             {
 
-                MessageBox.Show("Error : data is not saved successfully", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error : data is not saved successfully", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 

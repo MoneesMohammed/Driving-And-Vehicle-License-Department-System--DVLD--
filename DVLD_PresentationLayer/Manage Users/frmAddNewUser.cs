@@ -73,7 +73,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 return;
             }
 
-            ucFilterPerson1.LoadDataForUpdateMode(_User.PersonID);
+            ucFilterPerson1.LoadPersonInfo(_User.PersonID);
 
             lblUserID.Text = _User.UserID.ToString();
 
@@ -109,7 +109,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            _Person = ucFilterPerson1.Person;
+            _Person = ucFilterPerson1.SelectedPersonInfo;
 
             if (_Mode == enMode.Update)
             {

@@ -16,7 +16,60 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 {
     public partial class ucFilterPerson : UserControl
     {
-        public clsPerson Person = new clsPerson();
+        public event Action<int> OnPersonSelected;
+
+        protected virtual void PersonSelected(int PersonID)
+        {
+            Action<int> handler = OnPersonSelected;
+            if (handler != null)
+            { 
+               handler(PersonID);
+            }
+
+        }
+
+        private bool _ShowAddPerson = true;
+
+        public bool ShowAddPerson
+        { 
+            
+            get { return _ShowAddPerson; } 
+           
+            set 
+            { 
+                _ShowAddPerson = value; 
+                btnAddNewPerson.Visible = _ShowAddPerson;
+            }
+        }
+
+        private bool _FilterEnabled = true;
+
+        public bool FilterEnabled
+        {
+
+            get { return _FilterEnabled; }
+
+            set
+            {
+                _ShowAddPerson = value;
+                gbFind.Visible = _FilterEnabled;
+            }
+        }
+
+        private int _PersonID;
+
+        public int PersonID
+        {
+            get { return ucPersonDetails1.PersonID; }
+
+        }
+
+
+        public clsPerson SelectedPersonInfo
+        {
+            get { return ucPersonDetails1.SelectedPersonInfo; }
+        
+        }
        
 
         public ucFilterPerson()
@@ -25,73 +78,58 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             
         }
 
-        private void _RefreshUCPersonDetails(int PersonID = -1)
+        
+
+        public void LoadPersonInfo(int PersonID)
         {
-
-            ucPersonDetails1.LoadPersonInfo(PersonID);
-
-
-        }
-
-        public void LoadDataForUpdateMode(int PersonID)
-        {
-            Person = clsPerson.Find(PersonID);
-
-            if(Person == null)
-                return;
-
-
-            gbFind.Enabled = false;
+            
             cbFindBy.SelectedIndex = 1;
-            txtFindBy.Text = Person.PersonID.ToString();
-            ucPersonDetails1.LoadPersonInfo(Person.PersonID);
+            txtFindBy.Text = PersonID.ToString();
 
-
+            FindNow();
         }
 
+        private void FindNow()
+        {
+
+            if (cbFindBy.SelectedIndex == 1 && int.TryParse(txtFindBy.Text, out int ID))
+               ucPersonDetails1.LoadPersonInfo(ID);
+            else if (cbFindBy.SelectedIndex == 0)
+               ucPersonDetails1.LoadPersonInfo(txtFindBy.Text);
+
+
+            if (OnPersonSelected != null && FilterEnabled)
+                OnPersonSelected (ucPersonDetails1.PersonID);
+
+        }
 
         private void ucFilterPerson_Load(object sender, EventArgs e)
         {
             cbFindBy.SelectedIndex = 0;
-
+            txtFindBy.Focus();
         }
 
 
         private void btnSearchPerson_Click(object sender, EventArgs e)
         {
-            if (txtFindBy.Text == string.Empty)
+            if (!this.ValidateChildren())
             {
-                _RefreshUCPersonDetails();
-                MessageBox.Show("How do I search for a person without their information?\nThe box is empty!\nPlease fill in the appropriate information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-
-            }
-
-            if (cbFindBy.SelectedIndex == 1 && int.TryParse(txtFindBy.Text, out int ID))
-                Person = clsPerson.Find(ID);
-            else if (cbFindBy.SelectedIndex == 0)
-                Person = clsPerson.Find(txtFindBy.Text);
-
-
-
-            if (Person == null)
-            {
-                _RefreshUCPersonDetails();
-                MessageBox.Show($"Don't Found Person by {cbFindBy.SelectedItem} : {txtFindBy.Text}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Some fileds are not valid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _RefreshUCPersonDetails(Person.PersonID);
+            FindNow();
         }
 
-        frmAddEditPersonInfo frmAddEditPerson = new frmAddEditPersonInfo();
+        
 
         private void btnAddNewPerson_Click(object sender, EventArgs e)
         {
             frmAddEditPersonInfo frmAddEditPerson = new frmAddEditPersonInfo();
+            frmAddEditPerson.DataBack += frmAddEditPerson_DataBack;
             frmAddEditPerson.ShowDialog();
 
-            frmAddEditPerson.DataBack += frmAddEditPerson_DataBack;
+           
 
         }
 
@@ -100,26 +138,52 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             cbFindBy.SelectedIndex = 1;
             txtFindBy.Text = PersonID.ToString();
 
-            Person = clsPerson.Find(PersonID);
-
-            _RefreshUCPersonDetails(Person.PersonID);
+            ucPersonDetails1.LoadPersonInfo(PersonID);
 
         }
 
 
         private void txtFindBy_TextChanged(object sender, EventArgs e)
         {
-            if (cbFindBy.SelectedIndex == 1 && int.TryParse(txtFindBy.Text, out int ID))
-                Person = clsPerson.Find(ID);
-            else if (cbFindBy.SelectedIndex == 0)
-                Person = clsPerson.Find(txtFindBy.Text);
+            //if (cbFindBy.SelectedIndex == 1 && int.TryParse(txtFindBy.Text, out int ID))
+            //    ucPersonDetails1.LoadPersonInfo(ID);
+            //else if (cbFindBy.SelectedIndex == 0)
+            //    ucPersonDetails1.LoadPersonInfo(txtFindBy.Text);
 
-            if (Person == null)
-                return;
+            //if (SelectedPersonInfo == null)
+            //    return;
 
 
-            _RefreshUCPersonDetails(Person.PersonID);
+        }
 
+        private void txtFindBy_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtFindBy.Text.Trim()))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtFindBy, "This field is required!");
+            }
+            else
+            {
+                errorProvider1.SetError(txtFindBy, null);
+
+            }
+        }
+
+        private void txtFindBy_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                btnSearchPerson.PerformClick();
+            }
+
+            if (cbFindBy.SelectedIndex == 1)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

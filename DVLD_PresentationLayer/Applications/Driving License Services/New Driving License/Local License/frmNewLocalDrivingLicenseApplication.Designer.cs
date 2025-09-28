@@ -57,10 +57,10 @@
             this.tabControl1.Controls.Add(this.tabPersonalInfo);
             this.tabControl1.Controls.Add(this.tabApplicationInfo);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 101);
+            this.tabControl1.Location = new System.Drawing.Point(7, 49);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1227, 679);
+            this.tabControl1.Size = new System.Drawing.Size(1074, 619);
             this.tabControl1.TabIndex = 20;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -71,7 +71,7 @@
             this.tabPersonalInfo.Location = new System.Drawing.Point(4, 29);
             this.tabPersonalInfo.Name = "tabPersonalInfo";
             this.tabPersonalInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPersonalInfo.Size = new System.Drawing.Size(1219, 646);
+            this.tabPersonalInfo.Size = new System.Drawing.Size(1066, 586);
             this.tabPersonalInfo.TabIndex = 0;
             this.tabPersonalInfo.Text = "Personal Info";
             this.tabPersonalInfo.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.next;
             this.btnNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNext.Location = new System.Drawing.Point(1097, 585);
+            this.btnNext.Location = new System.Drawing.Point(953, 534);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(94, 43);
             this.btnNext.TabIndex = 21;
@@ -92,10 +92,12 @@
             // 
             // ucFilterPerson1
             // 
+            this.ucFilterPerson1.FilterEnabled = true;
             this.ucFilterPerson1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ucFilterPerson1.Location = new System.Drawing.Point(4, 7);
             this.ucFilterPerson1.Margin = new System.Windows.Forms.Padding(4);
             this.ucFilterPerson1.Name = "ucFilterPerson1";
+            this.ucFilterPerson1.ShowAddPerson = true;
             this.ucFilterPerson1.Size = new System.Drawing.Size(1208, 540);
             this.ucFilterPerson1.TabIndex = 0;
             // 
@@ -115,7 +117,7 @@
             this.tabApplicationInfo.Location = new System.Drawing.Point(4, 29);
             this.tabApplicationInfo.Name = "tabApplicationInfo";
             this.tabApplicationInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabApplicationInfo.Size = new System.Drawing.Size(1219, 646);
+            this.tabApplicationInfo.Size = new System.Drawing.Size(1066, 586);
             this.tabApplicationInfo.TabIndex = 1;
             this.tabApplicationInfo.Text = "Application Info";
             this.tabApplicationInfo.UseVisualStyleBackColor = true;
@@ -242,21 +244,22 @@
             // 
             // lblMode
             // 
-            this.lblMode.AutoSize = true;
             this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMode.ForeColor = System.Drawing.Color.Brown;
-            this.lblMode.Location = new System.Drawing.Point(287, 24);
+            this.lblMode.Location = new System.Drawing.Point(5, 9);
             this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(597, 37);
+            this.lblMode.Size = new System.Drawing.Size(1097, 37);
             this.lblMode.TabIndex = 21;
             this.lblMode.Text = "New Local Driving License Application";
+            this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(953, 834);
+            this.btnClose.Location = new System.Drawing.Point(804, 674);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(94, 43);
             this.btnClose.TabIndex = 19;
@@ -270,7 +273,7 @@
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.diskette;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(1106, 834);
+            this.btnSave.Location = new System.Drawing.Point(957, 674);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 43);
             this.btnSave.TabIndex = 18;
@@ -283,7 +286,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 889);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(1082, 727);
             this.Controls.Add(this.lblMode);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnClose);
@@ -298,7 +302,6 @@
             this.tabApplicationInfo.ResumeLayout(false);
             this.tabApplicationInfo.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

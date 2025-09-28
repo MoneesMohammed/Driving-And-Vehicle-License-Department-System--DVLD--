@@ -37,7 +37,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            Person = ucFilterPerson1.Person;
+            Person = ucFilterPerson1.SelectedPersonInfo;
 
             
             if (Person == null || Person.PersonID == -1)

@@ -41,7 +41,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         private void _LoadData()
         {
             
-            ucFilterPerson1.LoadDataForUpdateMode(this.PersonID);
+            ucFilterPerson1.LoadPersonInfo(this.PersonID);
 
             ucDriverLicenses1.RefreshUCDriverLicenses(this.PersonID);
 

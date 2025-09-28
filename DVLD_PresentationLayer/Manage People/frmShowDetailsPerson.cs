@@ -14,19 +14,18 @@ namespace Driving___Vehicle_License_Department__DVLD_
     public partial class frmShowDetailsPerson : Form
     {
 
-        private int _PersonID;
-
-        public frmShowDetailsPerson(int personID)
+        public frmShowDetailsPerson(int PersonID)
         {
             InitializeComponent();
-            _PersonID = personID;
+            ucPersonDetails1.LoadPersonInfo(PersonID);
         }
 
-        private void frmShowDetailsPerson_Load(object sender, EventArgs e)
+        public frmShowDetailsPerson(string NationalNo)
         {
-            ucPersonDetails1.LoadPersonInfo(_PersonID);
-
+            InitializeComponent();
+            ucPersonDetails1.LoadPersonInfo(NationalNo);
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
