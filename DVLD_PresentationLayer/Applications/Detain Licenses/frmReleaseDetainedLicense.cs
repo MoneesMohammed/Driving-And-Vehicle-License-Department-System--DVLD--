@@ -92,7 +92,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
                 lblDetainDate.Text       = DetainLicense.DetainDate.ToString("dd/MMM/yyyy");
                 lblApplicationFees.Text  = ApplicationType.ApplicationFees.ToString("0");
                 lblFineFees.Text         = DetainLicense.FineFees.ToString("0");
-                lblCreatedBy.Text        = clsUser.Find(DetainLicense.CreatedByUserID).UserName;
+                lblCreatedBy.Text        = clsUser.FindByUserID(DetainLicense.CreatedByUserID).UserName;
 
                 lblTotalFees.Text = (ApplicationType.ApplicationFees + DetainLicense.FineFees).ToString("0");
 

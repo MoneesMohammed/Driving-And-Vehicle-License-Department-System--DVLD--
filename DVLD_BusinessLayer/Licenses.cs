@@ -77,7 +77,7 @@ namespace DVLD_BusinessLayer
 
             Application = clsApplication.Find(ApplicationID);
             LicenseClassInfo = clsLicenseClass.Find(LicenseClass);
-            CreatedByUser = clsUser.Find(CreatedByUserID);
+            CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
             Driver = clsDriver.Find(DriverID);
 
             Mode = enMode.Update;
@@ -166,7 +166,7 @@ namespace DVLD_BusinessLayer
             if (this.LicenseID != -1)
             {
                 
-                CreatedByUser = clsUser.Find(this.CreatedByUserID);
+                CreatedByUser = clsUser.FindByUserID(this.CreatedByUserID);
 
                 return true;
             }

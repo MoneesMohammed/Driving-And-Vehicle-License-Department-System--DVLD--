@@ -30,7 +30,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void _RefreshUsersList()
         {
-            DataTable UsersDataTable = clsUser.GetAllUsers_1();
+            DataTable UsersDataTable = clsUser.GetAllUsers();
             dgvAllUsers.DataSource = UsersDataTable;
 
             lblRecodes.Text = UsersDataTable.Rows.Count.ToString();
@@ -119,7 +119,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         {
             _enIsActive = (enIsActive)cbIsActive.SelectedIndex;
 
-            DataTable dt = clsUser.GetAllUsers_1();
+            DataTable dt = clsUser.GetAllUsers();
             DataRow[] ResultRows = new DataRow[0];
 
             if (_enIsActive == enIsActive.Yes)
@@ -155,7 +155,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void txtFilterBy_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = clsUser.GetAllUsers_1();
+            DataTable dt = clsUser.GetAllUsers();
             DataRow[] ResultRows = new DataRow[0];
 
             if (txtFilterBy.Text != "")

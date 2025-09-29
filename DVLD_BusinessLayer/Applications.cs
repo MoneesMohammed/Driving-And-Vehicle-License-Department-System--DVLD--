@@ -60,7 +60,7 @@ namespace DVLD_BusinessLayer
 
             Person = clsPerson.Find(ApplicantPersonID);
             ApplicationType = clsApplicationType.Find(ApplicationTypeID);
-            CreatedByUser = clsUser.Find(CreatedByUserID);
+            CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
 
 
             Mode = enMode.Update;
@@ -91,7 +91,7 @@ namespace DVLD_BusinessLayer
             {
                 Person = clsPerson.Find(ApplicantPersonID);
                 ApplicationType = clsApplicationType.Find(ApplicationTypeID);
-                CreatedByUser = clsUser.Find(CreatedByUserID);
+                CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
 
                 return true;    
             }

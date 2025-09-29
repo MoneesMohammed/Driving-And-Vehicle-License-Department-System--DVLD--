@@ -63,7 +63,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             lblMode.Text = "Update User";
 
            
-            _User   = clsUser.Find(_UserID);
+            _User   = clsUser.FindByUserID(_UserID);
             
 
             if (_User == null)
@@ -125,7 +125,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             }
 
 
-            if (clsUser.IsUserExistsByPersonID(_Person.PersonID))
+            if (clsUser.IsUserExistsForPersonID(_Person.PersonID))
             {
                 MessageBox.Show("Selected person already has used Choose another one", "Select another person", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -222,7 +222,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
                             errorProvider1.SetError(CurrentTextBox, "UserName should have a Value!");
                             
                         }
-                        else if (clsUser.IsUserExistsByUserName(CurrentTextBox.Text) && txtUserName.Text != _User.UserName.ToString())
+                        else if (clsUser.IsUserExists(CurrentTextBox.Text) && txtUserName.Text != _User.UserName.ToString())
                         {
                             //CurrentTextBox.Focus();
                             e.Cancel = true;

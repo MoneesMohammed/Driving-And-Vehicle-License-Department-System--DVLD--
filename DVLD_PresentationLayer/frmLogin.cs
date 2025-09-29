@@ -28,7 +28,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
             if (string.Empty != RememberMe && int.TryParse(RememberMe, out int ID))
             {
-                user = clsUser.Find(ID);
+                user = clsUser.FindByUserID(ID);
                 if (user != null)
                 {
                     txtUserName.Text = user.UserName;
@@ -74,14 +74,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         private bool _UsernamePasswordVerificationSuccessful()
         {
             
-            if (user == null || user.UserID == -1)
-                return false;
-
-            if(user.Password == txtPassword.Text)
-                return true;
-
-
-            return false;
+            return (user != null);
 
         }
 
@@ -119,7 +112,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            user = clsUser.Find(txtUserName.Text);
+            user = clsUser.FindByUserNameAndPassword(txtUserName.Text,txtPassword.Text);
 
 
             if (_UsernamePasswordVerificationSuccessful())

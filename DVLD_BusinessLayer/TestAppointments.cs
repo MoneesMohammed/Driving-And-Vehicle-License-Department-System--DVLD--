@@ -55,7 +55,7 @@ namespace DVLD_BusinessLayer
 
             TestType = clsTestType.Find(TestTypeID);
             LDLApplication = clsLocalDrivingLicenseApplication.Find(LocalDrivingLicenseApplicationID);
-            User = clsUser.Find(CreatedByUserID);
+            User = clsUser.FindByUserID(CreatedByUserID);
 
             Mode = enMode.Update;
         }
@@ -100,7 +100,7 @@ namespace DVLD_BusinessLayer
             {
                 TestType = clsTestType.Find(this.TestTypeID);
                 LDLApplication = clsLocalDrivingLicenseApplication.Find(this.LocalDrivingLicenseApplicationID);
-                User = clsUser.Find(this.CreatedByUserID);
+                User = clsUser.FindByUserID(this.CreatedByUserID);
 
                 return true;
             }

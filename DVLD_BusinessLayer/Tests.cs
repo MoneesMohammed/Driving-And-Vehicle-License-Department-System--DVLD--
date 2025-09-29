@@ -48,7 +48,7 @@ namespace DVLD_BusinessLayer
             this.CreatedByUserID = CreatedByUserID;
 
             TestAppointment = clsTestAppointment.Find(TestAppointmentID);
-            CreatedByUser = clsUser.Find(CreatedByUserID);
+            CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
 
 
             Mode = enMode.Update;
@@ -90,7 +90,7 @@ namespace DVLD_BusinessLayer
             if (this.TestID != -1)
             {
                 TestAppointment = clsTestAppointment.Find(TestAppointmentID);
-                CreatedByUser = clsUser.Find(CreatedByUserID);
+                CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
                 return true;
 
             }

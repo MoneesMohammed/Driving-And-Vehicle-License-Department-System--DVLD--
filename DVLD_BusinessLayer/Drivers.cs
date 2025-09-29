@@ -43,7 +43,7 @@ namespace DVLD_BusinessLayer
             this.CreatedDate     = CreatedDate;
 
             clsPerson = clsPerson.Find(PersonID);
-            CreatedByUser = clsUser.Find(CreatedByUserID);
+            CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
 
             Mode = enMode.Update;
         }
@@ -84,7 +84,7 @@ namespace DVLD_BusinessLayer
             if (this.DriverID != -1)
             {
                 clsPerson = clsPerson.Find(PersonID);
-                CreatedByUser = clsUser.Find(CreatedByUserID);
+                CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
 
                 return true;
             }

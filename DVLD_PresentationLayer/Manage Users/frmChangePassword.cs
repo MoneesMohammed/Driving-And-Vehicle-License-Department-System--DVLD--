@@ -27,7 +27,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         {
             InitializeComponent();
 
-            _User = clsUser.Find(UserID);
+            _User = clsUser.FindByUserID(UserID);
 
 
         }

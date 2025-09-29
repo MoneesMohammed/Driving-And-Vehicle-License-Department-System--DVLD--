@@ -46,7 +46,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             if (UserID == -1)
                 return;
 
-            User = clsUser.Find(UserID);
+            User = clsUser.FindByUserID(UserID);
 
             if (User == null)
                 return;
@@ -63,7 +63,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         private void _LoadData()
         {
 
-            User = clsUser.Find(_UserID);
+            User = clsUser.FindByUserID(_UserID);
 
             if (User == null)
                 return;
