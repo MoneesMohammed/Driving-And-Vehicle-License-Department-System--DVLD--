@@ -213,12 +213,12 @@
             this.cbFilterBy.FormattingEnabled = true;
             this.cbFilterBy.Items.AddRange(new object[] {
             "None",
-            "PersonID",
-            "NationalNo",
-            "FirstName",
-            "SecondName",
-            "ThirdName",
-            "LastName",
+            "Person ID",
+            "National No.",
+            "First Name",
+            "Second Name",
+            "Third Name",
+            "Last Name",
             "Nationality",
             "Gendor",
             "Phone",
@@ -285,7 +285,6 @@
             this.txtFilterBy.TabIndex = 13;
             this.txtFilterBy.Visible = false;
             this.txtFilterBy.TextChanged += new System.EventHandler(this.txtFilterBy_TextChanged);
-            this.txtFilterBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterBy_KeyPress);
             // 
             // frmManagePeople
             // 

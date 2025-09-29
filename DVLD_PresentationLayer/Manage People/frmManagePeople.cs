@@ -12,6 +12,9 @@ namespace Driving___Vehicle_License_Department__DVLD_
 {
     public partial class frmManagePeople : Form
     {
+
+        private DataTable _dtPeople = clsPerson.GetAllPeople_1();
+
         public frmManagePeople()
         {
             InitializeComponent();
@@ -25,13 +28,11 @@ namespace Driving___Vehicle_License_Department__DVLD_
         }
 
         private void _RefreshPeopleList()
-        { 
-            DataTable PeopleDataTable = clsPerson.GetAllPeople_1();
-            dgvAllPeople.DataSource = PeopleDataTable;
+        {
+           
+            dgvAllPeople.DataSource = _dtPeople;
 
-            lblRecodes.Text = PeopleDataTable.Rows.Count.ToString();
-
-
+            lblRecodes.Text = dgvAllPeople.Rows.Count.ToString();
 
         }
 
@@ -61,19 +62,19 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmDelete_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllPeople.CurrentRow.Cells[0].Value;
+            int PersonID = (int)dgvAllPeople.CurrentRow.Cells[0].Value;
 
-            string ImagePath = clsPerson.GetImagePath(ID);
+            //string ImagePath = clsPerson.GetImagePath(PersonID);
 
             
-          var result = MessageBox.Show($"Are you sure you want to delete the Person by PersonID: {ID}", "Warning", MessageBoxButtons.OKCancel ,MessageBoxIcon.Warning);
+          var result = MessageBox.Show($"Are you sure you want to delete the Person by PersonID: {PersonID}", "Warning", MessageBoxButtons.OKCancel ,MessageBoxIcon.Warning);
 
             if (result == DialogResult.OK)
             {
-                if (clsPerson.DeletePerson(ID))
+                if (clsPerson.DeletePerson(PersonID))
                 {
-                    if (ImagePath != "")
-                        File.Delete(ImagePath);
+                    //if (ImagePath != "")
+                    //    File.Delete(ImagePath);
 
                     MessageBox.Show("Person has been deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -108,18 +109,13 @@ namespace Driving___Vehicle_License_Department__DVLD_
             MessageBox.Show("This feature will be available soon.", "Phone Call", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-       public enum enFilterBy {None,PersonID,NationalNo,FirstName,SecondName,ThirdName,LastName,Nationality,Gendor,Phone,Email }
-       private     enFilterBy _enFilterBy = enFilterBy.None;
-
-
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enFilterBy = (enFilterBy)cbFilterBy.SelectedIndex;
-
+            
             if (txtFilterBy.Text != "")
                 txtFilterBy.Text = string.Empty;
 
-            if (_enFilterBy == enFilterBy.None)
+            if (cbFilterBy.Text == "None")
             {
                 txtFilterBy.Visible = false;
                 _RefreshPeopleList();
@@ -129,115 +125,28 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 txtFilterBy.Visible = true;
             }
 
-            txtFilterBy.MaxLength = (_enFilterBy == enFilterBy.Phone) ? 10 : 32767;
+            txtFilterBy.MaxLength = (cbFilterBy.Text == "Phone") ? 10 : 32767;
 
         }
         
-
-        private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (_enFilterBy == enFilterBy.PersonID || _enFilterBy == enFilterBy.Phone)
-            {
-                //Code is  Allowing Only Numbers in txtFilterBy
-                
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-
-            }
-
-
-        }
-
         private void txtFilterBy_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = clsPerson.GetAllPeople_1();
-            DataRow[] ResultRows = new DataRow[0];
-
-            switch (_enFilterBy)
+            string FilterColumn = cbFilterBy.Text;
+           
+            if (txtFilterBy.Text.Trim() == "" || FilterColumn == "None")
             {
-                case enFilterBy.PersonID :
-                {
-                        FilterBy(dt, ResultRows, $"[Person ID] = {txtFilterBy.Text} ");
-
-                        break;
-                }
-                case enFilterBy.NationalNo:
-                {
-
-                        FilterBy(dt,ResultRows, $"[National No.] = '{txtFilterBy.Text}' ");
-
-                  break;
-                }
-                case enFilterBy.FirstName:
-                {
-                        FilterBy(dt, "First Name");
-
-                        break;
-                }
-                case enFilterBy.SecondName:
-                {
-
-                        FilterBy(dt, "Second Name");
-
-                        break;
-                }
-                case enFilterBy.ThirdName:
-                {
-
-                        FilterBy(dt,"Third Name");
-
-                        break;
-                }
-                case enFilterBy.LastName:
-                {
-                        FilterBy(dt, "Last Name");
-
-                        break;
-                }
-                case enFilterBy.Nationality:
-                {
-
-                        FilterBy(dt, "Nationality");
-
-                        break;
-                }
-                case enFilterBy.Gendor:
-                {
-
-                        FilterBy(dt, ResultRows, $"Gendor = '{txtFilterBy.Text}' ");
-
-                        if (txtFilterBy.Text.ToUpper() == "M")
-                        {
-                            FilterBy(dt, ResultRows, $"Gendor = 'Male' ");
-                        }
-                        else if (txtFilterBy.Text.ToUpper() == "F")
-                        {
-                            FilterBy(dt, ResultRows, $"Gendor = 'Female' ");
-
-                        }
-
-                            break;
-                }
-                case enFilterBy.Phone:
-                {
-                        
-                        FilterBy(dt, "Phone");
-                        break;
-                }
-                case enFilterBy.Email:
-                {
-                        FilterBy(dt, "Email");
-                        
-
-                        break;
-                }
-
-
-
+                _dtPeople.DefaultView.RowFilter = "";
+                lblRecodes.Text = dgvAllPeople.Rows.Count.ToString();
+                return;
             }
-                
+
+            if (FilterColumn == "Person ID" || FilterColumn == "Phone")
+                _dtPeople.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn,txtFilterBy.Text.Trim()); //[FilterColumn] = txtFilterBy.Text
+            else
+                _dtPeople.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterBy.Text.Trim());
+                     //[FilterColumn] LIKE 'txtFilterBy.Text%'
+
+            lblRecodes.Text = dgvAllPeople.Rows.Count.ToString();
         }
 
 
