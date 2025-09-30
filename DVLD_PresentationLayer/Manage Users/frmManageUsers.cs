@@ -39,7 +39,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void butAddNewUser_Click(object sender, EventArgs e)
         {
-            frmAddNewUser frmAddNewUser = new frmAddNewUser(-1);
+            frmAddNewUser frmAddNewUser = new frmAddNewUser();
             frmAddNewUser.ShowDialog();
 
             _RefreshUsersList();
@@ -47,7 +47,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmAddNewUser_Click(object sender, EventArgs e)
         {
-            frmAddNewUser frmAddNewUser = new frmAddNewUser(-1);
+            frmAddNewUser frmAddNewUser = new frmAddNewUser();
             frmAddNewUser.ShowDialog();
 
             _RefreshUsersList();

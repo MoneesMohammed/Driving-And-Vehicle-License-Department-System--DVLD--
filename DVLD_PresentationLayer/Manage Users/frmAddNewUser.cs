@@ -19,52 +19,74 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         public enum enMode { AddNew = 0, Update = 1 }
         private enMode _Mode = enMode.AddNew;
-
-        private int _UserID;
         
-        private clsUser _User;
-        private clsPerson _Person;
-
-
-
-       public frmAddNewUser(int UserID)
+        private int _UserID = -1;
+        
+        clsUser _User;
+        
+        //private clsPerson _Person;
+        
+        public frmAddNewUser()
         {
             InitializeComponent();
+            _Mode = enMode.AddNew;
+        }
+        
+        
+        public frmAddNewUser(int UserID)
+       {
+            InitializeComponent();
             _UserID = UserID;
-
-            if (UserID == -1)
-                _Mode = enMode.AddNew;
-            else
-                _Mode = enMode.Update;
+            _Mode   = enMode.Update;
 
         }
 
-        private void frmAddNewUser_Load(object sender, EventArgs e)
+
+        private void _ResetDefualtValues()
         {
-            _LoadData();
-
-
-        }
-
-       
-
-        private void _LoadData()
-        {
-
-            btnSave.Enabled = false;
-
             if (_Mode == enMode.AddNew)
             {
                 lblMode.Text = "Add New User";
+                this.Text = "Add New User";
                 _User = new clsUser();
-                return;
+                tpLoginInfo.Enabled = false;
+
+            }
+            else
+            {
+
+                lblMode.Text = "Update User";
+                this.Text = "Add New User";
+                tpLoginInfo.Enabled = true;
+                btnSave.Enabled = true;
             }
 
-            lblMode.Text = "Update User";
+            txtUserName.Text = "";
+            txtPassword.Text = "";
+            txtConfirmPassword.Text = "";
+            cbIsActive.Checked = true;
 
-           
+
+        }
+
+
+        private void frmAddNewUser_Load(object sender, EventArgs e)
+        {
+            _ResetDefualtValues();
+
+            if (_Mode == enMode.Update)
+                _LoadData();
+
+
+        }
+        
+        
+        
+        private void _LoadData()
+        {
+
             _User   = clsUser.FindByUserID(_UserID);
-            
+            ucFilterPerson1.FilterEnabled = false;
 
             if (_User == null)
             {
@@ -98,113 +120,111 @@ namespace Driving___Vehicle_License_Department__DVLD_
            
 
         }
-
+        
         private void btnBack_Click(object sender, EventArgs e)
         {
             
-            tabControl1.Selecting -= tabControl1_Selecting;  // Temporarily unblock
-            tabControl1.SelectedTab = tpPersonalInfo;        // or any other tab
-            tabControl1.Selecting += tabControl1_Selecting;  // Reblock
+            tcUserInfo.Selecting -= tabControl1_Selecting;  // Temporarily unblock
+            tcUserInfo.SelectedTab = tpPersonalInfo;        // or any other tab
+            tcUserInfo.Selecting += tabControl1_Selecting;  // Reblock
         }
-
+        
         private void btnNext_Click(object sender, EventArgs e)
         {
-            _Person = ucFilterPerson1.SelectedPersonInfo;
-
+       
             if (_Mode == enMode.Update)
             {
+                btnSave.Enabled = true;
+                tpLoginInfo.Enabled = true;
+                
                 GoToTabLoginInfo();
                 return;
             }
 
+            
 
-            if (_Person == null || _Person.PersonID == -1)
+            if (ucFilterPerson1.PersonID != -1)
             {
-                MessageBox.Show($"There is no person.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+
+                if (clsUser.IsUserExistsForPersonID(ucFilterPerson1.PersonID))
+                {
+                    MessageBox.Show("Selected person already has used Choose another one", "Select another person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    btnSave.Enabled = true;
+                    tpLoginInfo.Enabled = true;
+
+                    GoToTabLoginInfo();
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show($"Please Select a Person.", "Select a Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
 
-
-            if (clsUser.IsUserExistsForPersonID(_Person.PersonID))
-            {
-                MessageBox.Show("Selected person already has used Choose another one", "Select another person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-
-            }
-
-
-            GoToTabLoginInfo();
         }
-
+        
+        
+        
+        
         private void GoToTabLoginInfo()
         {
-            tabControl1.Selecting -= tabControl1_Selecting;  // Temporarily unblock
-            tabControl1.SelectedTab = tpLoginInfo;           // or any other tab
-            tabControl1.Selecting += tabControl1_Selecting;  // Reblock
+            tcUserInfo.Selecting -= tabControl1_Selecting;  // Temporarily unblock
+            tcUserInfo.SelectedTab = tpLoginInfo;           // or any other tab
+            tcUserInfo.Selecting += tabControl1_Selecting;  // Reblock
 
         }
-
-
+        
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (tabControl1.SelectedTab != tpLoginInfo)
+            if (!this.ValidateChildren())
+            {
+                MessageBox.Show("Some fileds are not valid!, put the mouse over the red icon", "Validation Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
+            }
 
             
-            _User.PersonID = _Person.PersonID;
+            _User.PersonID = ucFilterPerson1.PersonID;
             _User.UserName = txtUserName.Text;
             _User.Password = txtPassword.Text;
             _User.IsActive = cbIsActive.Checked;
 
             if (_User.Save())
             {
-                MessageBox.Show("Data saved successfully", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Data Saved Successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Error : data is not saved successfully", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error : data is not Saved Successfully", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            _Mode = enMode.Update;
-
-            lblMode.Text = "Update User";
+            _Mode          = enMode.Update;
+            this.Text      = "Update User";
+            lblMode.Text   = "Update User";
             lblUserID.Text = _User.UserID.ToString();
 
         }
-
-        private void AllTextBoxes_TextChanged(object sender, EventArgs e)
-        {
-            bool OneOfIsEmpty = string.IsNullOrWhiteSpace(txtUserName.Text) ||
-                                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                                string.IsNullOrWhiteSpace(txtConfirmPassword.Text);
-
-            if (OneOfIsEmpty)
-            {
-                btnSave.Enabled = false;
-            }
-            else if (txtConfirmPassword.Text != txtPassword.Text)
-            {
-                btnSave.Enabled = false;
-            }
-            else
-            {
-                btnSave.Enabled = true;
-            }
-
-        }
-
+        
+       
+        
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-       
+        
+        
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             e.Cancel = true;
         }
-
+        
         private void AllTextBoxes_Validating(object sender, CancelEventArgs e)
         {
             TextBox CurrentTextBox = (TextBox)sender;
@@ -300,7 +320,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
 
         }
-
+        
         private void btnShowHidePassword_Click(object sender, EventArgs e)
         {
             if (txtPassword.PasswordChar == '*' && txtConfirmPassword.PasswordChar == '*')
@@ -317,7 +337,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
             }
         }
-  
+        
     
     }
 }

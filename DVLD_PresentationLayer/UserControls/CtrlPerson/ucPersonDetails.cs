@@ -69,8 +69,10 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 
         private void _FillPersonInfo()
         {
-            llblEditPersonInfo.Enabled = true;
+            _PersonID = _Person.PersonID;
 
+            llblEditPersonInfo.Enabled = true;
+            
             lblPersonID.Text = _Person.PersonID.ToString();
 
             lblName.Text = (_Person.ThirdName == "") ?
@@ -109,7 +111,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 
         private void ResetPersonInfo()
         {
-
+            _PersonID = -1;
             llblEditPersonInfo.Enabled = false;
 
             lblPersonID.Text = "[???]";

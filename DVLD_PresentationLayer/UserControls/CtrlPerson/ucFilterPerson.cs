@@ -56,7 +56,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             }
         }
 
-        private int _PersonID;
+        private int _PersonID=-1;
 
         public int PersonID
         {
