@@ -302,10 +302,10 @@
     <Compile Include="UserControls\CtrlPerson\ucPersonDetails.Designer.cs">
       <DependentUpon>ucPersonDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucUserDetails.cs">
+    <Compile Include="UserControls\CtrlUser\ucUserDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ucUserDetails.Designer.cs">
+    <Compile Include="UserControls\CtrlUser\ucUserDetails.Designer.cs">
       <DependentUpon>ucUserDetails.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Applications\Detain Licenses\frmDetainLicense.resx">
@@ -444,7 +444,7 @@
     <EmbeddedResource Include="UserControls\CtrlPerson\ucPersonDetails.resx">
       <DependentUpon>ucPersonDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ucUserDetails.resx">
+    <EmbeddedResource Include="UserControls\CtrlUser\ucUserDetails.resx">
       <DependentUpon>ucUserDetails.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

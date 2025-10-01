@@ -14,42 +14,44 @@ namespace Driving___Vehicle_License_Department__DVLD_
 {
     public partial class frmChangePassword : Form
     {
-
-        
         private clsUser _User  ;
+        private int _UserID ;
 
-        public frmChangePassword()
-        {
-            InitializeComponent();
-        }
 
         public frmChangePassword(int UserID)
         {
             InitializeComponent();
-
-            _User = clsUser.FindByUserID(UserID);
-
-
-        }
-
-        private void _LoadUCUserDetails()
-        {
-            ucUserDetails1.RefreshUCUserDetails(_User.UserID);
+            _UserID = UserID;
             
         }
 
         private void frmChangePassword_Load(object sender, EventArgs e)
         {
-            _LoadData();
-            
+            ResetDefaultValues();
+
+            _User = clsUser.FindByUserID(_UserID);
+
+            if (_User == null)
+            {
+                MessageBox.Show($"Could not find user with id = ={_UserID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            ucUserDetails1.LoadUserInfo(_UserID);
+
         }
 
-        private void _LoadData()
+
+        private void ResetDefaultValues()
         {
-            _LoadUCUserDetails();
-
+            txtCurrentPassword.Text = string.Empty;
+            txtNewPassword.Text = string.Empty;
+            txtConfirmPassword.Text = string.Empty;
+            txtCurrentPassword.Focus();
 
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -82,34 +84,31 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void AllTextBoxes_Validating(object sender, CancelEventArgs e)
         {
-
-
             TextBox CurrentTextBox = (TextBox)sender;
-
 
             switch (CurrentTextBox.Name.ToString())
             {
                 case "txtCurrentPassword":
                     {
 
-                        if (string.IsNullOrEmpty(CurrentTextBox.Text))
+                        if (string.IsNullOrEmpty(CurrentTextBox.Text.Trim()))
                         {
                             
                            // e.Cancel = true;
                             errorProvider1.SetError(CurrentTextBox, "CurrentPassword should have a Value!");
 
                         }
-                        else if (txtCurrentPassword.Text != _User.Password)
+                        else if (txtCurrentPassword.Text.Trim() != _User.Password.Trim())
                         {
                             
-                            //e.Cancel = true;
+                            e.Cancel = true;
                             errorProvider1.SetError(CurrentTextBox, "your current password is wrong");
 
                         }
                         else
                         {
-                            //e.Cancel = false;
-                            errorProvider1.SetError(CurrentTextBox, "");
+                            
+                            errorProvider1.SetError(CurrentTextBox, null);
 
                         }
 
@@ -119,18 +118,17 @@ namespace Driving___Vehicle_License_Department__DVLD_
                     }
                 case "txtNewPassword":
                     {
-                        if (string.IsNullOrEmpty(CurrentTextBox.Text))
+                        if (string.IsNullOrEmpty(CurrentTextBox.Text.Trim()))
                         {
                             
                             //e.Cancel = true;
-
                             errorProvider1.SetError(CurrentTextBox, "Password should have a Value!");
 
                         }
                         else
                         {
-                            //e.Cancel = false;
-                            errorProvider1.SetError(CurrentTextBox, "");
+                            
+                            errorProvider1.SetError(CurrentTextBox, null);
 
                         }
 
@@ -140,26 +138,26 @@ namespace Driving___Vehicle_License_Department__DVLD_
                     }
                 case "txtConfirmPassword":
                     {
-                        if (string.IsNullOrEmpty(CurrentTextBox.Text))
+                        if (string.IsNullOrEmpty(CurrentTextBox.Text.Trim()))
                         {
 
-                            //CurrentTextBox.Focus();
+                            
                             //e.Cancel = true;
                             errorProvider1.SetError(CurrentTextBox, "ConfirmPassword should have a Value!");
 
                         }
-                        else if (txtConfirmPassword.Text != txtNewPassword.Text)
+                        else if (txtConfirmPassword.Text.Trim() != txtNewPassword.Text.Trim())
                         {
-                            //CurrentTextBox.Focus();
-                           // e.Cancel = true;
+                            
+                            e.Cancel = true;
                             errorProvider1.SetError(CurrentTextBox, "password confirmation does not match password!");
 
 
                         }
                         else
                         {
-                            //e.Cancel = false;
-                            errorProvider1.SetError(CurrentTextBox, "");
+                            
+                            errorProvider1.SetError(CurrentTextBox, null);
 
                         }
 
@@ -177,12 +175,21 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+
+            if (!this.ValidateChildren())
+            {
+                MessageBox.Show("Some fileds are not valid!, put the mouse over the red icon", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
             _User.Password = txtNewPassword.Text;
 
 
             if (_User.Save())
             {
-                MessageBox.Show("Data saved successfully", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ResetDefaultValues();
+                MessageBox.Show("Password Changed successfully.", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

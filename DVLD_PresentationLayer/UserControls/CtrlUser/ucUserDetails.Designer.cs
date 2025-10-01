@@ -48,9 +48,9 @@
             this.gbloginInfo.Controls.Add(this.lblUserID);
             this.gbloginInfo.Controls.Add(this.label2);
             this.gbloginInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbloginInfo.Location = new System.Drawing.Point(9, 431);
+            this.gbloginInfo.Location = new System.Drawing.Point(7, 410);
             this.gbloginInfo.Name = "gbloginInfo";
-            this.gbloginInfo.Size = new System.Drawing.Size(1176, 100);
+            this.gbloginInfo.Size = new System.Drawing.Size(1043, 100);
             this.gbloginInfo.TabIndex = 3;
             this.gbloginInfo.TabStop = false;
             this.gbloginInfo.Text = "login Information";
@@ -111,9 +111,9 @@
             // 
             // ucPersonDetails1
             // 
-            this.ucPersonDetails1.Location = new System.Drawing.Point(7, 3);
+            this.ucPersonDetails1.Location = new System.Drawing.Point(1, 0);
             this.ucPersonDetails1.Name = "ucPersonDetails1";
-            this.ucPersonDetails1.Size = new System.Drawing.Size(1178, 412);
+            this.ucPersonDetails1.Size = new System.Drawing.Size(1049, 404);
             this.ucPersonDetails1.TabIndex = 2;
             // 
             // ucUserDetails
@@ -123,8 +123,7 @@
             this.Controls.Add(this.gbloginInfo);
             this.Controls.Add(this.ucPersonDetails1);
             this.Name = "ucUserDetails";
-            this.Size = new System.Drawing.Size(1192, 556);
-            this.Load += new System.EventHandler(this.ucUserDetails_Load);
+            this.Size = new System.Drawing.Size(1060, 521);
             this.gbloginInfo.ResumeLayout(false);
             this.gbloginInfo.PerformLayout();
             this.ResumeLayout(false);

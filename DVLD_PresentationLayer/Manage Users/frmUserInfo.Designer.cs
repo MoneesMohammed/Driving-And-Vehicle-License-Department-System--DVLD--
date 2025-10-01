@@ -36,16 +36,15 @@
             // 
             this.ucUserDetails1.Location = new System.Drawing.Point(12, 12);
             this.ucUserDetails1.Name = "ucUserDetails1";
-            this.ucUserDetails1.Size = new System.Drawing.Size(1192, 553);
+            this.ucUserDetails1.Size = new System.Drawing.Size(1055, 553);
             this.ucUserDetails1.TabIndex = 23;
-            this.ucUserDetails1.Visible = false;
             // 
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1071, 582);
+            this.btnClose.Location = new System.Drawing.Point(924, 580);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(133, 43);
             this.btnClose.TabIndex = 22;
@@ -58,7 +57,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 635);
+            this.ClientSize = new System.Drawing.Size(1069, 635);
             this.Controls.Add(this.ucUserDetails1);
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;

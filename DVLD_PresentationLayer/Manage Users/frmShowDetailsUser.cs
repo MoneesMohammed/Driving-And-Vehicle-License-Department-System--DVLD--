@@ -13,32 +13,17 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Users
 {
     public partial class frmShowDetailsUser : Form
     {
-
-        private int _UserID;
+        private int _UserID = -1;
        
-
         public frmShowDetailsUser(int UserID)
         {
             InitializeComponent();
             _UserID = UserID;
         }
 
-        private void _LoaducUserDetails()
-        {
-            ucUserDetails1.RefreshUCUserDetails(_UserID);
-            
-        }
-
         private void frmShowDetailsUser_Load(object sender, EventArgs e)
         {
-            _LoadData();
-        }
-
-
-        private void _LoadData()
-        {
-           
-            _LoaducUserDetails();
+            ucUserDetails1.LoadUserInfo(_UserID);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
