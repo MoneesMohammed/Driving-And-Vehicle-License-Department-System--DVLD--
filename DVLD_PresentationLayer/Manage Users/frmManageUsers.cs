@@ -15,6 +15,8 @@ namespace Driving___Vehicle_License_Department__DVLD_
 {
     public partial class frmManageUsers : Form
     {
+        private DataTable _dtUsers = clsUser.GetAllUsers();
+
         public frmManageUsers()
         {
             InitializeComponent();
@@ -30,10 +32,11 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void _RefreshUsersList()
         {
-            DataTable UsersDataTable = clsUser.GetAllUsers();
-            dgvAllUsers.DataSource = UsersDataTable;
+            _dtUsers = clsUser.GetAllUsers();
 
-            lblRecodes.Text = UsersDataTable.Rows.Count.ToString();
+            dgvAllUsers.DataSource = _dtUsers;
+
+            lblRecodes.Text = dgvAllUsers.Rows.Count.ToString();
 
         }
 
@@ -56,9 +59,9 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmEdit_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
+            int UserID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
 
-            frmAddNewUser frmAddNewUser = new frmAddNewUser(ID);
+            frmAddNewUser frmAddNewUser = new frmAddNewUser(UserID);
             frmAddNewUser.ShowDialog();
 
             _RefreshUsersList();
@@ -75,28 +78,20 @@ namespace Driving___Vehicle_License_Department__DVLD_
             MessageBox.Show("This feature will be available soon.", "Phone Call", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public enum enIsActive { All,Yes,No}    
-        private enIsActive _enIsActive = enIsActive.All;
-
-        public enum enFilterBy { None,UserID,PersonID,UserName,FullName,IsActive } 
-        private enFilterBy _enFilterBy = enFilterBy.None;
-
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            _enFilterBy = (enFilterBy)cbFilterBy.SelectedIndex;
-
             if (txtFilterBy.Text != "")
                 txtFilterBy.Text = string.Empty;
 
-            if (_enFilterBy == enFilterBy.None)
+            if (cbFilterBy.Text == "None")
             {
                 txtFilterBy.Visible = false;
                 cbIsActive.Visible  = false;
                 _RefreshUsersList();
             }
-            else if (_enFilterBy == enFilterBy.IsActive)
+            else if (cbFilterBy.Text == "Is Active")
             {
                 cbIsActive.SelectedIndex = 0;
 
@@ -117,87 +112,56 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void cbIsActive_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enIsActive = (enIsActive)cbIsActive.SelectedIndex;
 
-            DataTable dt = clsUser.GetAllUsers();
-            DataRow[] ResultRows = new DataRow[0];
-
-            if (_enIsActive == enIsActive.Yes)
-            {
-                FilterBy(dt, ResultRows, "[Is Active] = 1");
-            }
-            else if (_enIsActive == enIsActive.No)
-            {
-                FilterBy(dt, ResultRows, "[Is Active] = 0");
-            }
-            else
+            if (cbIsActive.Text == "All")
             {
                 _RefreshUsersList();
+                return;
             }
 
+
+            string FilterColumn = (cbIsActive.Text == "Yes") ? "1" : "0";
+
+            _dtUsers.DefaultView.RowFilter = string.Format($"[Is Active] = {FilterColumn}");
+
+            lblRecodes.Text = dgvAllUsers.Rows.Count.ToString();
         }
 
       
 
+        private void txtFilterBy_TextChanged(object sender, EventArgs e)
+        {
+            string FilterColumn = cbFilterBy.Text;
+
+            if (txtFilterBy.Text.Trim() == "" || FilterColumn == "None" || FilterColumn == "Is Active")
+            {
+                _dtUsers.DefaultView.RowFilter = "";
+                lblRecodes.Text = _dtUsers.Rows.Count.ToString();
+                return;
+            }
+
+            if (FilterColumn == "Person ID" || FilterColumn == "User ID")
+                _dtUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, txtFilterBy.Text.Trim()); //[FilterColumn] = txtFilterBy.Text
+            else
+                _dtUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterBy.Text.Trim());
+            //[FilterColumn] LIKE 'txtFilterBy.Text%'
+
+            lblRecodes.Text = dgvAllUsers.Rows.Count.ToString();
+
+        }
+
         private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (_enFilterBy == enFilterBy.PersonID || _enFilterBy == enFilterBy.UserID)
+            if (cbFilterBy.Text == "Person ID" || cbFilterBy.Text == "User ID")
             {
-                //Code is  Allowing Only Numbers in txtFilterBy
-
                 if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
                     e.Handled = true;
                 }
 
             }
-        }
-
-        private void txtFilterBy_TextChanged(object sender, EventArgs e)
-        {
-            DataTable dt = clsUser.GetAllUsers();
-            DataRow[] ResultRows = new DataRow[0];
-
-            if (txtFilterBy.Text != "")
-            {
-                switch (_enFilterBy)
-                {
-                    case enFilterBy.UserID:
-                        {
-                            FilterBy(dt, ResultRows, $"[User ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.PersonID:
-                        {
-
-                            FilterBy(dt, ResultRows, $"[Person ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.UserName:
-                        {
-                            FilterBy(dt,"UserName");
-
-                            break;
-                        }
-                    case enFilterBy.FullName:
-                        {
-                            FilterBy(dt, "Full Name");
-
-                            break;
-                        }
-
-
-
-                }
-            }
-
-
-            
 
         }
-
 
         private void FilterBy(DataTable UsersDataTable, DataRow[] ResultRows, string Select)
         {
@@ -255,9 +219,9 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmChangePassword_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
+            int UserID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
 
-            frmChangePassword frmChangePassword = new frmChangePassword(ID);
+            frmChangePassword frmChangePassword = new frmChangePassword(UserID);
             frmChangePassword.ShowDialog();
 
 
@@ -265,17 +229,17 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void tsmDelete_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
+            int UserID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
             
-
-            var result = MessageBox.Show($"Are you sure you want to delete the User by UserID: {ID}", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            var result = MessageBox.Show($"Are you sure you want to delete the User by UserID: {UserID}", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
             if (result == DialogResult.OK)
             {
-                if (clsUser.DeleteUser(ID))
+                if (clsUser.DeleteUser(UserID))
                 {
                     
                     MessageBox.Show("User has been deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _RefreshUsersList();
                 }
                 else
                 {
@@ -283,25 +247,23 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
                 }
 
-
-
             }
-
-            _RefreshUsersList();
 
         }
 
         private void tsmShowDetails_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
+            int UserID = (int)dgvAllUsers.CurrentRow.Cells[0].Value;
 
-            frmShowDetailsUser frmShowDetailsUser = new frmShowDetailsUser(ID);
-            frmShowDetailsUser.ShowDialog();
+            frmShowDetailsUser frm = new frmShowDetailsUser(UserID);
+            frm.ShowDialog();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        
     }
 }

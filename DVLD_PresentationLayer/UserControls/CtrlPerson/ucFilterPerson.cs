@@ -51,12 +51,12 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 
             set
             {
-                _ShowAddPerson = value;
-                gbFind.Visible = _FilterEnabled;
+                _FilterEnabled = value;
+                gbFind.Enabled = _FilterEnabled;
             }
         }
 
-        private int _PersonID=-1;
+        private int _PersonID = -1;
 
         public int PersonID
         {

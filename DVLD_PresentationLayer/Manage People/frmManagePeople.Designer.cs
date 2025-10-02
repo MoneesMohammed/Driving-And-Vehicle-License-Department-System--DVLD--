@@ -285,6 +285,7 @@
             this.txtFilterBy.TabIndex = 13;
             this.txtFilterBy.Visible = false;
             this.txtFilterBy.TextChanged += new System.EventHandler(this.txtFilterBy_TextChanged);
+            this.txtFilterBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterBy_KeyPress);
             // 
             // frmManagePeople
             // 

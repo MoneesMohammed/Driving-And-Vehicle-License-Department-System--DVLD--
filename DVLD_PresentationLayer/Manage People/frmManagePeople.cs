@@ -29,7 +29,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void _RefreshPeopleList()
         {
-           
+            _dtPeople = clsPerson.GetAllPeople_1();
             dgvAllPeople.DataSource = _dtPeople;
 
             lblRecodes.Text = dgvAllPeople.Rows.Count.ToString();
@@ -149,6 +149,18 @@ namespace Driving___Vehicle_License_Department__DVLD_
             lblRecodes.Text = dgvAllPeople.Rows.Count.ToString();
         }
 
+        private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cbFilterBy.Text == "Person ID" || cbFilterBy.Text == "Phone")
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+            }
+            
+        }
 
         private void FilterBy(DataTable PeopleDataTable, DataRow[] ResultRows, string Select )
         {
@@ -219,5 +231,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(ID);
             frmShowDetailsPerson.ShowDialog();
         }
+
+       
     }
 }
