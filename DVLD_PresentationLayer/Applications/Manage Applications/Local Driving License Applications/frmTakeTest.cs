@@ -1,4 +1,5 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Properties;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using DVLD_DataAccessLayar;
 using System;
@@ -98,7 +99,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             Test.TestAppointmentID = TestAppointments.TestAppointmentID;
             Test.TestResult = rbSuccess.Checked;
             Test.Notes = txtNote.Text;
-            Test.CreatedByUserID = frmLogin.user.UserID;
+            Test.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             TestAppointments.IsLocked = true;
 

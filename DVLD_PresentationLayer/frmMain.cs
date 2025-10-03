@@ -9,7 +9,7 @@ using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applicatio
 using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Test_Types;
 using Driving___Vehicle_License_Department__DVLD_.Manage_Drivers;
 using Driving___Vehicle_License_Department__DVLD_.Manage_Users;
-using DVLD_BusinessLayer;
+using DVLD.Classes;
 using System;
 using System.Windows.Forms;
 
@@ -54,17 +54,17 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void currentUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int ID = frmLogin.user.UserID;
+            int UserID = clsGlobal.CurrentUser.UserID;
 
-            frmUserInfo frmUserInfo = new frmUserInfo(ID);
+            frmUserInfo frmUserInfo = new frmUserInfo(UserID);
             frmUserInfo.ShowDialog();
         }
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int ID = frmLogin.user.UserID;
+            int UserID = clsGlobal.CurrentUser.UserID;
 
-            frmChangePassword frmChangePassword = new frmChangePassword(ID);
+            frmChangePassword frmChangePassword = new frmChangePassword(UserID);
             frmChangePassword.ShowDialog();
         }
 
@@ -96,7 +96,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            lblUserWelcome.Text = $"👋 Welcome! {frmLogin.user.UserName}";
+            lblUserWelcome.Text = $"👋 Welcome! {clsGlobal.CurrentUser.UserName}";
 
         }
 

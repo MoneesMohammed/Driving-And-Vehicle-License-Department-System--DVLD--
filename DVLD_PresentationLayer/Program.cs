@@ -21,6 +21,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             {
                 frmLogin loginForm = new frmLogin();
 
+                //login successfully
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     Application.Run(new frmMain());

@@ -45,18 +45,18 @@
             // txtUserName
             // 
             this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(704, 201);
+            this.txtUserName.Location = new System.Drawing.Point(658, 165);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(186, 29);
+            this.txtUserName.Size = new System.Drawing.Size(241, 29);
             this.txtUserName.TabIndex = 1;
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(704, 253);
+            this.txtPassword.Location = new System.Drawing.Point(658, 217);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(186, 29);
+            this.txtPassword.Size = new System.Drawing.Size(241, 29);
             this.txtPassword.TabIndex = 2;
             // 
             // cbRememberMe
@@ -65,7 +65,7 @@
             this.cbRememberMe.Checked = true;
             this.cbRememberMe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRememberMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbRememberMe.Location = new System.Drawing.Point(704, 288);
+            this.cbRememberMe.Location = new System.Drawing.Point(658, 261);
             this.cbRememberMe.Name = "cbRememberMe";
             this.cbRememberMe.Size = new System.Drawing.Size(130, 22);
             this.cbRememberMe.TabIndex = 3;
@@ -75,10 +75,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(587, 81);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(567, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(257, 29);
+            this.label3.Size = new System.Drawing.Size(289, 31);
             this.label3.TabIndex = 6;
             this.label3.Text = "Login To Your Account";
             // 
@@ -87,7 +87,7 @@
             this.btnShowHidePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowHidePassword.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_eye;
             this.btnShowHidePassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowHidePassword.Location = new System.Drawing.Point(909, 245);
+            this.btnShowHidePassword.Location = new System.Drawing.Point(859, 261);
             this.btnShowHidePassword.Name = "btnShowHidePassword";
             this.btnShowHidePassword.Size = new System.Drawing.Size(40, 37);
             this.btnShowHidePassword.TabIndex = 4;
@@ -97,6 +97,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close1;
             this.btnClose.Location = new System.Drawing.Point(922, 12);
             this.btnClose.Name = "btnClose";
@@ -120,7 +121,7 @@
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.login_;
             this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogin.Location = new System.Drawing.Point(797, 361);
+            this.btnLogin.Location = new System.Drawing.Point(774, 364);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(102, 47);
             this.btnLogin.TabIndex = 0;
@@ -134,9 +135,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.reset_password;
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Location = new System.Drawing.Point(498, 255);
+            this.label2.Location = new System.Drawing.Point(457, 219);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(191, 25);
+            this.label2.Size = new System.Drawing.Size(186, 25);
             this.label2.TabIndex = 8;
             this.label2.Text = "Password : ";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -146,7 +147,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.profile1;
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label1.Location = new System.Drawing.Point(498, 203);
+            this.label1.Location = new System.Drawing.Point(452, 167);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 25);
             this.label1.TabIndex = 7;
@@ -164,8 +165,10 @@
             // 
             // frmLogin
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(989, 516);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnShowHidePassword);
@@ -183,6 +186,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

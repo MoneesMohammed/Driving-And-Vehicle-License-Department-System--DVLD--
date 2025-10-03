@@ -1,4 +1,5 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 
             lblDate.Text              = Application.ApplicationDate.ToString("dd/MMM/yyyy");
             lblStatusDate.Text        = Application.LastStatusDate.ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text         = frmLogin.user.UserName;
+            lblCreatedBy.Text         = clsGlobal.CurrentUser.UserName;
 
 
             llblShowLicenseInfo.Enabled = (PassedTests == 3) && (Status == 3);

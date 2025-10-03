@@ -1,5 +1,6 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Properties;
 using DVLD_BusinessLayer;
+using DVLD.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,31 +18,9 @@ namespace Driving___Vehicle_License_Department__DVLD_
     public partial class frmLogin : Form
     {
 
-        public static clsUser user = new clsUser();
-        private string RememberMe = "";
-
         public frmLogin()
         {
             InitializeComponent();
-
-            RememberMe = _ReadFiletxt();
-
-            if (string.Empty != RememberMe && int.TryParse(RememberMe, out int ID))
-            {
-                user = clsUser.FindByUserID(ID);
-                if (user != null)
-                {
-                    txtUserName.Text = user.UserName;
-                    txtPassword.Text = user.Password;
-                }
-
-            }
-            else
-            {
-                cbRememberMe.Checked = false;
-            }
-
-
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -66,84 +45,64 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 
         }
 
-        private bool _IsAccountActivel()
-        { 
-            return user.IsActive;
-        }
-
-        private bool _UsernamePasswordVerificationSuccessful()
-        {
-            
-            return (user != null);
-
-        }
-
-        private void _WriteOnFiletxt(string Write)
-        {
-
-            using (FileStream fs = File.Create("RememberMe.txt"))
-            {
-                byte[] info = new UTF8Encoding(true).GetBytes(Write);
-                fs.Write(info, 0, info.Length);
-            }
-
-        }
-
-        private string _ReadFiletxt()
-        {
-            using (StreamReader sr = File.OpenText("RememberMe.txt"))
-            {
-                string s = "";
-                while ((s = sr.ReadLine()) != null)
-                {
-
-                    //string[] str = s.Split('/');
-
-                    return s;
-
-                }
-
-                return s;
-            }
-        }
-
-
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            user = clsUser.FindByUserNameAndPassword(txtUserName.Text,txtPassword.Text);
+            clsUser user = clsUser.FindByUserNameAndPassword(txtUserName.Text.Trim(),txtPassword.Text.Trim());
 
 
-            if (_UsernamePasswordVerificationSuccessful())
+            if (user != null)
             {
-                if (_IsAccountActivel())
+                if (user.IsActive)
                 {
-                    if (cbRememberMe.Checked && RememberMe != user.UserID.ToString())
+                    if (cbRememberMe.Checked )
                     {
-                        _WriteOnFiletxt(user.UserID.ToString());
+                        clsGlobal.RememberUsernameAndPassword(txtUserName.Text.Trim(), txtPassword.Text.Trim());
                     }
-                    else if(!cbRememberMe.Checked)
+                    else 
                     {
-                        _WriteOnFiletxt("");
+                        clsGlobal.RememberUsernameAndPassword("","");
                     }
 
+                    clsGlobal.CurrentUser = user;
                     this.DialogResult = DialogResult.OK;
                     this.Close();
 
                 }
                 else
                 {
+                    txtUserName.Focus();
                     MessageBox.Show("your account is not active it..\nplease contact your admin", "Warning Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }
             else
             {
+                txtUserName.Focus();
                 MessageBox.Show("Invalid The Username/Password .", "Warning Credentials", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
-            
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
+            string UserName = "" , Password = "" ;
+
+            if (clsGlobal.GetStoredCredential(ref UserName,ref Password))
+            {
+                
+               txtUserName.Text = UserName;
+               txtPassword.Text = Password;
+               cbRememberMe.Checked = true;
+            }
+            else
+            {
+               cbRememberMe.Checked = false;
+            }
+        }
+
+
     }
 }

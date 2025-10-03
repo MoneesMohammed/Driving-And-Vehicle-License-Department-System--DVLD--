@@ -1,7 +1,8 @@
-﻿using DVLD_BusinessLayer;
-using System;
-using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
+﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
 using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_Person_License_History;
+using DVLD.Classes;
+using DVLD_BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -69,7 +70,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
         private void _LoadData()
         {
             lblApplicationDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text = frmLogin.user.UserName;
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
 
             lblApplicationFees.Text = ApplicationType.ApplicationFees.ToString("0");
 
@@ -123,7 +124,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
             {
                 License.ApplicationID = Application.ApplicationID;
                 License.LicenseClass = OldLicense.LicenseClass;
-                License.CreatedByUserID = frmLogin.user.UserID;
+                License.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
                 if (License.Save())
                 {
@@ -168,7 +169,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
             Application.ApplicationStatus = 3;
             Application.LastStatusDate = DateTime.Now;
             Application.PaidFees = ApplicationType.ApplicationFees;
-            Application.CreatedByUserID = frmLogin.user.UserID;
+            Application.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             return Application.Save();
 

@@ -1,4 +1,5 @@
-﻿using DVLD_BusinessLayer;
+﻿using DVLD.Classes;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
             License.ApplicationID   = LDLApplication.ApplicationID;
             License.LicenseClass    = LDLApplication.LicenseClassID;
-            License.CreatedByUserID = frmLogin.user.UserID;
+            License.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             if (License.Save())
             {

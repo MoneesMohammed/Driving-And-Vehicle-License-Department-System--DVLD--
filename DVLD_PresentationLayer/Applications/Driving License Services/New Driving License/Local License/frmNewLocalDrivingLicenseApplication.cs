@@ -1,4 +1,5 @@
-﻿using DVLD_BusinessLayer;
+﻿using DVLD.Classes;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,7 +93,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
 
             btnSave.Enabled = false;
 
-            lblCreatedBy.Text = frmLogin.user.UserName;
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
             lblApplicationDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
         }
 
@@ -133,7 +134,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
             Application.ApplicationStatus = 1;
             Application.LastStatusDate    = DateTime.Now;
             Application.PaidFees          = ApplicationType.ApplicationFees;
-            Application.CreatedByUserID   = frmLogin.user.UserID;
+            Application.CreatedByUserID   = clsGlobal.CurrentUser.UserID;
 
             if (Application.Save())
             {

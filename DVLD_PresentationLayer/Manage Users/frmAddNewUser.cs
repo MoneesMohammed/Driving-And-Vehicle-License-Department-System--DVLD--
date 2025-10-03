@@ -1,5 +1,6 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Properties;
 using Driving___Vehicle_License_Department__DVLD_.UserControls;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
@@ -104,7 +105,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             txtConfirmPassword.Text = _User.Password;
             cbIsActive.Checked      = _User.IsActive;
 
-            if (frmLogin.user.UserID != _UserID)
+            if (clsGlobal.CurrentUser.UserID != _UserID)
             {
                 btnShowHidePassword.Enabled = false;
                 txtUserName.Enabled = false;

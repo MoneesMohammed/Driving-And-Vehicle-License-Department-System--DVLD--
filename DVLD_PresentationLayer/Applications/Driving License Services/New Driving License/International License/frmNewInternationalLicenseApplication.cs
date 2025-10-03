@@ -1,5 +1,6 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Driving_License_Services.New_Driving_License.International_License.International_Driver_Info;
 using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_Person_License_History;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
@@ -112,7 +113,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
             lblApplicationDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
             lblIssueDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
             lblExpirationDate.Text = DateTime.Now.AddYears(1).ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text = frmLogin.user.UserName;
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
 
             lblFees.Text = ApplicationType.ApplicationFees.ToString("0");
 
@@ -133,7 +134,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
                 return;
 
             InternationalLicense.LicenseID = License.LicenseID;
-            InternationalLicense.CreatedByUserID = frmLogin.user.UserID;
+            InternationalLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             if (InternationalLicense.Save())
             {

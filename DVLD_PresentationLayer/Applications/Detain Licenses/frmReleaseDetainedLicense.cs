@@ -1,7 +1,8 @@
-﻿using DVLD_BusinessLayer;
-using System;
+﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
 using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_Person_License_History;
-using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
+using DVLD.Classes;
+using DVLD_BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -166,7 +167,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
             
               DetainLicense.IsReleased = true;
               DetainLicense.ReleaseDate = DateTime.Now;
-              DetainLicense.ReleasedByUserID = frmLogin.user.UserID;
+              DetainLicense.ReleasedByUserID = clsGlobal.CurrentUser.UserID;
               DetainLicense.ReleaseApplicationID = Application.ApplicationID;
              
               if (DetainLicense.Save())
@@ -208,7 +209,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
             Application.ApplicationStatus = 3;
             Application.LastStatusDate = DateTime.Now;
             Application.PaidFees = ApplicationType.ApplicationFees;
-            Application.CreatedByUserID = frmLogin.user.UserID;
+            Application.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             return Application.Save();
 

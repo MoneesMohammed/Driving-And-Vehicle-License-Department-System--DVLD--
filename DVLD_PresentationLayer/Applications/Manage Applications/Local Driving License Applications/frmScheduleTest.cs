@@ -1,4 +1,5 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Properties;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using DVLD_DataAccessLayar;
 using System;
@@ -181,7 +182,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             if (_Mode == enMode.Update)
             {
                 TestAppointments.AppointmentDate = dtpDateTest.Value;
-                TestAppointments.CreatedByUserID = frmLogin.user.UserID;
+                TestAppointments.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             }
             else if (_Mode == enMode.AddNew)
             {
@@ -189,7 +190,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
                 TestAppointments.LocalDrivingLicenseApplicationID = _LDLAppID;
                 TestAppointments.PaidFees = TestType.TestTypeFees;
                 TestAppointments.AppointmentDate = dtpDateTest.Value;
-                TestAppointments.CreatedByUserID = frmLogin.user.UserID;
+                TestAppointments.CreatedByUserID = clsGlobal.CurrentUser.UserID;
                 TestAppointments.IsLocked = false;
 
             }
@@ -201,7 +202,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
                 RetakeTestApplication.ApplicationStatus = 3;
                 RetakeTestApplication.LastStatusDate    = DateTime.Now;
                 RetakeTestApplication.PaidFees          = ApplicationType.ApplicationFees;
-                RetakeTestApplication.CreatedByUserID   = frmLogin.user.UserID;
+                RetakeTestApplication.CreatedByUserID   = clsGlobal.CurrentUser.UserID;
 
                 if (RetakeTestApplication.Save())
                 {
@@ -210,7 +211,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
                     TestAppointments.PaidFees                         = TestType.TestTypeFees;
                     TestAppointments.AppointmentDate                  = dtpDateTest.Value;
                     TestAppointments.RetakeTestApplicationID          = RetakeTestApplication.ApplicationID;
-                    TestAppointments.CreatedByUserID                  = frmLogin.user.UserID;
+                    TestAppointments.CreatedByUserID                  = clsGlobal.CurrentUser.UserID;
                     TestAppointments.IsLocked                         = false;
 
                 }

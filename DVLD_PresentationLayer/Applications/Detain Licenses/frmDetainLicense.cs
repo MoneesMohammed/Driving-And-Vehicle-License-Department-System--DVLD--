@@ -1,7 +1,8 @@
-﻿using DVLD_BusinessLayer;
-using System;
+﻿using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
 using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_Person_License_History;
-using Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Show_License;
+using DVLD.Classes;
+using DVLD_BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -80,7 +81,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
         private void _LoadData()
         {
             lblDetainDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text = frmLogin.user.UserName;
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
 
         }
 
@@ -115,7 +116,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
             DetainLicense.LicenseID = License.LicenseID;
             DetainLicense.FineFees = Convert.ToDecimal(txtFineFees.Text);
-            DetainLicense.CreatedByUserID = frmLogin.user.UserID;
+            DetainLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
 
             if (DetainLicense.Save())
