@@ -16,7 +16,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
     {
 
         private int _LDLAppID;
-        public clsTestType TestType = clsTestType.Find(3); // 3 he's a Street Test
+        public clsTestType TestType = clsTestType.Find(clsTestType.enTestType.StreetTest); // 3 he's a Street Test
 
         private DataTable AppointmentTestDataTable = new DataTable();
 
@@ -37,7 +37,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void _RefreshAppointmentTestList()
         {
-            AppointmentTestDataTable = clsTestAppointment.GetAllTestAppointments(TestType.TestTypeID, _LDLAppID);
+            AppointmentTestDataTable = clsTestAppointment.GetAllTestAppointments((int)TestType.TestTypeID, _LDLAppID);
 
             dgvAllAppointmentTest.DataSource = AppointmentTestDataTable;
 
@@ -57,16 +57,16 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             }
 
             //frmStreetScheduleTest
-            frmScheduleTest frmScheduleTest = new frmScheduleTest(_LDLAppID, TestType.TestTypeID);
+            frmScheduleTest frmScheduleTest = new frmScheduleTest(_LDLAppID, (int)TestType.TestTypeID);
             frmScheduleTest.ShowDialog();
             _RefreshAppointmentTestList();
         }
 
         private bool CheckForAppointmentsAndPassTest()
         {
-            bool AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID(TestType.TestTypeID, _LDLAppID);
-            bool IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists(TestType.TestTypeID, _LDLAppID);
-            bool IsPassed = clsTest.CheckPassedTest(TestType.TestTypeID, _LDLAppID);
+            bool AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID((int)TestType.TestTypeID, _LDLAppID);
+            bool IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists((int)TestType.TestTypeID, _LDLAppID);
+            bool IsPassed = clsTest.CheckPassedTest((int)TestType.TestTypeID, _LDLAppID);
 
             if (IsTestAppointmentExists)
             {
@@ -91,7 +91,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         private void tsmEdit_Click(object sender, EventArgs e)
         {
             int ID = (int)dgvAllAppointmentTest.CurrentRow.Cells[0].Value;
-            frmScheduleTest frmScheduleTest = new frmScheduleTest(_LDLAppID, ID, TestType.TestTypeID);
+            frmScheduleTest frmScheduleTest = new frmScheduleTest(_LDLAppID, ID, (int)TestType.TestTypeID);
             frmScheduleTest.ShowDialog();
             _RefreshAppointmentTestList();
         }
@@ -100,7 +100,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         {
             int ID = (int)dgvAllAppointmentTest.CurrentRow.Cells[0].Value;
 
-            frmTakeTest frmTakeTest = new frmTakeTest(_LDLAppID, ID, TestType.TestTypeID);
+            frmTakeTest frmTakeTest = new frmTakeTest(_LDLAppID, ID, (int)TestType.TestTypeID);
             frmTakeTest.ShowDialog();
             _RefreshAppointmentTestList();
         }

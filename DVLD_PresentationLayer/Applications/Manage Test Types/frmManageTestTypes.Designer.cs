@@ -50,12 +50,11 @@
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(676, 679);
+            this.btnClose.Location = new System.Drawing.Point(647, 645);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(133, 43);
             this.btnClose.TabIndex = 29;
             this.btnClose.Text = "Close";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -63,7 +62,7 @@
             // 
             this.lblRecodes.AutoSize = true;
             this.lblRecodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecodes.Location = new System.Drawing.Point(167, 687);
+            this.lblRecodes.Location = new System.Drawing.Point(148, 653);
             this.lblRecodes.Name = "lblRecodes";
             this.lblRecodes.Size = new System.Drawing.Size(48, 25);
             this.lblRecodes.TabIndex = 28;
@@ -73,7 +72,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 687);
+            this.label2.Location = new System.Drawing.Point(11, 653);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 25);
             this.label2.TabIndex = 27;
@@ -107,7 +106,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvAllTestTypes.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAllTestTypes.GridColor = System.Drawing.SystemColors.Menu;
-            this.dgvAllTestTypes.Location = new System.Drawing.Point(30, 349);
+            this.dgvAllTestTypes.Location = new System.Drawing.Point(6, 316);
             this.dgvAllTestTypes.Name = "dgvAllTestTypes";
             this.dgvAllTestTypes.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -142,7 +141,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.management;
-            this.pictureBox1.Location = new System.Drawing.Point(276, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(284, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(226, 220);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -151,19 +150,19 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Simplified Arabic", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(221, 251);
+            this.label1.Location = new System.Drawing.Point(5, 235);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(342, 62);
+            this.label1.Size = new System.Drawing.Size(789, 62);
             this.label1.TabIndex = 24;
             this.label1.Text = "Manage Tast Types";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmManageTestTypes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 738);
+            this.ClientSize = new System.Drawing.Size(792, 699);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblRecodes);
             this.Controls.Add(this.label2);

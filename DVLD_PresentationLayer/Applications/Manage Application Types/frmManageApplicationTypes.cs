@@ -8,6 +8,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications
 {
     public partial class frmManageApplicationTypes : Form
     {
+        private DataTable _dtAllApplicationTypes;
+
         public frmManageApplicationTypes()
         {
             InitializeComponent();
@@ -16,15 +18,18 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications
 
         private void _RefreshApplicationTypesList()
         {
-            DataTable ApplicationTypesDataTable = clsApplicationType.GetAllApplicationTypes_1();
-            dgvAllApplicationTypes.DataSource = ApplicationTypesDataTable;
+            _dtAllApplicationTypes = clsApplicationType.GetAllApplicationTypes_1();
+            dgvAllApplicationTypes.DataSource = _dtAllApplicationTypes;
 
-            dgvAllApplicationTypes.Columns["ID"].Width = 50;
-            dgvAllApplicationTypes.Columns["Title"].Width = 200;
-            dgvAllApplicationTypes.Columns["Fees"].Width = 150;
+            lblRecodes.Text = dgvAllApplicationTypes.Rows.Count.ToString();
 
-            lblRecodes.Text = ApplicationTypesDataTable.Rows.Count.ToString();
-
+            if (dgvAllApplicationTypes.Rows.Count > 0)
+            {
+                dgvAllApplicationTypes.Columns["ID"].Width = 50;
+                dgvAllApplicationTypes.Columns["Title"].Width = 200;
+                dgvAllApplicationTypes.Columns["Fees"].Width = 150;
+            }
+            
         }
 
         private void frmManageApplicationTypes_Load(object sender, EventArgs e)
@@ -43,7 +48,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications
 
             frmUpdateApplicationType frmUpdateApplicationType = new frmUpdateApplicationType(ID);
             frmUpdateApplicationType.ShowDialog();
-            _RefreshApplicationTypesList();
+
+            frmManageApplicationTypes_Load(null,null);
 
         }
     }

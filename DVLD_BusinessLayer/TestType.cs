@@ -9,39 +9,46 @@ namespace DVLD_DataAccessLayar
 {
     public class clsTestType
     {
-        public int TestTypeID { get; set; }
+        public enum enMode { AddNew = 0, Update = 1 };
+        private enMode Mode = enMode.AddNew;
+
+        public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 };
+
+        public clsTestType.enTestType TestTypeID { get; set; }
+       // public int TestTypeID { get; set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }
         public decimal TestTypeFees { get; set; }
 
         public clsTestType()
         {
-            TestTypeID = -1;
+            TestTypeID = clsTestType.enTestType.VisionTest;
 
             TestTypeTitle = string.Empty;
             TestTypeDescription = string.Empty;
             TestTypeFees = 0;
 
-
+            Mode = enMode.AddNew;
         }
 
-        private clsTestType(int TestTypeID, string TestTypeTitle , string TestTypeDescription , decimal TestTypeFees)
+        private clsTestType(clsTestType.enTestType TestTypeID, string TestTypeTitle , string TestTypeDescription , decimal TestTypeFees)
         { 
             this.TestTypeID = TestTypeID;
             this.TestTypeTitle = TestTypeTitle;
             this.TestTypeDescription = TestTypeDescription;
             this.TestTypeFees = TestTypeFees;
-        
+
+            Mode = enMode.Update;
         }
 
 
-        public static clsTestType Find(int TestTypeID)
+        public static clsTestType Find(clsTestType.enTestType TestTypeID)
         {
            
             string TestTypeTitle = "" , TestTypeDescription ="";
             decimal TestTypeFees = 0;
 
-            if (clsTestTypeDataAccess.GetTestTypeInfoByID(TestTypeID,ref TestTypeTitle , ref TestTypeDescription , ref TestTypeFees))
+            if (clsTestTypeDataAccess.GetTestTypeInfoByID((int)TestTypeID,ref TestTypeTitle , ref TestTypeDescription , ref TestTypeFees))
                 return new clsTestType(TestTypeID, TestTypeTitle, TestTypeDescription, TestTypeFees);
 
             else
@@ -49,22 +56,43 @@ namespace DVLD_DataAccessLayar
 
         }
 
+        private bool _AddNewTestType()
+        {
+            //call DataAccess Layer 
+
+            this.TestTypeID = (clsTestType.enTestType)clsTestTypeDataAccess.AddNewTestType(this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+
+            return (this.TestTypeTitle != "");
+        }
 
 
         private bool _UpdateTestType()
         {
 
-            return clsTestTypeDataAccess.UpdateTestType(this.TestTypeID, this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+            return clsTestTypeDataAccess.UpdateTestType((int)this.TestTypeID, this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
 
 
         }
 
         public bool Save()
         {
-            if (_UpdateTestType())
+            switch (Mode)
             {
+                case enMode.AddNew:
+                    if (_AddNewTestType())
+                    {
 
-                return true;
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                case enMode.Update:
+
+                    return _UpdateTestType();
 
             }
 

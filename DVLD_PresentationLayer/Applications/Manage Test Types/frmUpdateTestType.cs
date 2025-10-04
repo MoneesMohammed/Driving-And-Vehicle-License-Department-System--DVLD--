@@ -30,7 +30,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Test_T
 
         private void _LoadData()
         {
-            _TestType = clsTestType.Find(_TestTypeID);
+            _TestType = clsTestType.Find((clsTestType.enTestType)_TestTypeID);
 
 
             if (_TestType == null)

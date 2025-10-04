@@ -53,6 +53,47 @@ namespace DVLD_DataAccessLayar
 
         }
 
+        public static int AddNewTestType(string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
+        {
+            int ID = -1;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "INSERT INTO TestTypes VALUES (@TestTypeTitle , @TestTypeDescription , @TestTypeFees);" +
+                           "SELECT SCOPE_IDENTITY()";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+
+            command.Parameters.AddWithValue("@TestTypeTitle", TestTypeTitle);
+            command.Parameters.AddWithValue("@TestTypeDescription", TestTypeDescription);
+            command.Parameters.AddWithValue("@TestTypeFees", TestTypeFees);
+
+
+            try
+            {
+                connection.Open();
+                object Result = command.ExecuteScalar();
+
+                if (Result != null && int.TryParse(Result.ToString(), out int insertedID))
+                {
+                    ID = insertedID;
+                }
+
+            }
+            catch
+            {
+                ID = -1;
+
+            }
+            finally
+            {
+
+                connection.Close();
+            }
+
+            return ID;
+
+        }
+
 
         public static bool UpdateTestType(int TestTypeID, string TestTypeTitle, string TestTypeDescription, decimal TestTypeFees)
         {
@@ -94,7 +135,7 @@ namespace DVLD_DataAccessLayar
             DataTable dt = new DataTable();
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT * FROM TestTypes ";
+            string query = "SELECT * FROM TestTypes ORDER BY TestTypeID";
 
             SqlCommand command = new SqlCommand(query, connection);
 

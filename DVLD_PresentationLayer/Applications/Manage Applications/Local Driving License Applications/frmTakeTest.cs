@@ -33,7 +33,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         {
             InitializeComponent();
             _LDLAppID = lDLAppID;
-            TestType = clsTestType.Find(TeatTypeID);
+            TestType = clsTestType.Find((clsTestType.enTestType)TeatTypeID);
 
             TestAppointments = clsTestAppointment.Find(TestAppointmentID);
 
@@ -63,19 +63,19 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
                 $"{Application.Person.FirstName} {Application.Person.SecondName} {Application.Person.LastName}" :
                 $"{Application.Person.FirstName} {Application.Person.SecondName} {Application.Person.ThirdName} {Application.Person.LastName}";
 
-            lblTrial.Text = clsTestAppointment.CountRetakeTest(TestType.TestTypeID, _LDLAppID).ToString();
+            lblTrial.Text = clsTestAppointment.CountRetakeTest((int)TestType.TestTypeID, _LDLAppID).ToString();
             lblFees.Text = ((int)TestType.TestTypeFees).ToString();
 
             
 
             lblDate.Text = TestAppointments.AppointmentDate.ToString("dd/mm/yyyy");
 
-            if (TestType.TestTypeID == 2)
+            if ((int)TestType.TestTypeID == 2)
             {
                 pictureBox1.Image = Resources.exam_1;
 
             }
-            else if (TestType.TestTypeID == 3)
+            else if ((int)TestType.TestTypeID == 3)
             {
                 pictureBox1.Image = Resources.driving_test_2;
             }

@@ -46,13 +46,13 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         public frmScheduleTest(int lDLAppID ,int TeatTypeID)
         {
             InitializeComponent();
-            TestType = clsTestType.Find(TeatTypeID);
+            TestType = clsTestType.Find((clsTestType.enTestType)TeatTypeID);
 
             _LDLAppID = lDLAppID;
 
-            AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID(TestType.TestTypeID, _LDLAppID);
-            IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists(TestType.TestTypeID, _LDLAppID);
-            IsPassed = clsTest.CheckPassedTest(TestType.TestTypeID, _LDLAppID);
+            AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID((int)TestType.TestTypeID, _LDLAppID);
+            IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists((int)TestType.TestTypeID, _LDLAppID);
+            IsPassed = clsTest.CheckPassedTest((int)TestType.TestTypeID, _LDLAppID);
 
 
             if (!IsTestAppointmentExists )
@@ -71,13 +71,13 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             // For Update
 
             InitializeComponent();
-            TestType = clsTestType.Find(TeatTypeID);
+            TestType = clsTestType.Find((clsTestType.enTestType)TeatTypeID);
 
             _LDLAppID = lDLAppID;
 
-            AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID(TestType.TestTypeID, _LDLAppID);
-            IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists(TestType.TestTypeID, _LDLAppID);
-            IsPassed = clsTest.CheckPassedTest(TestType.TestTypeID, _LDLAppID);
+            AllIsLocked = clsTestAppointment.AllIsLockedByTestTypeIDAndLDLAppID((int)TestType.TestTypeID, _LDLAppID);
+            IsTestAppointmentExists = clsTestAppointment.IsTestAppointmentExists((int)TestType.TestTypeID, _LDLAppID);
+            IsPassed = clsTest.CheckPassedTest((int)TestType.TestTypeID, _LDLAppID);
 
             TestAppointments = clsTestAppointment.Find(TestAppointmentID);
 
@@ -129,18 +129,18 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
                 $"{Application.Person.FirstName} {Application.Person.SecondName} {Application.Person.LastName}" : 
                 $"{Application.Person.FirstName} {Application.Person.SecondName} {Application.Person.ThirdName} {Application.Person.LastName}" ;
 
-            lblTrial.Text = clsTestAppointment.CountRetakeTest(TestType.TestTypeID, _LDLAppID).ToString() ;
+            lblTrial.Text = clsTestAppointment.CountRetakeTest((int)TestType.TestTypeID, _LDLAppID).ToString() ;
 
             lblFees.Text = ((int)TestType.TestTypeFees).ToString();
 
             dtpDateTest.Value = DateTime.Now;
 
-            if (TestType.TestTypeID == 2)
+            if ((int)TestType.TestTypeID == 2)
             {
                 pictureBox1.Image = Resources.exam_1;
 
             }
-            else if (TestType.TestTypeID == 3)
+            else if ((int)TestType.TestTypeID == 3)
             {
                 pictureBox1.Image = Resources.driving_test_2;
             }
@@ -186,7 +186,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             }
             else if (_Mode == enMode.AddNew)
             {
-                TestAppointments.TestTypeID = TestType.TestTypeID;
+                TestAppointments.TestTypeID = (int)TestType.TestTypeID;
                 TestAppointments.LocalDrivingLicenseApplicationID = _LDLAppID;
                 TestAppointments.PaidFees = TestType.TestTypeFees;
                 TestAppointments.AppointmentDate = dtpDateTest.Value;
@@ -206,7 +206,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
                 if (RetakeTestApplication.Save())
                 {
-                    TestAppointments.TestTypeID                       = TestType.TestTypeID;
+                    TestAppointments.TestTypeID                       = (int)TestType.TestTypeID;
                     TestAppointments.LocalDrivingLicenseApplicationID = _LDLAppID;
                     TestAppointments.PaidFees                         = TestType.TestTypeFees;
                     TestAppointments.AppointmentDate                  = dtpDateTest.Value;

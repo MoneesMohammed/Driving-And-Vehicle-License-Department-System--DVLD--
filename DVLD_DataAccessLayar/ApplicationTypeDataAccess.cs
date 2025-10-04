@@ -53,6 +53,45 @@ namespace DVLD_DataAccessLayar
 
         }
 
+        public static int AddNewApplicationType(string ApplicationTypeTitle, decimal ApplicationFees)
+        {
+            int ID = -1;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "INSERT INTO ApplicationTypes VALUES (@ApplicationTypeTitle , @ApplicationFees);" +
+                           "SELECT SCOPE_IDENTITY()";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+
+            command.Parameters.AddWithValue("@ApplicationTypeTitle", ApplicationTypeTitle);
+            command.Parameters.AddWithValue("@ApplicationFees", ApplicationFees);
+       
+            try
+            {
+                connection.Open();
+                object Result = command.ExecuteScalar();
+
+                if (Result != null && int.TryParse(Result.ToString(), out int insertedID))
+                {
+                    ID = insertedID;
+                }
+
+            }
+            catch
+            {
+                ID = -1;
+
+            }
+            finally
+            {
+
+                connection.Close();
+            }
+
+            return ID;
+
+        }
+
 
         public static bool UpdateApplicationType(int ApplicationTypeID, string ApplicationTypeTitle, decimal ApplicationFees)
         {
@@ -86,7 +125,6 @@ namespace DVLD_DataAccessLayar
             return (RowAffected > 0);
 
         }
-
 
 
         public static DataTable GetAllApplicationTypes()

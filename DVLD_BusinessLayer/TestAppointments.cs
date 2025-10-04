@@ -53,7 +53,7 @@ namespace DVLD_BusinessLayer
             this.IsLocked                         = IsLocked;
             this.RetakeTestApplicationID          = RetakeTestApplicationID;
 
-            TestType = clsTestType.Find(TestTypeID);
+            TestType = clsTestType.Find((clsTestType.enTestType)TestTypeID);
             LDLApplication = clsLocalDrivingLicenseApplication.Find(LocalDrivingLicenseApplicationID);
             User = clsUser.FindByUserID(CreatedByUserID);
 
@@ -98,7 +98,7 @@ namespace DVLD_BusinessLayer
 
             if (this.TestAppointmentID != -1)
             {
-                TestType = clsTestType.Find(this.TestTypeID);
+                TestType = clsTestType.Find((clsTestType.enTestType)this.TestTypeID);
                 LDLApplication = clsLocalDrivingLicenseApplication.Find(this.LocalDrivingLicenseApplicationID);
                 User = clsUser.FindByUserID(this.CreatedByUserID);
 
