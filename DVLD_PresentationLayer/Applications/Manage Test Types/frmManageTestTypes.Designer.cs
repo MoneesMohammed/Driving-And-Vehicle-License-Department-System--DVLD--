@@ -50,9 +50,9 @@
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(647, 645);
+            this.btnClose.Location = new System.Drawing.Point(763, 645);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(133, 43);
+            this.btnClose.Size = new System.Drawing.Size(177, 43);
             this.btnClose.TabIndex = 29;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -118,7 +118,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvAllTestTypes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvAllTestTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAllTestTypes.Size = new System.Drawing.Size(779, 314);
+            this.dgvAllTestTypes.Size = new System.Drawing.Size(943, 314);
             this.dgvAllTestTypes.TabIndex = 26;
             // 
             // contextMenuStrip1
@@ -141,7 +141,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.management;
-            this.pictureBox1.Location = new System.Drawing.Point(284, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(354, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(226, 220);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -153,7 +153,7 @@
             this.label1.Font = new System.Drawing.Font("Simplified Arabic", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(5, 235);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(789, 62);
+            this.label1.Size = new System.Drawing.Size(935, 62);
             this.label1.TabIndex = 24;
             this.label1.Text = "Manage Tast Types";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,7 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 699);
+            this.ClientSize = new System.Drawing.Size(952, 699);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblRecodes);
             this.Controls.Add(this.label2);

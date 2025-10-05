@@ -14,7 +14,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Test_T
 {
     public partial class frmManageTestTypes : Form
     {
-        
+        private DataTable _dtAllTestTypes;
 
         public frmManageTestTypes()
         {
@@ -24,15 +24,18 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Test_T
 
         private void _RefreshTestTypesList()
         {
-            DataTable TestTypesDataTable = clsTestType.GetAllTestTypes_1();
-            dgvAllTestTypes.DataSource = TestTypesDataTable;
+            _dtAllTestTypes = clsTestType.GetAllTestTypes_1();
+            dgvAllTestTypes.DataSource = _dtAllTestTypes;
 
-            dgvAllTestTypes.Columns["ID"].Width = 30;
-            dgvAllTestTypes.Columns["Title"].Width = 80;
-            dgvAllTestTypes.Columns["Description"].Width = 150;
-            dgvAllTestTypes.Columns["Fees"].Width = 100;
+            if (dgvAllTestTypes.Rows.Count > 0)
+            {
+                dgvAllTestTypes.Columns["ID"].Width = 30;
+                dgvAllTestTypes.Columns["Title"].Width = 70;
+                dgvAllTestTypes.Columns["Description"].Width = 200;
+                dgvAllTestTypes.Columns["Fees"].Width = 100;
+            }
 
-            lblRecodes.Text = TestTypesDataTable.Rows.Count.ToString();
+            lblRecodes.Text = dgvAllTestTypes.Rows.Count.ToString();
 
         }
 
@@ -48,10 +51,10 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Test_T
 
         private void tsmEdit_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllTestTypes.CurrentRow.Cells[0].Value;
+            clsTestType.enTestType TestTypeID = (clsTestType.enTestType)dgvAllTestTypes.CurrentRow.Cells[0].Value;
 
-            frmUpdateTestType updateTestType = new frmUpdateTestType(ID);
-            updateTestType.ShowDialog();
+            frmUpdateTestType frm = new frmUpdateTestType(TestTypeID);
+            frm.ShowDialog();
 
             _RefreshTestTypesList();
         }
