@@ -184,54 +184,13 @@ namespace DVLD_DataAccessLayar
         }
 
 
+        
         public static DataTable GetAllDrivers()
         {
             DataTable dt = new DataTable();
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "Select * From Drivers";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-
-                    dt.Load(reader);
-
-                }
-
-                reader.Close();
-            }
-            catch
-            {
-
-
-
-            }
-            finally
-            {
-                connection.Close();
-
-
-            }
-
-
-            return dt;
-
-        }
-
-
-        public static DataTable GetAllDrivers_1()
-        {
-            DataTable dt = new DataTable();
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "Select * From Drivers_View";
+            string query = "Select * From Drivers_View Order By FullName";
 
             SqlCommand command = new SqlCommand(query, connection);
 

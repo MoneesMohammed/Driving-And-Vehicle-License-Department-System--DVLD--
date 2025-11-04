@@ -1,4 +1,5 @@
-﻿using DVLD_BusinessLayer;
+﻿using Driving___Vehicle_License_Department__DVLD_.UserControls;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,37 +14,36 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 {
     public partial class frmLicenseHistory : Form
     {
-        //private int _LDLAppID;
 
-        //public clsLocalDrivingLicenseApplication LDLAppApplication = new clsLocalDrivingLicenseApplication();
+        private int _PersonID = -1;
 
-        //public frmLicenseHistory(int LDLAppID)
-        //{
-        //    InitializeComponent();
-        //    _LDLAppID = LDLAppID;
-
-        //    LDLAppApplication = clsLocalDrivingLicenseApplication.Find(LDLAppID);
-        //}
-
-        int PersonID;
+        public frmLicenseHistory()
+        {
+            InitializeComponent();
+           
+        }
 
         public frmLicenseHistory(int PersonID)
         {
             InitializeComponent();
-            this.PersonID = PersonID;
+            _PersonID = PersonID;
+            
         }
 
         private void frmLicenseHistory_Load(object sender, EventArgs e)
         {
-            _LoadData();
-        }
+            if (_PersonID != -1)
+            {
+                ucFilterPerson1.LoadPersonInfo(_PersonID);
+                ucFilterPerson1.FilterEnabled = false;
+                ucDriverLicenses1.LoadInfoByPersonID(_PersonID);
 
-        private void _LoadData()
-        {
-            
-            ucFilterPerson1.LoadPersonInfo(this.PersonID);
-
-            ucDriverLicenses1.RefreshUCDriverLicenses(this.PersonID);
+            }
+            else
+            {
+                ucFilterPerson1.FilterEnabled = true;
+                ucFilterPerson1.FilterFocus();
+            }
 
         }
 
@@ -52,7 +52,15 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             this.Close();
         }
 
+        private void ucFilterPerson1_OnPersonSelected(int obj)
+        {
+            _PersonID = obj;
 
-
+            if (_PersonID == -1)
+            { ucDriverLicenses1.Clear();}
+            else
+            { ucDriverLicenses1.LoadInfoByPersonID(_PersonID); }
+            
+        }
     }
 }

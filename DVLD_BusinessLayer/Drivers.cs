@@ -14,13 +14,14 @@ namespace DVLD_BusinessLayer
         public enum enMode { AddNew = 0, Update = 1 };
         private enMode Mode = enMode.AddNew;
 
-       public int DriverID { get; set; }
-       public int PersonID { get; set; }
-       public int CreatedByUserID { get; set; }
-       public DateTime CreatedDate { get; set; }
+        public clsPerson PersonInfo;
+        public int DriverID { get; set; }
+        public int PersonID { get; set; }
+        public int CreatedByUserID { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public clsPerson clsPerson { get; set; }
-        public clsUser CreatedByUser { get; set; }
+        
+       
 
         public clsDriver()
         {
@@ -29,8 +30,6 @@ namespace DVLD_BusinessLayer
             this.CreatedByUserID = -1;
             this.CreatedDate = DateTime.Now;
 
-            clsPerson     = new clsPerson();
-            CreatedByUser = new clsUser();
 
             Mode = enMode.AddNew;
         }
@@ -42,8 +41,8 @@ namespace DVLD_BusinessLayer
             this.CreatedByUserID = CreatedByUserID;
             this.CreatedDate     = CreatedDate;
 
-            clsPerson = clsPerson.Find(PersonID);
-            CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
+            PersonInfo = clsPerson.Find(PersonID);
+            
 
             Mode = enMode.Update;
         }
@@ -51,7 +50,7 @@ namespace DVLD_BusinessLayer
 
 
 
-        public static clsDriver Find(int DriverID)
+        public static clsDriver FindByDriverID(int DriverID)
         {
             int PersonID = -1, CreatedByUserID = -1;
             DateTime CreatedDate = DateTime.Now;
@@ -81,15 +80,7 @@ namespace DVLD_BusinessLayer
             
             this.DriverID = clsDriverDataAccess.AddNewDriver(this.PersonID, this.CreatedByUserID, this.CreatedDate);
 
-            if (this.DriverID != -1)
-            {
-                clsPerson = clsPerson.Find(PersonID);
-                CreatedByUser = clsUser.FindByUserID(CreatedByUserID);
-
-                return true;
-            }
-
-            return false;
+            return (this.DriverID != -1);
         }
 
         private bool _UpdateDriver()
@@ -107,35 +98,23 @@ namespace DVLD_BusinessLayer
             switch (Mode)
             {
                 case enMode.AddNew:
-                    {
-                        if (_AddNewDriver())
-                        {
-                            Mode = enMode.Update;
-                            return true;
+                    
+                   if (_AddNewDriver())
+                   {
+                       Mode = enMode.Update;
+                       return true;
 
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                   }
+                   else
+                   {
+                       return false;
+                   }
 
-                    }
+                    
                 case enMode.Update:
-                    {
-                        if (_UpdateDriver())
-                        {
-
-                            return true;
-
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
-                    }
-
-
+                    
+                    return _UpdateDriver();
+                       
 
             }
 
@@ -143,15 +122,11 @@ namespace DVLD_BusinessLayer
         }
 
 
+       
+
         public static DataTable GetAllDriver()
         {
             return clsDriverDataAccess.GetAllDrivers();
-
-        }
-
-        public static DataTable GetAllDriver_1()
-        {
-            return clsDriverDataAccess.GetAllDrivers_1();
 
         }
 
@@ -161,8 +136,17 @@ namespace DVLD_BusinessLayer
             return clsDriverDataAccess.IsDriverExists(PersonID);
         }
 
-        
+        //-------------------------
 
+        public static DataTable GetLicenses(int DriverID)
+        {
+            return clsLicense.GetDriverLicenses(DriverID);
+        }
+
+        public static DataTable GetInternationalLicenses(int DriverID)
+        {
+            return clsInternationalLicense.GetDriverInternationalLicenses(DriverID);
+        }
 
     }
 

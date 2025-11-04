@@ -14,7 +14,7 @@ namespace DVLD_DataAccessLayar
 
         public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 };
 
-        public clsTestType.enTestType TestTypeID { get; set; }
+        public enTestType TestTypeID { get; set; }
        // public int TestTypeID { get; set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }
@@ -31,7 +31,7 @@ namespace DVLD_DataAccessLayar
             Mode = enMode.AddNew;
         }
 
-        private clsTestType(clsTestType.enTestType TestTypeID, string TestTypeTitle , string TestTypeDescription , decimal TestTypeFees)
+        private clsTestType(enTestType TestTypeID, string TestTypeTitle , string TestTypeDescription , decimal TestTypeFees)
         { 
             this.TestTypeID = TestTypeID;
             this.TestTypeTitle = TestTypeTitle;
@@ -42,7 +42,7 @@ namespace DVLD_DataAccessLayar
         }
 
 
-        public static clsTestType Find(clsTestType.enTestType TestTypeID)
+        public static clsTestType Find(enTestType TestTypeID)
         {
            
             string TestTypeTitle = "" , TestTypeDescription ="";

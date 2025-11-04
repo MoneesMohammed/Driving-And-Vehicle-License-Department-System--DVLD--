@@ -1,6 +1,6 @@
-﻿namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications.Written_Test_Appointments
+﻿namespace Driving___Vehicle_License_Department__DVLD_.Tests
 {
-    partial class frmWrittenTestAppointments
+    partial class frmListTestAppointment
     {
         /// <summary>
         /// Required designer variable.
@@ -33,20 +33,20 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvAllAppointmentTest = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmTakeTest = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddAppointment = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblRecodes = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ucDrivingLicenseApplicationInfo1 = new Driving___Vehicle_License_Department__DVLD_.UserControls.ucDrivingLicenseApplicationInfo();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmTakeTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.ucDrivingLicenseApplicationInfo1 = new Driving___Vehicle_License_Department__DVLD_.UserControls.ucDrivingLicenseApplicationInfo();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllAppointmentTest)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvAllAppointmentTest
@@ -77,7 +77,7 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvAllAppointmentTest.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvAllAppointmentTest.GridColor = System.Drawing.SystemColors.Menu;
-            this.dgvAllAppointmentTest.Location = new System.Drawing.Point(17, 757);
+            this.dgvAllAppointmentTest.Location = new System.Drawing.Point(19, 712);
             this.dgvAllAppointmentTest.Name = "dgvAllAppointmentTest";
             this.dgvAllAppointmentTest.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -91,88 +91,6 @@
             this.dgvAllAppointmentTest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAllAppointmentTest.Size = new System.Drawing.Size(1024, 194);
             this.dgvAllAppointmentTest.TabIndex = 48;
-            // 
-            // btnAddAppointment
-            // 
-            this.btnAddAppointment.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.add_event_2;
-            this.btnAddAppointment.Location = new System.Drawing.Point(968, 679);
-            this.btnAddAppointment.Name = "btnAddAppointment";
-            this.btnAddAppointment.Size = new System.Drawing.Size(73, 72);
-            this.btnAddAppointment.TabIndex = 47;
-            this.btnAddAppointment.UseVisualStyleBackColor = true;
-            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(17, 717);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 25);
-            this.label3.TabIndex = 46;
-            this.label3.Text = "Appointment:";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(913, 966);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(133, 43);
-            this.btnClose.TabIndex = 45;
-            this.btnClose.Text = "Close";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // lblRecodes
-            // 
-            this.lblRecodes.AutoSize = true;
-            this.lblRecodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecodes.Location = new System.Drawing.Point(149, 967);
-            this.lblRecodes.Name = "lblRecodes";
-            this.lblRecodes.Size = new System.Drawing.Size(24, 25);
-            this.lblRecodes.TabIndex = 44;
-            this.lblRecodes.Text = "0";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 967);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 25);
-            this.label2.TabIndex = 43;
-            this.label2.Text = "#Recodes :";
-            // 
-            // ucDrivingLicenseApplicationInfo1
-            // 
-            this.ucDrivingLicenseApplicationInfo1.Location = new System.Drawing.Point(10, 253);
-            this.ucDrivingLicenseApplicationInfo1.Name = "ucDrivingLicenseApplicationInfo1";
-            this.ucDrivingLicenseApplicationInfo1.Size = new System.Drawing.Size(1031, 420);
-            this.ucDrivingLicenseApplicationInfo1.TabIndex = 42;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.exam_1;
-            this.pictureBox1.Location = new System.Drawing.Point(384, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(242, 198);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 41;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(279, 203);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(421, 37);
-            this.label1.TabIndex = 40;
-            this.label1.Text = "Written Test Appointments";
             // 
             // contextMenuStrip1
             // 
@@ -188,7 +106,7 @@
             // 
             this.tsmEdit.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.edit;
             this.tsmEdit.Name = "tsmEdit";
-            this.tsmEdit.Size = new System.Drawing.Size(204, 46);
+            this.tsmEdit.Size = new System.Drawing.Size(182, 46);
             this.tsmEdit.Text = "Edit";
             this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
@@ -196,15 +114,97 @@
             // 
             this.tsmTakeTest.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.test;
             this.tsmTakeTest.Name = "tsmTakeTest";
-            this.tsmTakeTest.Size = new System.Drawing.Size(204, 46);
+            this.tsmTakeTest.Size = new System.Drawing.Size(182, 46);
             this.tsmTakeTest.Text = "Take Test";
             this.tsmTakeTest.Click += new System.EventHandler(this.tsmTakeTest_Click);
             // 
-            // frmWrittenTestAppointments
+            // btnAddAppointment
+            // 
+            this.btnAddAppointment.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.add_event_2;
+            this.btnAddAppointment.Location = new System.Drawing.Point(970, 634);
+            this.btnAddAppointment.Name = "btnAddAppointment";
+            this.btnAddAppointment.Size = new System.Drawing.Size(73, 72);
+            this.btnAddAppointment.TabIndex = 47;
+            this.btnAddAppointment.UseVisualStyleBackColor = true;
+            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(19, 672);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(138, 25);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "Appointment:";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(915, 921);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(133, 43);
+            this.btnClose.TabIndex = 45;
+            this.btnClose.Text = "Close";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // lblRecodes
+            // 
+            this.lblRecodes.AutoSize = true;
+            this.lblRecodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecodes.Location = new System.Drawing.Point(151, 922);
+            this.lblRecodes.Name = "lblRecodes";
+            this.lblRecodes.Size = new System.Drawing.Size(24, 25);
+            this.lblRecodes.TabIndex = 44;
+            this.lblRecodes.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(14, 922);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 25);
+            this.label2.TabIndex = 43;
+            this.label2.Text = "#Recodes :";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.driving_test_2;
+            this.pictureBox1.Location = new System.Drawing.Point(444, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(160, 154);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 41;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.lblTitle.Location = new System.Drawing.Point(5, 176);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(1055, 37);
+            this.lblTitle.TabIndex = 40;
+            this.lblTitle.Text = "Street Test Appointment";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ucDrivingLicenseApplicationInfo1
+            // 
+            this.ucDrivingLicenseApplicationInfo1.Location = new System.Drawing.Point(12, 216);
+            this.ucDrivingLicenseApplicationInfo1.Name = "ucDrivingLicenseApplicationInfo1";
+            this.ucDrivingLicenseApplicationInfo1.Size = new System.Drawing.Size(1031, 420);
+            this.ucDrivingLicenseApplicationInfo1.TabIndex = 42;
+            // 
+            // frmListTestAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 1021);
+            this.ClientSize = new System.Drawing.Size(1060, 971);
             this.Controls.Add(this.dgvAllAppointmentTest);
             this.Controls.Add(this.btnAddAppointment);
             this.Controls.Add(this.label3);
@@ -213,15 +213,15 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ucDrivingLicenseApplicationInfo1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmWrittenTestAppointments";
+            this.Name = "frmListTestAppointment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Written Test Appointments";
-            this.Load += new System.EventHandler(this.frmWrittenTestAppointments_Load);
+            this.Text = "List Test Appointment";
+            this.Load += new System.EventHandler(this.frmListTestAppointment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllAppointmentTest)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,7 +237,7 @@
         private System.Windows.Forms.Label label2;
         private UserControls.ucDrivingLicenseApplicationInfo ucDrivingLicenseApplicationInfo1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmEdit;
         private System.Windows.Forms.ToolStripMenuItem tsmTakeTest;

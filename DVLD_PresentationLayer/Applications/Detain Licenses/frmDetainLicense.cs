@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,9 +17,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 {
     public partial class frmDetainLicense : Form
     {
-
-        public clsLicenses License = new clsLicenses();
-        public clsDetainedLicense DetainLicense = new clsDetainedLicense();
+        private int _SelectedLicenseID = -1;
+        private int _DetainID = -1;
 
         public frmDetainLicense()
         {
@@ -33,29 +33,81 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
         private void frmDetainLicense_Load(object sender, EventArgs e)
         {
 
-            _LoadData();
-            ucFilterDriverLicenseInfo1.DataFound += UcFilterDriverLicenseInfo1_DataFound;
+            lblDetainDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
+
         }
 
-        private void UcFilterDriverLicenseInfo1_DataFound(object sender, clsLicenses License)
+        private void llblShowLicenseHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (License.LicenseID == -1)
-            {
-                lblLicenseID.Text = "[????]";
+            int PersonID = ucFilterDriverLicenseInfo1.SelectedLicenseInfo.DriverInfo.PersonID;
 
-                llblShowLicenseInfo.Enabled = false;
-                llblShowLicenseHistory.Enabled = false;
+            frmLicenseHistory frmLicenseHistory = new frmLicenseHistory(PersonID);
+            frmLicenseHistory.ShowDialog();
+        }
+
+        private void llblShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(_SelectedLicenseID);
+            frmLicenseInfo.ShowDialog();
+        }
+
+        private void btnDetain_Click(object sender, EventArgs e)
+        {
+            if (!this.ValidateChildren())
+            {
+                //Here we dont continue becuase the form is not valid
+                MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the erro", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+            var Result = MessageBox.Show("Are you sure you want to Detain for the license?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (Result == DialogResult.No)
+                return;
+
+            _DetainID = ucFilterDriverLicenseInfo1.SelectedLicenseInfo.Detain(Convert.ToDecimal(txtFineFees.Text), clsGlobal.CurrentUser.UserID);
+
+
+            if (_DetainID != -1)
+            {
+                lblDetainID.Text = _DetainID.ToString();
+
+                MessageBox.Show($"License Detained Successfully with ID= {_DetainID}", "License Detained", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                btnDetain.Enabled = false;
+                ucFilterDriverLicenseInfo1.FilterEnabled = false;
+                txtFineFees.Enabled = false;
+                llblShowLicenseInfo.Enabled = true;
+
+            }
+            else
+            {
+                MessageBox.Show("Failed To Detain License", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
+
+        }
+
+        private void ucFilterDriverLicenseInfo1_OnLicenseSelected(int obj)
+        {
+            _SelectedLicenseID = obj;
+
+            lblLicenseID.Text = _SelectedLicenseID.ToString();
+            llblShowLicenseHistory.Enabled = (_SelectedLicenseID != -1);
+
+            if (_SelectedLicenseID == -1)
+            {
+                lblLicenseID.Text = "[No License Selected]";
+                btnDetain.Enabled = false;
                 return;
             }
 
-            this.License = License;
-            lblLicenseID.Text = License.LicenseID.ToString();
 
-
-            llblShowLicenseInfo.Enabled    = true;
-            llblShowLicenseHistory.Enabled = true;
-
-            if (!this.License.IsActive)
+            if (!ucFilterDriverLicenseInfo1.SelectedLicenseInfo.IsActive)
             {
                 btnDetain.Enabled = false;
 
@@ -64,84 +116,35 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
             }
 
-            if (clsDetainedLicense.IsDetainLicenseExistsByLicenseID(License.LicenseID))
-            { 
-            
-              
-              MessageBox.Show("Selected License already detained, choose another one.", "Not allowed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-              return;
-                
-            }
+            if (ucFilterDriverLicenseInfo1.SelectedLicenseInfo.IsDetained)
+            {
 
-
-            btnDetain.Enabled = true;
-
-        }
-
-        private void _LoadData()
-        {
-            lblDetainDate.Text = DateTime.Now.ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
-
-        }
-
-        private void llblShowLicenseHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            int PersonID = License.Application.ApplicantPersonID;
-
-            frmLicenseHistory frmLicenseHistory = new frmLicenseHistory(PersonID);
-            frmLicenseHistory.ShowDialog();
-        }
-
-        private void llblShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            int LicenseID = License.LicenseID;
-
-            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(LicenseID, false);
-            frmLicenseInfo.ShowDialog();
-        }
-
-        private void btnDetain_Click(object sender, EventArgs e)
-        {
-            DoDetainLicense();
-        }
-
-
-        private void DoDetainLicense()
-        {
-            var Result = MessageBox.Show("Are you sure you want to Detain for the license?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (Result == DialogResult.No)
+                btnDetain.Enabled = false;
+                MessageBox.Show("Selected License already detained, choose another one.", "Not allowed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
-            DetainLicense.LicenseID = License.LicenseID;
-            DetainLicense.FineFees = Convert.ToDecimal(txtFineFees.Text);
-            DetainLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
+            }
 
+            txtFineFees.Focus();
+            btnDetain.Enabled = true;
+        }
 
-            if (DetainLicense.Save())
+        private void txtFineFees_Validating(object sender, CancelEventArgs e)
+        {
+      
+            if (string.IsNullOrEmpty(txtFineFees.Text.Trim()))
             {
-                lblDetainID.Text = DetainLicense.DetainID.ToString();
-  
-                btnDetain.Enabled = false;
+                e.Cancel = true;
 
-                MessageBox.Show($"Licens Detained Successfully with ID= {DetainLicense.DetainID}", "License Detained", MessageBoxButtons.OK, MessageBoxIcon.Information);
-               
-                ucFilterDriverLicenseInfo1.DataFound -= UcFilterDriverLicenseInfo1_DataFound;
-                ucFilterDriverLicenseInfo1.LoadDataForUpdateMode(License.LicenseID);
-                
+                errorProvider1.SetError(txtFineFees, "This Field Is Required!");
+
             }
             else
             {
-                MessageBox.Show("Error : data is not saved successfully ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                
+                errorProvider1.SetError(txtFineFees, null);
 
             }
-
-
-
-
-
         }
 
         private void txtFineFees_KeyPress(object sender, KeyPressEventArgs e)
@@ -151,5 +154,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
                 e.Handled = true;
             }
         }
+
+
     }
 }

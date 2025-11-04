@@ -38,18 +38,18 @@
             this.lblRecodes = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvAllDetainedLicenses = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmShowPersonDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmShowLicenseDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmShowPersonLicenseHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmReleaseDetainedLicense = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.cbIsReleased = new System.Windows.Forms.ComboBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnReleaseDetainedLicense = new System.Windows.Forms.Button();
             this.btnDetainedLicense = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tsmShowPersonDetails = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmShowLicenseDetails = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmShowPersonLicenseHistory = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmReleaseDetainedLicense = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllDetainedLicenses)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -64,6 +64,7 @@
             this.txtFilterBy.TabIndex = 46;
             this.txtFilterBy.Visible = false;
             this.txtFilterBy.TextChanged += new System.EventHandler(this.txtFilterBy_TextChanged);
+            this.txtFilterBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterBy_KeyPress);
             // 
             // cbFilterBy
             // 
@@ -157,6 +158,57 @@
             this.dgvAllDetainedLicenses.Size = new System.Drawing.Size(1242, 335);
             this.dgvAllDetainedLicenses.TabIndex = 40;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmShowPersonDetails,
+            this.tsmShowLicenseDetails,
+            this.tsmShowPersonLicenseHistory,
+            this.toolStripSeparator1,
+            this.tsmReleaseDetainedLicense});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(348, 194);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // tsmShowPersonDetails
+            // 
+            this.tsmShowPersonDetails.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.project;
+            this.tsmShowPersonDetails.Name = "tsmShowPersonDetails";
+            this.tsmShowPersonDetails.Size = new System.Drawing.Size(347, 46);
+            this.tsmShowPersonDetails.Text = "Show Person Details";
+            this.tsmShowPersonDetails.Click += new System.EventHandler(this.tsmShowPersonDetails_Click);
+            // 
+            // tsmShowLicenseDetails
+            // 
+            this.tsmShowLicenseDetails.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.drivin__license;
+            this.tsmShowLicenseDetails.Name = "tsmShowLicenseDetails";
+            this.tsmShowLicenseDetails.Size = new System.Drawing.Size(347, 46);
+            this.tsmShowLicenseDetails.Text = "Show License Details";
+            this.tsmShowLicenseDetails.Click += new System.EventHandler(this.tsmShowLicenseDetails_Click);
+            // 
+            // tsmShowPersonLicenseHistory
+            // 
+            this.tsmShowPersonLicenseHistory.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.Person_License_History;
+            this.tsmShowPersonLicenseHistory.Name = "tsmShowPersonLicenseHistory";
+            this.tsmShowPersonLicenseHistory.Size = new System.Drawing.Size(347, 46);
+            this.tsmShowPersonLicenseHistory.Text = "Show Person License History";
+            this.tsmShowPersonLicenseHistory.Click += new System.EventHandler(this.tsmShowPersonLicenseHistory_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(344, 6);
+            // 
+            // tsmReleaseDetainedLicense
+            // 
+            this.tsmReleaseDetainedLicense.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.Release_Detained_License_2;
+            this.tsmReleaseDetainedLicense.Name = "tsmReleaseDetainedLicense";
+            this.tsmReleaseDetainedLicense.Size = new System.Drawing.Size(347, 46);
+            this.tsmReleaseDetainedLicense.Text = "Release Detained License";
+            this.tsmReleaseDetainedLicense.Click += new System.EventHandler(this.tsmReleaseDetainedLicense_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -182,25 +234,6 @@
             this.cbIsReleased.Size = new System.Drawing.Size(142, 28);
             this.cbIsReleased.TabIndex = 49;
             this.cbIsReleased.SelectedIndexChanged += new System.EventHandler(this.cbIsReleased_SelectedIndexChanged);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmShowPersonDetails,
-            this.tsmShowLicenseDetails,
-            this.tsmShowPersonLicenseHistory,
-            this.toolStripSeparator1,
-            this.tsmReleaseDetainedLicense});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(348, 216);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(344, 6);
             // 
             // btnReleaseDetainedLicense
             // 
@@ -245,38 +278,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 38;
             this.pictureBox1.TabStop = false;
-            // 
-            // tsmShowPersonDetails
-            // 
-            this.tsmShowPersonDetails.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.project;
-            this.tsmShowPersonDetails.Name = "tsmShowPersonDetails";
-            this.tsmShowPersonDetails.Size = new System.Drawing.Size(347, 46);
-            this.tsmShowPersonDetails.Text = "Show Person Details";
-            this.tsmShowPersonDetails.Click += new System.EventHandler(this.tsmShowPersonDetails_Click);
-            // 
-            // tsmShowLicenseDetails
-            // 
-            this.tsmShowLicenseDetails.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.drivin__license;
-            this.tsmShowLicenseDetails.Name = "tsmShowLicenseDetails";
-            this.tsmShowLicenseDetails.Size = new System.Drawing.Size(347, 46);
-            this.tsmShowLicenseDetails.Text = "Show License Details";
-            this.tsmShowLicenseDetails.Click += new System.EventHandler(this.tsmShowLicenseDetails_Click);
-            // 
-            // tsmShowPersonLicenseHistory
-            // 
-            this.tsmShowPersonLicenseHistory.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.Person_License_History;
-            this.tsmShowPersonLicenseHistory.Name = "tsmShowPersonLicenseHistory";
-            this.tsmShowPersonLicenseHistory.Size = new System.Drawing.Size(347, 46);
-            this.tsmShowPersonLicenseHistory.Text = "Show Person License History";
-            this.tsmShowPersonLicenseHistory.Click += new System.EventHandler(this.tsmShowPersonLicenseHistory_Click);
-            // 
-            // tsmReleaseDetainedLicense
-            // 
-            this.tsmReleaseDetainedLicense.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.Release_Detained_License_2;
-            this.tsmReleaseDetainedLicense.Name = "tsmReleaseDetainedLicense";
-            this.tsmReleaseDetainedLicense.Size = new System.Drawing.Size(347, 46);
-            this.tsmReleaseDetainedLicense.Text = "Release Detained License";
-            this.tsmReleaseDetainedLicense.Click += new System.EventHandler(this.tsmReleaseDetainedLicense_Click);
             // 
             // frmListDetainedLicenses
             // 

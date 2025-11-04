@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -313,6 +314,91 @@ namespace DVLD_DataAccessLayar
         }
 
 
+        public static bool ReleaseDetainedLicense(int DetainID, int ReleasedByUserID ,int ReleaseApplicationID)
+        {
+            int RowAffected = 0;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "UPDATE DetainedLicenses " +
+                           "SET IsReleased = 1 ,ReleaseDate = @ReleaseDate ,ReleasedByUserID = @ReleasedByUserID , ReleaseApplicationID = @ReleaseApplicationID  " +
+                           "WHERE DetainID = @DetainID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@DetainID", DetainID);
+            command.Parameters.AddWithValue("@ReleaseDate", DateTime.Now);
+            command.Parameters.AddWithValue("@ReleasedByUserID", ReleasedByUserID);
+            command.Parameters.AddWithValue("@ReleaseApplicationID", ReleaseApplicationID);
+            
+
+            try
+            {
+                connection.Open();
+
+                RowAffected = command.ExecuteNonQuery();
+
+
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (RowAffected > 0);
+
+
+        }
+
+        public static bool IsLicenseDetained(int LicenseID)
+        {
+            bool IsDetained = false;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = @"SELECT IsDetained = 1 
+                            FROM detainedLicenses 
+                            WHERE 
+                            LicenseID = @LicenseID 
+                            AND IsReleased = 0 ; ";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null)
+                {
+                    IsDetained = Convert.ToBoolean(result);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return IsDetained;
+            ;
+
+        }
+
+
+
+        //----------------------------
 
 
         public static bool IsDetainLicenseExists(int DetainID)
@@ -385,7 +471,7 @@ namespace DVLD_DataAccessLayar
         }
 
 
-
+       
 
 
 

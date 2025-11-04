@@ -16,6 +16,10 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
 {
     public partial class frmListDrivers : Form
     {
+
+        private DataTable _dtAllDrivers;
+
+
         public frmListDrivers()
         {
             InitializeComponent();
@@ -24,25 +28,36 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
 
         private void _RefreshDriversList()
         {
-            DataTable DriverDataTable = clsDriver.GetAllDriver_1();
-            dgvAllDrivers.DataSource = DriverDataTable;
+            _dtAllDrivers = clsDriver.GetAllDriver();
+            dgvAllDrivers.DataSource = _dtAllDrivers;
 
-            _AdjustSizeDGV();
+            _FormatDGV();
 
-            lblRecodes.Text = DriverDataTable.Rows.Count.ToString();
+            lblRecodes.Text = dgvAllDrivers.Rows.Count.ToString();
 
         }
 
-        private void _AdjustSizeDGV()
+        private void _FormatDGV()
         {
             if (dgvAllDrivers.Columns.Count <= 0)
                 return;
 
+            dgvAllDrivers.Columns[0].HeaderText = "Driver ID";
             dgvAllDrivers.Columns[0].Width = 30;
+
+            dgvAllDrivers.Columns[1].HeaderText = "Person ID";
             dgvAllDrivers.Columns[1].Width = 30;
+
+            dgvAllDrivers.Columns[2].HeaderText = "National No.";
             dgvAllDrivers.Columns[2].Width = 30;
+
+            dgvAllDrivers.Columns[3].HeaderText = "Full Name";
             dgvAllDrivers.Columns[3].Width = 80;
+
+            dgvAllDrivers.Columns[4].HeaderText = "Date";
             dgvAllDrivers.Columns[4].Width = 40;
+
+            dgvAllDrivers.Columns[5].HeaderText = "Active Licenses";
             dgvAllDrivers.Columns[5].Width = 250;
             
 
@@ -59,21 +74,15 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
             this.Close();
         }
 
-        public enum enFilterBy { None, DriverID, PersonID, NationalNo, FullName }
-        
-        private enFilterBy _enFilterBy = enFilterBy.None;
-
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enFilterBy = (enFilterBy)cbFilterBy.SelectedIndex;
 
             if (txtFilterBy.Text != "")
                 txtFilterBy.Text = string.Empty;
 
-            if (_enFilterBy == enFilterBy.None)
+            if (cbFilterBy.Text == "None")
             {
                 txtFilterBy.Visible = false;
-
                 _RefreshDriversList();
             }
             else
@@ -82,103 +91,42 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
                 txtFilterBy.Focus();
             }
 
+
         }
 
         private void txtFilterBy_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = clsDriver.GetAllDriver_1();
-            DataRow[] ResultRows = new DataRow[0];
+           
+            string FilterColumn = cbFilterBy.Text;
 
-            if (txtFilterBy.Text != "")
+            if (txtFilterBy.Text.Trim() == "" || FilterColumn == "None")
             {
-                switch (_enFilterBy)
-                {
-                    case enFilterBy.DriverID:
-                        {
-                            FilterBy(dt, ResultRows, $"[DriverID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.PersonID:
-                        {
-                            FilterBy(dt, ResultRows, $"[PersonID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.NationalNo:
-                        {
-
-                            FilterBy(dt, ResultRows, $"[NationalNo] = '{txtFilterBy.Text}' ");
-
-                            break;
-                        }
-                    case enFilterBy.FullName:
-                        {
-                            FilterBy(dt, "FullName");
-
-                            break;
-                        }
-
-                }
-
-
-
+                _dtAllDrivers.DefaultView.RowFilter = "";
+                lblRecodes.Text = dgvAllDrivers.Rows.Count.ToString();
+                return;
             }
 
-        }
-
-
-        private void FilterBy(DataTable DataTable, DataRow[] ResultRows, string Select)
-        {
-
-            ResultRows = DataTable.Select(Select);
-
-            if (ResultRows.Length > 0)
-            {
-                dgvAllDrivers.DataSource = ResultRows.CopyToDataTable();
-                _AdjustSizeDGV();
-                lblRecodes.Text = ResultRows.Count().ToString();
-
-            }
+            if (FilterColumn == "DriverID" || FilterColumn == "PersonID")
+                _dtAllDrivers.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, txtFilterBy.Text.Trim()); //[FilterColumn] = txtFilterBy.Text
             else
-            {
-                dgvAllDrivers.DataSource = null;
+                _dtAllDrivers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterBy.Text.Trim());
+            //[FilterColumn] LIKE 'txtFilterBy.Text%'
 
-                lblRecodes.Text = "0";
-            }
+            lblRecodes.Text = dgvAllDrivers.Rows.Count.ToString();
 
 
         }
 
-
-        private void FilterBy(DataTable DataTable, string ColumnName)
+        private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DataTable filteredTable = DataTable.Clone();
-
-            foreach (DataRow row in DataTable.Rows)
+            if (cbFilterBy.Text == "Driver ID" || cbFilterBy.Text == "Person ID")
             {
-                string value = row[ColumnName].ToString();
-
-                if (value.ToUpper().Contains(txtFilterBy.Text.ToUpper()))
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
-                    filteredTable.ImportRow(row);
-
-                    //break;
-                }
-                else
-                {
-                    dgvAllDrivers.DataSource = null;
-
-                    lblRecodes.Text = "0";
+                    e.Handled = true;
                 }
 
             }
-
-
-            dgvAllDrivers.DataSource = filteredTable;
-            _AdjustSizeDGV();
-            lblRecodes.Text = filteredTable.Rows.Count.ToString();
-
 
         }
 
@@ -205,6 +153,6 @@ namespace Driving___Vehicle_License_Department__DVLD_.Manage_Drivers
             LicenseHistory.ShowDialog();
         }
 
-       
+        
     }
 }

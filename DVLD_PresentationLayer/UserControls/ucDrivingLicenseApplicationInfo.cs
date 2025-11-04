@@ -16,68 +16,87 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 {
     public partial class ucDrivingLicenseApplicationInfo : UserControl
     {
-        public clsLocalDrivingLicenseApplication LocalLDApplication = new clsLocalDrivingLicenseApplication();
-        public clsPerson Person = new clsPerson();
-        public clsApplicationType ApplicationType = new clsApplicationType();
-        public clsApplication Application = new clsApplication();
+        private int _LocalDLApplicationID = -1;
+        private clsLocalDrivingLicenseApplication _LocalDLApplication = new clsLocalDrivingLicenseApplication();
 
+        private int _LicenseID;
 
+        public int LocalLDApplicationID
+        { 
+           get { return _LocalDLApplicationID; }
+        }
+
+        public clsLocalDrivingLicenseApplication SelectedLocalDLApplicationInfo
+        {
+           get { return _LocalDLApplication; }
+        }
 
         public ucDrivingLicenseApplicationInfo()
         {
             InitializeComponent();
         }
 
-        public void RefreshUcDrivingLicenseApplicationInfo(int LDLAppID)
+        public void LoadApplicationInfoByLocalDLAppID(int LocalDLAppID)
         {
-            LocalLDApplication = clsLocalDrivingLicenseApplication.Find(LDLAppID);
+            _LocalDLApplication = clsLocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(LocalDLAppID);
 
-            if (LocalLDApplication == null)
+            if (_LocalDLApplication == null)
             {
-                DefaultUcDrivingLicenseApplicationInfo();
+                ResetDefaultApplicationInfo();
+                MessageBox.Show($"No Application With [ Local_Driving_License_ApplicationID ] ={LocalDLAppID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-                
 
-            Application = LocalLDApplication.Application;
-
-            ApplicationType = Application.ApplicationType;
-
-            Person = Application.Person;
+            _FillApplicationInfo();
+        }
 
 
-            string LicenseClass = clsLicenseClass.Find(LocalLDApplication.LicenseClassID).ClassName;
+        public void LoadApplicationInfoApplicationID(int ApplicationID)
+        {
+            _LocalDLApplication = clsLocalDrivingLicenseApplication.FindByApplicationID(ApplicationID);
 
-            int PassedTests = clsLocalDrivingLicenseApplication.GetPassedTest(LDLAppID);
+            if (_LocalDLApplication == null)
+            {
+                ResetDefaultApplicationInfo();
+                MessageBox.Show($"No Application With [ ApplicationID ] ={ApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            int Status = Application.ApplicationStatus;
-
-            lblDLAppID.Text           = LDLAppID.ToString();
-            lblAppliedForLicense.Text = LicenseClass;
-            lblPassedTests.Text       = $"{PassedTests}/3";
-
-            lblID.Text                = LocalLDApplication.ApplicationID.ToString();
-            lblStatus.Text            = (Status == 1) ? "New": (Status == 2) ? "Cancelled" : "Completed";
-            lblType.Text              = ApplicationType.ApplicationTypeTitle;
-
-            lblApplicant.Text  = (Person.ThirdName == "") ?
-                $"{Person.FirstName} {Person.SecondName} {Person.LastName}" :
-                $"{Person.FirstName} {Person.SecondName} {Person.ThirdName} {Person.LastName}";
-
-            lblFees.Text              = ((int)ApplicationType.ApplicationFees).ToString();
-
-            lblDate.Text              = Application.ApplicationDate.ToString("dd/MMM/yyyy");
-            lblStatusDate.Text        = Application.LastStatusDate.ToString("dd/MMM/yyyy");
-            lblCreatedBy.Text         = clsGlobal.CurrentUser.UserName;
+            _FillApplicationInfo();
+        }
 
 
-            llblShowLicenseInfo.Enabled = (PassedTests == 3) && (Status == 3);
+        private void _FillApplicationInfo()
+        {
+            _LicenseID = _LocalDLApplication.GetActiveLicenseID();
+
+            int PassedTests = _LocalDLApplication.GetPassedTestCount();
+
+            lblDLAppID.Text = _LocalDLApplication.LocalDrivingLicenseApplicationID.ToString();
+            lblAppliedForLicense.Text = _LocalDLApplication.LicenseClassInfo.ClassName;
+            lblPassedTests.Text = $"{PassedTests}/3";
+
+            lblID.Text = _LocalDLApplication.ApplicationID.ToString();
+            lblStatus.Text = _LocalDLApplication.StatusText;
+
+            lblType.Text = _LocalDLApplication.ApplicationTypeInfo.ApplicationTypeTitle;
+            lblApplicant.Text = _LocalDLApplication.PersonFullName;
+            lblFees.Text = _LocalDLApplication.ApplicationTypeInfo.ApplicationFees.ToString("00");
+            lblDate.Text = _LocalDLApplication.ApplicationDate.ToString("dd/MMM/yyyy");
+            lblStatusDate.Text = _LocalDLApplication.LastStatusDate.ToString("dd/MMM/yyyy");
+            lblCreatedBy.Text = clsGlobal.CurrentUser.UserName;
+
+
+            llblShowLicenseInfo.Enabled = (PassedTests == 3) && (lblStatus.Text == "Completed");
+
+            llblShowLicenseInfo.Enabled = (_LicenseID != -1);
 
 
         }
 
 
-        private void DefaultUcDrivingLicenseApplicationInfo()
+
+        private void ResetDefaultApplicationInfo()
         {
             lblDLAppID.Text           = "[????]";
             lblAppliedForLicense.Text = "[????]";
@@ -87,9 +106,9 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             lblStatus.Text            = "[????]";
             lblType.Text              = "[????]";
             lblApplicant.Text         = "[????]";
-            lblFees.Text              = "[????]";
+            lblFees.Text              = "[$$$$]";
                                        
-            lblDate.Text              = "[????]";
+            lblDate.Text              = "[????/??/??]";
             lblStatusDate.Text        = "[????]";
             lblCreatedBy.Text         = "[????]";
 
@@ -97,32 +116,23 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
         }
 
 
-       
-
-        private void ucDrivingLicenseApplicationInfo_Load(object sender, EventArgs e)
-        {
-            _LoadData();
-        }
-
-        private void _LoadData()
-        {
-
-            RefreshUcDrivingLicenseApplicationInfo(LocalLDApplication.LocalDrivingLicenseApplicationID);
-
-        }
 
         private void llblViewPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(Application.ApplicantPersonID);
+            frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(_LocalDLApplication.ApplicantPersonID);
             frmShowDetailsPerson.ShowDialog();
 
-            RefreshUcDrivingLicenseApplicationInfo(LocalLDApplication.LocalDrivingLicenseApplicationID);
+            LoadApplicationInfoByLocalDLAppID(_LocalDLApplication.LocalDrivingLicenseApplicationID);
         }
 
         private void llblShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            int ID = LocalLDApplication.LocalDrivingLicenseApplicationID;
-            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(ID);
+            
+            int ApplicationID = _LocalDLApplication.ApplicationID;
+
+            int LicenseID = clsLicense.FindByApplicationID(ApplicationID).LicenseID;
+
+            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(LicenseID);
             frmLicenseInfo.ShowDialog();
         }
 

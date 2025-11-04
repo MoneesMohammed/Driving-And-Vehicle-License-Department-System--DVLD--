@@ -25,7 +25,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
 
         private void frmInternationalDriverInfo_Load(object sender, EventArgs e)
         {
-            ucDriverInternationalLicenseInfo1.RefreshUCDriverInternationalLicenseInfo(_Int_LicenseID);
+            ucDriverInternationalLicenseInfo1.LoadInfo(_Int_LicenseID);
 
 
         }

@@ -16,6 +16,9 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 {
     public partial class frmListInternationalLicensingApplications : Form
     {
+
+        private DataTable _dtInternationalDLicense;
+
         public frmListInternationalLicensingApplications()
         {
             InitializeComponent();
@@ -24,16 +27,16 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void _RefreshInternationalDrivingLicenseApplicationsList()
         {
-            DataTable InternationalDLicenseDataTable = clsInternationalLicense.GetAllInternationalLicenses_1();
-            dgvAllIntDLicenses.DataSource = InternationalDLicenseDataTable;
+            _dtInternationalDLicense = clsInternationalLicense.GetAllInternationalLicenses();
+            dgvAllIntDLicenses.DataSource = _dtInternationalDLicense;
 
-            _AdjustSizeDGV();
+            _FormatDGV();
 
-            lblRecodes.Text = InternationalDLicenseDataTable.Rows.Count.ToString();
+            lblRecodes.Text = dgvAllIntDLicenses.Rows.Count.ToString();
 
         }
 
-        private void _AdjustSizeDGV()
+        private void _FormatDGV()
         {
             if (dgvAllIntDLicenses.Columns.Count <= 0)
                 return;
@@ -52,8 +55,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         private void frmListInternationalLicensingApplications_Load(object sender, EventArgs e)
         {
 
-            _RefreshInternationalDrivingLicenseApplicationsList();
             cbFilterBy.SelectedIndex = 0;
+            _RefreshInternationalDrivingLicenseApplicationsList();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -69,29 +72,18 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
             _RefreshInternationalDrivingLicenseApplicationsList();
         }
 
-        public enum enIsActive { All, Yes, No }
-        private enIsActive _enIsActive = enIsActive.All;
-
-
-        public enum enFilterBy { None, IntDLAppID, ApplicationID, LicenseID, DriverID , IsActive }
-
-        private enFilterBy _enFilterBy = enFilterBy.None;
-
-
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enFilterBy = (enFilterBy)cbFilterBy.SelectedIndex;
-
             if (txtFilterBy.Text != "")
                 txtFilterBy.Text = string.Empty;
 
-            if (_enFilterBy == enFilterBy.None)
+            if (cbFilterBy.Text == "None")
             {
                 txtFilterBy.Visible = false;
                 cbIsActive.Visible = false;
                 _RefreshInternationalDrivingLicenseApplicationsList();
             }
-            else if (_enFilterBy == enFilterBy.IsActive)
+            else if (cbFilterBy.Text == "Is Active")
             {
                 cbIsActive.SelectedIndex = 0;
 
@@ -108,121 +100,49 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void cbIsActive_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enIsActive = (enIsActive)cbIsActive.SelectedIndex;
-
-            DataTable dt = clsInternationalLicense.GetAllInternationalLicenses_1();
-            DataRow[] ResultRows = new DataRow[0];
-
-            if (_enIsActive == enIsActive.Yes)
-            {
-                FilterBy(dt, ResultRows, "[Is Active] = 1");
-            }
-            else if (_enIsActive == enIsActive.No)
-            {
-                FilterBy(dt, ResultRows, "[Is Active] = 0");
-            }
-            else
+            if (cbIsActive.Text == "All")
             {
                 _RefreshInternationalDrivingLicenseApplicationsList();
+                return;
             }
+
+            string FilterColumn = (cbIsActive.Text == "Yes") ? "1" : "0";
+
+            _dtInternationalDLicense.DefaultView.RowFilter = string.Format($"[Is Active] = {FilterColumn}");
+
+            lblRecodes.Text = dgvAllIntDLicenses.Rows.Count.ToString();
         }
 
         private void txtFilterBy_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = clsInternationalLicense.GetAllInternationalLicenses_1();
-            DataRow[] ResultRows = new DataRow[0];
+            string FilterColumn = cbFilterBy.Text;
 
-            if (txtFilterBy.Text != "")
+            if (txtFilterBy.Text.Trim() == "" || FilterColumn == "None")
             {
-                switch (_enFilterBy)
-                {
-                    case enFilterBy.IntDLAppID:
-                        {
-                            FilterBy(dt, ResultRows, $"[Int.License ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.ApplicationID:
-                        {
-
-                            FilterBy(dt, ResultRows, $"[Application ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.LicenseID:
-                        {
-                            FilterBy(dt, ResultRows, $"[L.License ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.DriverID:
-                        {
-                            FilterBy(dt, ResultRows, $"[Driver ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                }
-            }
-        }
-
-        private void FilterBy(DataTable DataTable, DataRow[] ResultRows, string Select)
-        {
-
-            ResultRows = DataTable.Select(Select);
-
-            if (ResultRows.Length > 0)
-            {
-                dgvAllIntDLicenses.DataSource = ResultRows.CopyToDataTable();
-                _AdjustSizeDGV();
-                lblRecodes.Text = ResultRows.Count().ToString();
-
-            }
-            else
-            {
-                dgvAllIntDLicenses.DataSource = null;
-
-                lblRecodes.Text = "0";
+                _dtInternationalDLicense.DefaultView.RowFilter = "";
+                lblRecodes.Text = dgvAllIntDLicenses.Rows.Count.ToString();
+                return;
             }
 
+           _dtInternationalDLicense.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, txtFilterBy.Text.Trim()); //[FilterColumn] = txtFilterBy.Text
+           
+           lblRecodes.Text = dgvAllIntDLicenses.Rows.Count.ToString();
 
         }
 
-
-        private void FilterBy(DataTable DataTable, string ColumnName)
+        private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DataTable filteredTable = DataTable.Clone();
-
-            foreach (DataRow row in DataTable.Rows)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                string value = row[ColumnName].ToString();
-
-                if (value.ToUpper().Contains(txtFilterBy.Text.ToUpper()))
-                {
-                    filteredTable.ImportRow(row);
-
-                    break;
-                }
-                else
-                {
-                    dgvAllIntDLicenses.DataSource = null;
-
-                    lblRecodes.Text = "0";
-                }
-
+                e.Handled = true;
             }
-
-
-            dgvAllIntDLicenses.DataSource = filteredTable;
-            _AdjustSizeDGV();
-            lblRecodes.Text = filteredTable.Rows.Count.ToString();
-
 
         }
 
         private void tsmShowPersonDetails_Click(object sender, EventArgs e)
         {
             int ID = (int)dgvAllIntDLicenses.CurrentRow.Cells[0].Value;
-            int PersonID = clsInternationalLicense.Find(ID).Application.ApplicantPersonID;
+            int PersonID = clsInternationalLicense.Find(ID).ApplicantPersonID;
 
             frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(PersonID);
             frmShowDetailsPerson.ShowDialog();
@@ -242,13 +162,15 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
         {
             int ID = (int)dgvAllIntDLicenses.CurrentRow.Cells[0].Value;
 
-            int PersonID = clsInternationalLicense.Find(ID).Application.ApplicantPersonID;
+            int PersonID = clsInternationalLicense.Find(ID).ApplicantPersonID;
 
             frmLicenseHistory LicenseHistory = new frmLicenseHistory(PersonID);
             LicenseHistory.ShowDialog();
 
 
         }
+
+        
     }
 
 

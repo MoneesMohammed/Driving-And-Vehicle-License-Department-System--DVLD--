@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,15 +13,13 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 {
     public partial class frmLicenseInfo : Form
     {
-        int ID;
-        bool IsLDLAppID;
-
-        public frmLicenseInfo(int ID , bool IsLDLAppID = true)
+        private int _LicenseID = -1;
+       
+        public frmLicenseInfo(int LicenseID)
         {
             InitializeComponent();
-            this.ID = ID;
-            this.IsLDLAppID = IsLDLAppID;
-
+            this._LicenseID = LicenseID;
+            
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -30,10 +29,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void frmLicenseInfo_Load(object sender, EventArgs e)
         {
-            if(IsLDLAppID)
-              ucDriverLicenseInfo1.RefreshUCDriverLicenseInfo(ID);
-            else
-             ucDriverLicenseInfo1.RefreshUCDriverLicenseInfoByLicenseID(ID);
+           ucDriverLicenseInfo1.LoadInfo(_LicenseID);
 
         }
     }

@@ -78,7 +78,14 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             
         }
 
+
+        public void FilterFocus()
+        {
+            txtFindBy.Focus();
         
+        }
+
+
 
         public void LoadPersonInfo(int PersonID)
         {

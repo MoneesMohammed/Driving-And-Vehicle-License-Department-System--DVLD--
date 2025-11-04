@@ -13,7 +13,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
     public partial class frmManagePeople : Form
     {
 
-        private DataTable _dtPeople = clsPerson.GetAllPeople_1();
+        private DataTable _dtPeople ;
 
         public frmManagePeople()
         {

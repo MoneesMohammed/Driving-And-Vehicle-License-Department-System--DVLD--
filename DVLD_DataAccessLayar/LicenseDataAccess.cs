@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLD_DataAccessLayar
 {
@@ -262,6 +263,136 @@ namespace DVLD_DataAccessLayar
 
         }
 
+        public static DataTable GetDriverLicenses(int DriverID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT        Licenses.LicenseID , ApplicationID , LicenseClasses.ClassName , Licenses.IssueDate , Licenses.ExpirationDate , Licenses.IsActive  " +
+                           "FROM          Licenses INNER JOIN Drivers ON Licenses.DriverID = Drivers.DriverID INNER JOIN  " +
+                           "              LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID  " +
+                           "WHERE Drivers.DriverID = @DriverID  " +
+                           "ORDER BY IsActive DESC , ExpirationDate DESC; ";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@DriverID", DriverID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+
+                    dt.Load(reader);
+
+                }
+
+                reader.Close();
+            }
+            catch
+            {
+
+
+
+            }
+            finally
+            {
+                connection.Close();
+
+
+            }
+
+
+            return dt;
+
+        }
+
+        public static int GetActiveLicenseIDByPersonID(int PersonID, int LicenseClassID)
+        {
+            int LicenseID = -1;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = @"SELECT        Licenses.LicenseID
+                            FROM Licenses INNER JOIN
+                                                     Drivers ON Licenses.DriverID = Drivers.DriverID
+                            WHERE  
+                             
+                             Licenses.LicenseClass = @LicenseClass 
+                              AND Drivers.PersonID = @PersonID
+                              And IsActive=1;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@LicenseClass", LicenseClassID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                {
+                    LicenseID = insertedID;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return LicenseID;
+        }
+
+
+        public static bool DeactiveLicense(int LicenseID)
+        {
+            int RowAffected = 0;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "UPDATE Licenses SET IsActive = 0 " +
+                           "WHERE LicenseID = @LicenseID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
+
+
+            try
+            {
+                connection.Open();
+
+                RowAffected = command.ExecuteNonQuery();
+
+
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (RowAffected > 0);
+
+        }
+
+
+
+        //--------------------
 
         public static int CountIssueReason(int DriverID, int LicenseClass)
         {
@@ -346,6 +477,42 @@ namespace DVLD_DataAccessLayar
 
         }
 
+        public static bool IsLicenseExistsByPersonID(int PersonID, int LicenseClassID)
+        {
+            bool isFound = false;
 
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT  Found = 1 " +
+                           "FROM    Licenses INNER JOIN Drivers ON Licenses.DriverID = Drivers.DriverID " +
+                           "WHERE   Drivers.PersonID = @PersonID And Licenses.LicenseClass = @LicenseClassID; ";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+
+                reader.Close();
+            }
+            catch //(Exception ex)
+            {
+                //Console.WriteLine("Error : " + ex.Message);
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+
+            }
+
+            return isFound;
+
+        }
+
+        
     }
 }

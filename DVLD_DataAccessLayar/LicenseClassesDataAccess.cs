@@ -105,7 +105,6 @@ namespace DVLD_DataAccessLayar
         }
 
 
-
         public static DataTable GetAllLicenseClasses()
         {
             DataTable dt = new DataTable();
@@ -146,6 +145,98 @@ namespace DVLD_DataAccessLayar
             return dt;
 
         }
+
+
+        public static int AddNewLicenseClass(string ClassName, string ClassDescription, byte MinimumAllowedAge, byte DefaultValidityLength, decimal ClassFees)
+        {
+            int ID = -1;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "INSERT INTO LicenseClasses VALUES (@ClassName, @ClassDescription, @MinimumAllowedAge ,@DefaultValidityLength ,@ClassFees );" +
+                           "SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+
+            command.Parameters.AddWithValue("@ClassName", ClassName );
+            command.Parameters.AddWithValue("@ClassDescription", ClassDescription);
+            command.Parameters.AddWithValue("@MinimumAllowedAge", MinimumAllowedAge);
+            command.Parameters.AddWithValue("@DefaultValidityLength", DefaultValidityLength);
+            command.Parameters.AddWithValue("@ClassFees", ClassFees);
+
+
+            try
+            {
+                connection.Open();
+                object Result = command.ExecuteScalar();
+
+                if (Result != null && int.TryParse(Result.ToString(), out int insertedID))
+                {
+                    ID = insertedID;
+                }
+
+            }
+            catch
+            {
+                ID = -1;
+
+            }
+            finally
+            {
+
+                connection.Close();
+            }
+
+            return ID;
+        }
+
+        public static bool UpdateLicenseClass(int LicenseClassID,string ClassName, string ClassDescription, byte MinimumAllowedAge, byte DefaultValidityLength, decimal ClassFees)
+        {
+            int RowAffected = 0;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "UPDATE LicenseClasses SET ClassName = @ClassName , ClassDescription = @ClassDescription , MinimumAllowedAge = @MinimumAllowedAge , DefaultValidityLength = @DefaultValidityLength , ClassFees = @ClassFees " +
+                           "WHERE LicenseClassID = @LicenseClassID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
+            command.Parameters.AddWithValue("@ClassName", ClassName);
+            command.Parameters.AddWithValue("@ClassDescription", ClassDescription);
+            command.Parameters.AddWithValue("@MinimumAllowedAge", MinimumAllowedAge);
+            command.Parameters.AddWithValue("@DefaultValidityLength", DefaultValidityLength);
+            command.Parameters.AddWithValue("@ClassFees", ClassFees);
+
+
+            try
+            {
+                connection.Open();
+
+                RowAffected = command.ExecuteNonQuery();
+
+
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (RowAffected > 0);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

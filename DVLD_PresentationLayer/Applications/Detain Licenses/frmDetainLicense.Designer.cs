@@ -28,37 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDetainLicense));
             this.label1 = new System.Windows.Forms.Label();
             this.gbDetainInfo = new System.Windows.Forms.GroupBox();
             this.txtFineFees = new System.Windows.Forms.TextBox();
             this.lblCreatedBy = new System.Windows.Forms.Label();
             this.lblLicenseID = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.lblDetainDate = new System.Windows.Forms.Label();
             this.lblDetainID = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.llblShowLicenseInfo = new System.Windows.Forms.LinkLabel();
             this.llblShowLicenseHistory = new System.Windows.Forms.LinkLabel();
             this.btnDetain = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.ucFilterDriverLicenseInfo1 = new Driving___Vehicle_License_Department__DVLD_.UserControls.ucFilterDriverLicenseInfo();
             this.gbDetainInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkRed;
-            this.label1.Location = new System.Drawing.Point(434, 9);
+            this.label1.Location = new System.Drawing.Point(2, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(241, 37);
+            this.label1.Size = new System.Drawing.Size(1094, 37);
             this.label1.TabIndex = 0;
             this.label1.Text = "Detain License";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gbDetainInfo
             // 
@@ -86,8 +89,8 @@
             this.txtFineFees.Name = "txtFineFees";
             this.txtFineFees.Size = new System.Drawing.Size(151, 26);
             this.txtFineFees.TabIndex = 28;
-            this.txtFineFees.Text = "1";
             this.txtFineFees.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFineFees_KeyPress);
+            this.txtFineFees.Validating += new System.ComponentModel.CancelEventHandler(this.txtFineFees_Validating);
             // 
             // lblCreatedBy
             // 
@@ -105,9 +108,33 @@
             this.lblLicenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLicenseID.Location = new System.Drawing.Point(798, 41);
             this.lblLicenseID.Name = "lblLicenseID";
-            this.lblLicenseID.Size = new System.Drawing.Size(72, 25);
+            this.lblLicenseID.Size = new System.Drawing.Size(222, 25);
             this.lblLicenseID.TabIndex = 26;
-            this.lblLicenseID.Text = "[????]";
+            this.lblLicenseID.Text = "[No License Selected]";
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Image = ((System.Drawing.Image)(resources.GetObject("label10.Image")));
+            this.label10.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label10.Location = new System.Drawing.Point(498, 90);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(284, 25);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Created By:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Image = ((System.Drawing.Image)(resources.GetObject("label12.Image")));
+            this.label12.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label12.Location = new System.Drawing.Point(498, 41);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(284, 25);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "License ID:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblDetainDate
             // 
@@ -128,6 +155,42 @@
             this.lblDetainID.Size = new System.Drawing.Size(72, 25);
             this.lblDetainID.TabIndex = 19;
             this.lblDetainID.Text = "[????]";
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Image = ((System.Drawing.Image)(resources.GetObject("label5.Image")));
+            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.Location = new System.Drawing.Point(29, 139);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(214, 25);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Fine Fees:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label3.Location = new System.Drawing.Point(29, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(214, 25);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Detain Date:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Image = ((System.Drawing.Image)(resources.GetObject("label2.Image")));
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.Location = new System.Drawing.Point(29, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(214, 25);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Detain ID:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // llblShowLicenseInfo
             // 
@@ -184,72 +247,19 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // label10
+            // errorProvider1
             // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Image = ((System.Drawing.Image)(resources.GetObject("label10.Image")));
-            this.label10.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label10.Location = new System.Drawing.Point(498, 90);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(284, 25);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Created By:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Image = ((System.Drawing.Image)(resources.GetObject("label12.Image")));
-            this.label12.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label12.Location = new System.Drawing.Point(498, 41);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(284, 25);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "License ID:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Image = ((System.Drawing.Image)(resources.GetObject("label5.Image")));
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.Location = new System.Drawing.Point(29, 139);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(214, 25);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Fine Fees:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label3.Location = new System.Drawing.Point(29, 90);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(214, 25);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Detain Date:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Image = ((System.Drawing.Image)(resources.GetObject("label2.Image")));
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Location = new System.Drawing.Point(29, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(214, 25);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Detain ID:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.errorProvider1.ContainerControl = this;
             // 
             // ucFilterDriverLicenseInfo1
             // 
+            this.ucFilterDriverLicenseInfo1.FilterEnabled = true;
             this.ucFilterDriverLicenseInfo1.Location = new System.Drawing.Point(2, 49);
             this.ucFilterDriverLicenseInfo1.Name = "ucFilterDriverLicenseInfo1";
+            this.ucFilterDriverLicenseInfo1.ShowAddLicense = true;
             this.ucFilterDriverLicenseInfo1.Size = new System.Drawing.Size(1094, 593);
             this.ucFilterDriverLicenseInfo1.TabIndex = 1;
+            this.ucFilterDriverLicenseInfo1.OnLicenseSelected += new System.Action<int>(this.ucFilterDriverLicenseInfo1_OnLicenseSelected);
             // 
             // frmDetainLicense
             // 
@@ -270,6 +280,7 @@
             this.Load += new System.EventHandler(this.frmDetainLicense_Load);
             this.gbDetainInfo.ResumeLayout(false);
             this.gbDetainInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,5 +305,6 @@
         private System.Windows.Forms.Button btnDetain;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TextBox txtFineFees;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

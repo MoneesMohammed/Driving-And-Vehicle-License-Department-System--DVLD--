@@ -33,23 +33,23 @@
             this.llblShowLicenseInfo = new System.Windows.Forms.LinkLabel();
             this.llblShowLicenseHistory = new System.Windows.Forms.LinkLabel();
             this.gbDetainInfo = new System.Windows.Forms.GroupBox();
-            this.lblCreatedBy = new System.Windows.Forms.Label();
-            this.lblLicenseID = new System.Windows.Forms.Label();
-            this.lblDetainDate = new System.Windows.Forms.Label();
-            this.lblDetainID = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblApplicationFees = new System.Windows.Forms.Label();
-            this.lblTotalFees = new System.Windows.Forms.Label();
-            this.lblFineFees = new System.Windows.Forms.Label();
             this.lblApplicationID = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.lblFineFees = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.lblTotalFees = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblApplicationFees = new System.Windows.Forms.Label();
+            this.lblCreatedBy = new System.Windows.Forms.Label();
+            this.lblLicenseID = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.lblDetainDate = new System.Windows.Forms.Label();
+            this.lblDetainID = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnRelease = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.gbDetainInfo.SuspendLayout();
@@ -57,10 +57,13 @@
             // 
             // ucFilterDriverLicenseInfo1
             // 
+            this.ucFilterDriverLicenseInfo1.FilterEnabled = true;
             this.ucFilterDriverLicenseInfo1.Location = new System.Drawing.Point(0, 74);
             this.ucFilterDriverLicenseInfo1.Name = "ucFilterDriverLicenseInfo1";
+            this.ucFilterDriverLicenseInfo1.ShowAddLicense = true;
             this.ucFilterDriverLicenseInfo1.Size = new System.Drawing.Size(1081, 593);
             this.ucFilterDriverLicenseInfo1.TabIndex = 0;
+            this.ucFilterDriverLicenseInfo1.OnLicenseSelected += new System.Action<int>(this.ucFilterDriverLicenseInfo1_OnLicenseSelected);
             // 
             // llblShowLicenseInfo
             // 
@@ -114,87 +117,6 @@
             this.gbDetainInfo.TabStop = false;
             this.gbDetainInfo.Text = "Detain Info";
             // 
-            // lblCreatedBy
-            // 
-            this.lblCreatedBy.AutoSize = true;
-            this.lblCreatedBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreatedBy.Location = new System.Drawing.Point(798, 90);
-            this.lblCreatedBy.Name = "lblCreatedBy";
-            this.lblCreatedBy.Size = new System.Drawing.Size(72, 25);
-            this.lblCreatedBy.TabIndex = 27;
-            this.lblCreatedBy.Text = "[????]";
-            // 
-            // lblLicenseID
-            // 
-            this.lblLicenseID.AutoSize = true;
-            this.lblLicenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLicenseID.Location = new System.Drawing.Point(798, 41);
-            this.lblLicenseID.Name = "lblLicenseID";
-            this.lblLicenseID.Size = new System.Drawing.Size(72, 25);
-            this.lblLicenseID.TabIndex = 26;
-            this.lblLicenseID.Text = "[????]";
-            // 
-            // lblDetainDate
-            // 
-            this.lblDetainDate.AutoSize = true;
-            this.lblDetainDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetainDate.Location = new System.Drawing.Point(265, 90);
-            this.lblDetainDate.Name = "lblDetainDate";
-            this.lblDetainDate.Size = new System.Drawing.Size(144, 25);
-            this.lblDetainDate.TabIndex = 20;
-            this.lblDetainDate.Text = "[??/???/????]";
-            // 
-            // lblDetainID
-            // 
-            this.lblDetainID.AutoSize = true;
-            this.lblDetainID.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetainID.Location = new System.Drawing.Point(265, 41);
-            this.lblDetainID.Name = "lblDetainID";
-            this.lblDetainID.Size = new System.Drawing.Size(72, 25);
-            this.lblDetainID.TabIndex = 19;
-            this.lblDetainID.Text = "[????]";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkRed;
-            this.label1.Location = new System.Drawing.Point(314, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(480, 42);
-            this.label1.TabIndex = 55;
-            this.label1.Text = "Release Detained License";
-            // 
-            // lblApplicationFees
-            // 
-            this.lblApplicationFees.AutoSize = true;
-            this.lblApplicationFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicationFees.Location = new System.Drawing.Point(265, 139);
-            this.lblApplicationFees.Name = "lblApplicationFees";
-            this.lblApplicationFees.Size = new System.Drawing.Size(72, 25);
-            this.lblApplicationFees.TabIndex = 28;
-            this.lblApplicationFees.Text = "[$$$$]";
-            // 
-            // lblTotalFees
-            // 
-            this.lblTotalFees.AutoSize = true;
-            this.lblTotalFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalFees.Location = new System.Drawing.Point(265, 197);
-            this.lblTotalFees.Name = "lblTotalFees";
-            this.lblTotalFees.Size = new System.Drawing.Size(72, 25);
-            this.lblTotalFees.TabIndex = 30;
-            this.lblTotalFees.Text = "[$$$$]";
-            // 
-            // lblFineFees
-            // 
-            this.lblFineFees.AutoSize = true;
-            this.lblFineFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFineFees.Location = new System.Drawing.Point(798, 139);
-            this.lblFineFees.Name = "lblFineFees";
-            this.lblFineFees.Size = new System.Drawing.Size(72, 25);
-            this.lblFineFees.TabIndex = 32;
-            this.lblFineFees.Text = "[$$$$]";
-            // 
             // lblApplicationID
             // 
             this.lblApplicationID.AutoSize = true;
@@ -217,6 +139,16 @@
             this.label13.Text = "Application ID:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblFineFees
+            // 
+            this.lblFineFees.AutoSize = true;
+            this.lblFineFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFineFees.Location = new System.Drawing.Point(798, 139);
+            this.lblFineFees.Name = "lblFineFees";
+            this.lblFineFees.Size = new System.Drawing.Size(72, 25);
+            this.lblFineFees.TabIndex = 32;
+            this.lblFineFees.Text = "[$$$$]";
+            // 
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -229,6 +161,16 @@
             this.label9.Text = "Fine Fees:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblTotalFees
+            // 
+            this.lblTotalFees.AutoSize = true;
+            this.lblTotalFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalFees.Location = new System.Drawing.Point(265, 197);
+            this.lblTotalFees.Name = "lblTotalFees";
+            this.lblTotalFees.Size = new System.Drawing.Size(72, 25);
+            this.lblTotalFees.TabIndex = 30;
+            this.lblTotalFees.Text = "[$$$$]";
+            // 
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -240,6 +182,36 @@
             this.label7.TabIndex = 29;
             this.label7.Text = "Total Fees:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblApplicationFees
+            // 
+            this.lblApplicationFees.AutoSize = true;
+            this.lblApplicationFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicationFees.Location = new System.Drawing.Point(265, 139);
+            this.lblApplicationFees.Name = "lblApplicationFees";
+            this.lblApplicationFees.Size = new System.Drawing.Size(72, 25);
+            this.lblApplicationFees.TabIndex = 28;
+            this.lblApplicationFees.Text = "[$$$$]";
+            // 
+            // lblCreatedBy
+            // 
+            this.lblCreatedBy.AutoSize = true;
+            this.lblCreatedBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreatedBy.Location = new System.Drawing.Point(798, 90);
+            this.lblCreatedBy.Name = "lblCreatedBy";
+            this.lblCreatedBy.Size = new System.Drawing.Size(72, 25);
+            this.lblCreatedBy.TabIndex = 27;
+            this.lblCreatedBy.Text = "[????]";
+            // 
+            // lblLicenseID
+            // 
+            this.lblLicenseID.AutoSize = true;
+            this.lblLicenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLicenseID.Location = new System.Drawing.Point(798, 41);
+            this.lblLicenseID.Name = "lblLicenseID";
+            this.lblLicenseID.Size = new System.Drawing.Size(72, 25);
+            this.lblLicenseID.TabIndex = 26;
+            this.lblLicenseID.Text = "[????]";
             // 
             // label10
             // 
@@ -264,6 +236,26 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "License ID:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblDetainDate
+            // 
+            this.lblDetainDate.AutoSize = true;
+            this.lblDetainDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetainDate.Location = new System.Drawing.Point(265, 90);
+            this.lblDetainDate.Name = "lblDetainDate";
+            this.lblDetainDate.Size = new System.Drawing.Size(144, 25);
+            this.lblDetainDate.TabIndex = 20;
+            this.lblDetainDate.Text = "[??/???/????]";
+            // 
+            // lblDetainID
+            // 
+            this.lblDetainID.AutoSize = true;
+            this.lblDetainID.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetainID.Location = new System.Drawing.Point(265, 41);
+            this.lblDetainID.Name = "lblDetainID";
+            this.lblDetainID.Size = new System.Drawing.Size(72, 25);
+            this.lblDetainID.TabIndex = 19;
+            this.lblDetainID.Text = "[????]";
             // 
             // label5
             // 
@@ -300,6 +292,17 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "Detain ID:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkRed;
+            this.label1.Location = new System.Drawing.Point(314, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(480, 42);
+            this.label1.TabIndex = 55;
+            this.label1.Text = "Release Detained License";
             // 
             // btnRelease
             // 

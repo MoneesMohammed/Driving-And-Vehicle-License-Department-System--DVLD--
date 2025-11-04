@@ -11,12 +11,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.International_License_Applications.frmListInternationalLicensingApplications;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licenses
 {
     public partial class frmListDetainedLicenses : Form
     {
+
+        private DataTable _dtDetainedLicenses;
+
         public frmListDetainedLicenses()
         {
             InitializeComponent();
@@ -24,16 +28,16 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void _RefreshListDetainedLicenses()
         {
-            DataTable DetainedLicensesDataTable = clsDetainedLicense.GetAllDetainedLicenses_1();
-            dgvAllDetainedLicenses.DataSource = DetainedLicensesDataTable;
+            _dtDetainedLicenses = clsDetainedLicense.GetAllDetainedLicenses_1();
+            dgvAllDetainedLicenses.DataSource = _dtDetainedLicenses;
 
-            _AdjustSizeDGV();
+            _FormatDGV();
 
             lblRecodes.Text = dgvAllDetainedLicenses.Rows.Count.ToString();
 
         }
 
-        private void _AdjustSizeDGV()
+        private void _FormatDGV()
         {
             if (dgvAllDetainedLicenses.Columns.Count <= 0)
                 return;
@@ -59,32 +63,21 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
-
-
-        public enum enIsReleased { All, Yes, No }
-        private enIsReleased _enIsReleased = enIsReleased.All;
-
-        public enum enFilterBy { None, DetainID, IsReleased, NationalNo, FullName, ReleaseApplicationID }
-
-        private enFilterBy _enFilterBy = enFilterBy.None;
-
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enFilterBy = (enFilterBy)cbFilterBy.SelectedIndex;
-
+           
             if (txtFilterBy.Text != "")
                 txtFilterBy.Text = string.Empty;
 
-            if (_enFilterBy == enFilterBy.None)
+            if (cbFilterBy.Text == "None")
             {
                 txtFilterBy.Visible = false;
                 cbIsReleased.Visible = false;
                 _RefreshListDetainedLicenses();
             }
-            else if (_enFilterBy == enFilterBy.IsReleased)
+            else if (cbFilterBy.Text == "Is Released")
             {
                 cbIsReleased.SelectedIndex = 0;
 
@@ -97,131 +90,56 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
                 cbIsReleased.Visible = false;
                 txtFilterBy.Focus();
             }
+
         }
 
         private void cbIsReleased_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _enIsReleased = (enIsReleased)cbIsReleased.SelectedIndex;
-
-            DataTable dt = clsDetainedLicense.GetAllDetainedLicenses_1();
-            DataRow[] ResultRows = new DataRow[0];
-
-            if (_enIsReleased == enIsReleased.Yes)
-            {
-                FilterBy(dt, ResultRows, "[Is Released] = 1");
-            }
-            else if (_enIsReleased == enIsReleased.No)
-            {
-                FilterBy(dt, ResultRows, "[Is Released] = 0");
-            }
-            else
+            if (cbIsReleased.Text == "All")
             {
                 _RefreshListDetainedLicenses();
+                return;
             }
 
+            string FilterColumn = (cbIsReleased.Text == "Yes") ? "1" : "0";
+
+            _dtDetainedLicenses.DefaultView.RowFilter = string.Format($"[Is Released] = {FilterColumn}");
+
+            lblRecodes.Text = dgvAllDetainedLicenses.Rows.Count.ToString();
 
         }
 
         private void txtFilterBy_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = clsDetainedLicense.GetAllDetainedLicenses_1();
-            DataRow[] ResultRows = new DataRow[0];
+            string FilterColumn = cbFilterBy.Text;
 
-            if (txtFilterBy.Text != "")
+            if (txtFilterBy.Text.Trim() == "" || FilterColumn == "None" || FilterColumn == "Is Released")
             {
-                switch (_enFilterBy)
-                {
-                    case enFilterBy.DetainID:
-                        {
-                            FilterBy(dt, ResultRows, $"[Detain ID] = {txtFilterBy.Text} ");
-
-                            break;
-                        }
-                    case enFilterBy.NationalNo:
-                        {
-
-                            FilterBy(dt, ResultRows, $"[National No.] = '{txtFilterBy.Text}' ");
-
-                            break;
-                        }
-                    case enFilterBy.FullName:
-                        {
-                            FilterBy(dt, "Full Name");
-
-                            break;
-                        }
-                    case enFilterBy.ReleaseApplicationID:
-                        {
-                            FilterBy(dt, "Release Application ID");
-
-                            break;
-                        }
-
-
-
-
-                }
-
-
-
+                _dtDetainedLicenses.DefaultView.RowFilter = "";
+                lblRecodes.Text = _dtDetainedLicenses.Rows.Count.ToString();
+                return;
             }
 
-
-
-        }
-
-        private void FilterBy(DataTable DataTable, DataRow[] ResultRows, string Select)
-        {
-
-            ResultRows = DataTable.Select(Select);
-
-            if (ResultRows.Length > 0)
-            {
-                dgvAllDetainedLicenses.DataSource = ResultRows.CopyToDataTable();
-                _AdjustSizeDGV();
-                lblRecodes.Text = ResultRows.Count().ToString();
-
-            }
+            if (FilterColumn == "Release Application ID" || FilterColumn == "Detain ID")
+                _dtDetainedLicenses.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, txtFilterBy.Text.Trim()); //[FilterColumn] = txtFilterBy.Text
             else
-            {
-                dgvAllDetainedLicenses.DataSource = null;
+                _dtDetainedLicenses.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterBy.Text.Trim());
+            //[FilterColumn] LIKE 'txtFilterBy.Text%'
 
-                lblRecodes.Text = "0";
-            }
-
+            lblRecodes.Text = dgvAllDetainedLicenses.Rows.Count.ToString();
 
         }
 
-
-        private void FilterBy(DataTable DataTable, string ColumnName)
+        private void txtFilterBy_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DataTable filteredTable = DataTable.Clone();
-
-            foreach (DataRow row in DataTable.Rows)
+            if (cbFilterBy.Text == "Detain ID" || cbFilterBy.Text == "Release Application ID")
             {
-                string value = row[ColumnName].ToString();
-
-                if (value.ToUpper().Contains(txtFilterBy.Text.ToUpper()))
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
-                    filteredTable.ImportRow(row);
-
-                    //break;
-                }
-                else
-                {
-                    dgvAllDetainedLicenses.DataSource = null;
-
-                    lblRecodes.Text = "0";
+                    e.Handled = true;
                 }
 
             }
-
-
-            dgvAllDetainedLicenses.DataSource = filteredTable;
-            _AdjustSizeDGV();
-            lblRecodes.Text = filteredTable.Rows.Count.ToString();
-
-
         }
 
         private void btnReleaseDetainedLicense_Click(object sender, EventArgs e)
@@ -243,8 +161,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void tsmShowPersonDetails_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
-            int PersonID = clsLicenses.Find(ID).Application.ApplicantPersonID;
+            int LicenseID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
+            int PersonID = clsLicense.Find(LicenseID).DriverInfo.PersonID;
 
             frmShowDetailsPerson frmShowDetailsPerson = new frmShowDetailsPerson(PersonID);
             frmShowDetailsPerson.ShowDialog();
@@ -252,15 +170,15 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void tsmShowLicenseDetails_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
-            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(ID,false);
+            int LicenseID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
+            frmLicenseInfo frmLicenseInfo = new frmLicenseInfo(LicenseID);
             frmLicenseInfo.ShowDialog();
         }
 
         private void tsmShowPersonLicenseHistory_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
-            int PersonID = clsLicenses.Find(ID).Application.ApplicantPersonID;
+            int LicenseID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
+            int PersonID = clsLicense.Find(LicenseID).DriverInfo.PersonID;
 
             frmLicenseHistory LicenseHistory = new frmLicenseHistory(PersonID);
             LicenseHistory.ShowDialog();
@@ -268,9 +186,9 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void tsmReleaseDetainedLicense_Click(object sender, EventArgs e)
         {
-            int ID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
+            int LicenseID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[1].Value;
 
-            frmReleaseDetainedLicense frmReleaseDetainedLicense = new frmReleaseDetainedLicense(ID);
+            frmReleaseDetainedLicense frmReleaseDetainedLicense = new frmReleaseDetainedLicense(LicenseID);
             frmReleaseDetainedLicense.ShowDialog();
 
             _RefreshListDetainedLicenses();
@@ -278,16 +196,9 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            int ID = (int)dgvAllDetainedLicenses.CurrentRow.Cells[0].Value;
-
-            if(clsDetainedLicense.Find(ID).IsReleased)
-               tsmReleaseDetainedLicense.Enabled = false;
-            else
-               tsmReleaseDetainedLicense.Enabled = true;
-
-
+          tsmReleaseDetainedLicense.Enabled = !(bool)dgvAllDetainedLicenses.CurrentRow.Cells[3].Value;
         }
 
-
+       
     }
 }

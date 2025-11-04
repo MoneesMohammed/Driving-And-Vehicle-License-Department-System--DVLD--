@@ -32,6 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ucDriverLicenses1 = new Driving___Vehicle_License_Department__DVLD_.UserControls.ucDriverLicenses();
             this.ucFilterPerson1 = new Driving___Vehicle_License_Department__DVLD_.UserControls.ucFilterPerson();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,7 +41,7 @@
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1325, 983);
+            this.btnClose.Location = new System.Drawing.Point(1172, 981);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(133, 43);
             this.btnClose.TabIndex = 33;
@@ -63,22 +64,37 @@
             // 
             this.ucDriverLicenses1.Location = new System.Drawing.Point(12, 523);
             this.ucDriverLicenses1.Name = "ucDriverLicenses1";
-            this.ucDriverLicenses1.Size = new System.Drawing.Size(1446, 452);
+            this.ucDriverLicenses1.Size = new System.Drawing.Size(1318, 452);
             this.ucDriverLicenses1.TabIndex = 34;
             // 
             // ucFilterPerson1
             // 
+            this.ucFilterPerson1.FilterEnabled = true;
             this.ucFilterPerson1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucFilterPerson1.Location = new System.Drawing.Point(270, -10);
+            this.ucFilterPerson1.Location = new System.Drawing.Point(270, 12);
             this.ucFilterPerson1.Name = "ucFilterPerson1";
-            this.ucFilterPerson1.Size = new System.Drawing.Size(1201, 551);
+            this.ucFilterPerson1.ShowAddPerson = true;
+            this.ucFilterPerson1.Size = new System.Drawing.Size(1060, 516);
             this.ucFilterPerson1.TabIndex = 1;
+            this.ucFilterPerson1.OnPersonSelected += new System.Action<int>(this.ucFilterPerson1_OnPersonSelected);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label1.Location = new System.Drawing.Point(12, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(261, 45);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "License History";
             // 
             // frmLicenseHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1470, 1038);
+            this.ClientSize = new System.Drawing.Size(1325, 1038);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ucDriverLicenses1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.ucFilterPerson1);
@@ -90,6 +106,7 @@
             this.Load += new System.EventHandler(this.frmLicenseHistory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -99,5 +116,6 @@
         private UserControls.ucFilterPerson ucFilterPerson1;
         private System.Windows.Forms.Button btnClose;
         private UserControls.ucDriverLicenses ucDriverLicenses1;
+        private System.Windows.Forms.Label label1;
     }
 }

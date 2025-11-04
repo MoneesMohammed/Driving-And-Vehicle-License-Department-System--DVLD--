@@ -14,34 +14,24 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 {
     public partial class frmApplicationDetails : Form
     {
-        int LDLAppID;
+        private int _LDLAppID= -1;
 
         public frmApplicationDetails(int LDLAppID)
         {
             InitializeComponent();
 
-            this.LDLAppID = LDLAppID;
-            
-        }
-
-        private void frmApplicationDetails_Load(object sender, EventArgs e)
-        {
-            _LoadData();
-        }
-
-        private void _LoadData()
-        {
-            ucDrivingLicenseApplicationInfo1.RefreshUcDrivingLicenseApplicationInfo(this.LDLAppID);
+            _LDLAppID = LDLAppID;
 
         }
-
-
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        
+        private void frmApplicationDetails_Load(object sender, EventArgs e)
+        {
+            ucDrivingLicenseApplicationInfo1.LoadApplicationInfoByLocalDLAppID(_LDLAppID);
+        }
     }
 }

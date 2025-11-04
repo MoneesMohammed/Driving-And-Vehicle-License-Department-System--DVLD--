@@ -377,7 +377,6 @@
             this.Controls.Add(this.gbDrivingLicenseApplicationInfo);
             this.Name = "ucDrivingLicenseApplicationInfo";
             this.Size = new System.Drawing.Size(1027, 417);
-            this.Load += new System.EventHandler(this.ucDrivingLicenseApplicationInfo_Load);
             this.gbDrivingLicenseApplicationInfo.ResumeLayout(false);
             this.gbDrivingLicenseApplicationInfo.PerformLayout();
             this.gbApplicationBasicInfo.ResumeLayout(false);

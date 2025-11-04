@@ -94,12 +94,13 @@
             // 
             this.ucFilterPerson1.FilterEnabled = true;
             this.ucFilterPerson1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucFilterPerson1.Location = new System.Drawing.Point(4, 7);
+            this.ucFilterPerson1.Location = new System.Drawing.Point(2, 4);
             this.ucFilterPerson1.Margin = new System.Windows.Forms.Padding(4);
             this.ucFilterPerson1.Name = "ucFilterPerson1";
             this.ucFilterPerson1.ShowAddPerson = true;
-            this.ucFilterPerson1.Size = new System.Drawing.Size(1208, 540);
+            this.ucFilterPerson1.Size = new System.Drawing.Size(1054, 520);
             this.ucFilterPerson1.TabIndex = 0;
+            this.ucFilterPerson1.OnPersonSelected += new System.Action<int>(this.ucFilterPerson1_OnPersonSelected);
             // 
             // tabApplicationInfo
             // 
@@ -248,7 +249,7 @@
             this.lblMode.ForeColor = System.Drawing.Color.Brown;
             this.lblMode.Location = new System.Drawing.Point(5, 9);
             this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(1097, 37);
+            this.lblMode.Size = new System.Drawing.Size(1076, 37);
             this.lblMode.TabIndex = 21;
             this.lblMode.Text = "New Local Driving License Application";
             this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -270,6 +271,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.diskette;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -296,6 +298,7 @@
             this.Name = "frmNewLocalDrivingLicenseApplication";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Local Driving License Application";
+            this.Activated += new System.EventHandler(this.frmNewLocalDrivingLicenseApplication_Activated);
             this.Load += new System.EventHandler(this.frmNewLocalDrivingLicenseApplication_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPersonalInfo.ResumeLayout(false);

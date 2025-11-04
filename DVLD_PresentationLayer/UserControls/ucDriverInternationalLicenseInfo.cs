@@ -15,7 +15,11 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 {
     public partial class ucDriverInternationalLicenseInfo : UserControl
     {
-        clsInternationalLicense Int_License = new clsInternationalLicense();
+        private int _InternationalLicenseID = -1;
+        private clsInternationalLicense _InternationalLicense;
+
+        public int InternationalLicenseID { get { return _InternationalLicenseID; } }
+        public clsInternationalLicense SelectedInternationalLicenseInfo { get { return _InternationalLicense; } }
 
         public ucDriverInternationalLicenseInfo()
         {
@@ -23,27 +27,34 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
         }
 
 
-        public void RefreshUCDriverInternationalLicenseInfo(int Int_LicenseID)
+        public void LoadInfo(int InternationalLicenseID)
         {
-            Int_License = clsInternationalLicense.Find(Int_LicenseID);
 
-            if (Int_License == null)
+            _InternationalLicense = clsInternationalLicense.Find(InternationalLicenseID);
+
+            if (_InternationalLicense == null)
             {
-                DefaultUCDriverLicenseInfo();
+                ResetInternationalLicenseInfo();
+                MessageBox.Show($"Could Not Found International LicenseID ={InternationalLicenseID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            _FillInternationalLicense();
 
-            lblName.Text = (Int_License.Application.Person.ThirdName == "") ?
-                $"{Int_License.Application.Person.FirstName} {Int_License.Application.Person.SecondName} {Int_License.Application.Person.LastName}" :
-                $"{Int_License.Application.Person.FirstName} {Int_License.Application.Person.SecondName} {Int_License.Application.Person.ThirdName} {Int_License.Application.Person.LastName}";
+        }
 
-            lblInt_LicenseID.Text = Int_LicenseID.ToString();
-            lblLicenseID.Text = Int_License.LicenseID.ToString();
-            lblNationalNo.Text = Int_License.Application.Person.NationalNo;
-            
 
-            if (Int_License.Application.Person.Gendor == 0)
+        private void _FillInternationalLicense()
+        {
+            clsPerson Person = clsPerson.Find(_InternationalLicense.ApplicantPersonID);
+
+            lblName.Text = _InternationalLicense.ApplicantFullName;
+            lblInt_LicenseID.Text = _InternationalLicense.InternationalLicenseID.ToString();
+            lblLicenseID.Text = _InternationalLicense.IssuedUsingLocalLicenseID.ToString();
+            lblNationalNo.Text = Person.NationalNo;
+
+
+            if (Person.Gendor == 0)
             {
                 lblGendor.Text = "Male";
                 lblGendor1.Image = Resources.Male;
@@ -54,35 +65,43 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
                 lblGendor1.Image = Resources.Female;
             }
 
-            lblIssueDate.Text = Int_License.IssueDate.ToString("dd/MMM/yyyy");
+            lblIssueDate.Text = _InternationalLicense.IssueDate.ToString("dd/MMM/yyyy");
 
-            lblExpiationDate.Text = Int_License.ExpirationDate.ToString("dd/MMM/yyyy");
+            lblExpiationDate.Text = _InternationalLicense.ExpirationDate.ToString("dd/MMM/yyyy");
 
-           
-            lblDateOfBirth.Text = Int_License.Application.Person.DateOfBirth.ToString("dd/MMM/yyyy");
+            lblDateOfBirth.Text = Person.DateOfBirth.ToString("dd/MMM/yyyy");
 
-            lblApplicationID.Text = Int_License.ApplicationID.ToString();
+            lblApplicationID.Text = _InternationalLicense.ApplicationID.ToString();
 
-            lblIsActive.Text = (Int_License.IsActive) ? "Yes" : "No";
+            lblIsActive.Text = (_InternationalLicense.IsActive) ? "Yes" : "No";
 
-            lblDriverID.Text = Int_License.License.DriverID.ToString();
+            lblDriverID.Text = _InternationalLicense.DriverID.ToString();
 
 
-            if (Int_License.Application.Person.ImagePath != "")
-            {
-                pbPerson.Image = LoadImageWithoutLock(Int_License.Application.Person.ImagePath);
-            }
-            else
-            {
-                pbPerson.Image = Int_License.Application.Person.Gendor == 0 ? Resources.man : Resources.woman;
-            }
-
+            _LoadPersonImage(Person);
 
         }
 
 
-        private void DefaultUCDriverLicenseInfo()
+        private void _LoadPersonImage(clsPerson Person)
         {
+            pbPerson.Image = Person.Gendor == 0 ? Resources.man : Resources.woman;
+
+            string ImagePath = Person.ImagePath;
+
+            if (ImagePath != "")
+            {
+                if (File.Exists(ImagePath))
+                    pbPerson.Load(ImagePath);
+                else
+                    MessageBox.Show($"Could Not Find This Image : = {ImagePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void ResetInternationalLicenseInfo()
+        {
+            _InternationalLicenseID = -1;
 
             lblName.Text = "[????]";
             lblInt_LicenseID.Text = "[????]";
@@ -106,13 +125,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
         }
 
 
-        private System.Drawing.Image LoadImageWithoutLock(string filePath)
-        {
-            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                return System.Drawing.Image.FromStream(fs);
-            }
-        }
+       
 
 
     }

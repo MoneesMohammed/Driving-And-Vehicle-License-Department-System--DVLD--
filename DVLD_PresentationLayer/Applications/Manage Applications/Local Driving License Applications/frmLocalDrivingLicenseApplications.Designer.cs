@@ -138,7 +138,7 @@
             this.toolStripSeparator6,
             this.tsmShowPersonLicenseHistory});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(382, 408);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(382, 430);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // tsmShowApplicationDetails
@@ -160,6 +160,7 @@
             this.tsmEdit.Name = "tsmEdit";
             this.tsmEdit.Size = new System.Drawing.Size(381, 46);
             this.tsmEdit.Text = "Edit Application ";
+            this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
             // tsmDelete
             // 
@@ -197,7 +198,7 @@
             this.tsmScheduleTests.Name = "tsmScheduleTests";
             this.tsmScheduleTests.Size = new System.Drawing.Size(381, 46);
             this.tsmScheduleTests.Text = "Schedule Tests";
-            this.tsmScheduleTests.Click += new System.EventHandler(this.tsmScheduleTests_Click);
+            this.tsmScheduleTests.DropDownOpening += new System.EventHandler(this.tsmScheduleTests_DropDownOpening);
             // 
             // tsmiScheduleVisionTest
             // 
@@ -296,6 +297,7 @@
             this.txtFilterBy.TabIndex = 36;
             this.txtFilterBy.Visible = false;
             this.txtFilterBy.TextChanged += new System.EventHandler(this.txtFilterBy_TextChanged);
+            this.txtFilterBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterBy_KeyPress);
             // 
             // cbFilterBy
             // 

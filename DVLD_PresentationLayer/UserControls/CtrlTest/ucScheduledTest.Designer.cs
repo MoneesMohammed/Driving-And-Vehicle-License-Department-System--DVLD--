@@ -1,13 +1,13 @@
-﻿namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applications.Local_Driving_License_Applications
+﻿namespace Driving___Vehicle_License_Department__DVLD_.UserControls.CtrlTest
 {
-    partial class frmTakeTest
+    partial class ucScheduledTest
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,15 +20,15 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbVisionTest = new System.Windows.Forms.GroupBox();
+            this.gbTestType = new System.Windows.Forms.GroupBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTestID = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -45,42 +45,35 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtNote = new System.Windows.Forms.TextBox();
-            this.rbSuccess = new System.Windows.Forms.RadioButton();
-            this.rbFailed = new System.Windows.Forms.RadioButton();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.gbVisionTest.SuspendLayout();
+            this.gbTestType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // gbVisionTest
+            // gbTestType
             // 
-            this.gbVisionTest.Controls.Add(this.lblDate);
-            this.gbVisionTest.Controls.Add(this.lblTestID);
-            this.gbVisionTest.Controls.Add(this.label8);
-            this.gbVisionTest.Controls.Add(this.lblFees);
-            this.gbVisionTest.Controls.Add(this.lblTrial);
-            this.gbVisionTest.Controls.Add(this.lblName);
-            this.gbVisionTest.Controls.Add(this.lblDClass);
-            this.gbVisionTest.Controls.Add(this.lblDLAppID);
-            this.gbVisionTest.Controls.Add(this.label13);
-            this.gbVisionTest.Controls.Add(this.label6);
-            this.gbVisionTest.Controls.Add(this.label5);
-            this.gbVisionTest.Controls.Add(this.label4);
-            this.gbVisionTest.Controls.Add(this.label3);
-            this.gbVisionTest.Controls.Add(this.label2);
-            this.gbVisionTest.Controls.Add(this.pictureBox1);
-            this.gbVisionTest.Controls.Add(this.label1);
-            this.gbVisionTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbVisionTest.Location = new System.Drawing.Point(12, 12);
-            this.gbVisionTest.Name = "gbVisionTest";
-            this.gbVisionTest.Size = new System.Drawing.Size(564, 577);
-            this.gbVisionTest.TabIndex = 5;
-            this.gbVisionTest.TabStop = false;
-            this.gbVisionTest.Text = "Vision Test";
+            this.gbTestType.Controls.Add(this.lblDate);
+            this.gbTestType.Controls.Add(this.lblTestID);
+            this.gbTestType.Controls.Add(this.label8);
+            this.gbTestType.Controls.Add(this.lblFees);
+            this.gbTestType.Controls.Add(this.lblTrial);
+            this.gbTestType.Controls.Add(this.lblName);
+            this.gbTestType.Controls.Add(this.lblDClass);
+            this.gbTestType.Controls.Add(this.lblDLAppID);
+            this.gbTestType.Controls.Add(this.label13);
+            this.gbTestType.Controls.Add(this.label6);
+            this.gbTestType.Controls.Add(this.label5);
+            this.gbTestType.Controls.Add(this.label4);
+            this.gbTestType.Controls.Add(this.label3);
+            this.gbTestType.Controls.Add(this.label2);
+            this.gbTestType.Controls.Add(this.pictureBox1);
+            this.gbTestType.Controls.Add(this.label1);
+            this.gbTestType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTestType.Location = new System.Drawing.Point(3, 3);
+            this.gbTestType.Name = "gbTestType";
+            this.gbTestType.Size = new System.Drawing.Size(564, 577);
+            this.gbTestType.TabIndex = 6;
+            this.gbTestType.TabStop = false;
+            this.gbTestType.Text = "Test Type";
             // 
             // lblDate
             // 
@@ -248,129 +241,35 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label1.Location = new System.Drawing.Point(164, 190);
+            this.label1.Location = new System.Drawing.Point(0, 189);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(233, 37);
+            this.label1.Size = new System.Drawing.Size(564, 37);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Schedule Test";
+            this.label1.Text = "Take Test";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtNote
-            // 
-            this.txtNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNote.Location = new System.Drawing.Point(157, 658);
-            this.txtNote.Multiline = true;
-            this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(406, 126);
-            this.txtNote.TabIndex = 59;
-            // 
-            // rbSuccess
-            // 
-            this.rbSuccess.AutoSize = true;
-            this.rbSuccess.Checked = true;
-            this.rbSuccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbSuccess.Location = new System.Drawing.Point(167, 606);
-            this.rbSuccess.Name = "rbSuccess";
-            this.rbSuccess.Size = new System.Drawing.Size(88, 24);
-            this.rbSuccess.TabIndex = 60;
-            this.rbSuccess.TabStop = true;
-            this.rbSuccess.Text = "Success";
-            this.rbSuccess.UseVisualStyleBackColor = true;
-            // 
-            // rbFailed
-            // 
-            this.rbFailed.AutoSize = true;
-            this.rbFailed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbFailed.Location = new System.Drawing.Point(301, 606);
-            this.rbFailed.Name = "rbFailed";
-            this.rbFailed.Size = new System.Drawing.Size(70, 24);
-            this.rbFailed.TabIndex = 61;
-            this.rbFailed.Text = "Failed";
-            this.rbFailed.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.pencil;
-            this.label9.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label9.Location = new System.Drawing.Point(42, 658);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(99, 25);
-            this.label9.TabIndex = 58;
-            this.label9.Text = "Note:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.mission;
-            this.label11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label11.Location = new System.Drawing.Point(23, 605);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(125, 25);
-            this.label11.TabIndex = 56;
-            this.label11.Text = "Result :";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.close_1;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(261, 796);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(133, 43);
-            this.btnClose.TabIndex = 37;
-            this.btnClose.Text = "Close";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.diskette;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(430, 796);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(133, 43);
-            this.btnSave.TabIndex = 36;
-            this.btnSave.Text = "Save";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // frmTakeTest
+            // ucScheduledTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 851);
-            this.Controls.Add(this.rbFailed);
-            this.Controls.Add(this.rbSuccess);
-            this.Controls.Add(this.txtNote);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.gbVisionTest);
-            this.Controls.Add(this.btnSave);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmTakeTest";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Take Test";
-            this.Load += new System.EventHandler(this.frmTakeTest_Load);
-            this.gbVisionTest.ResumeLayout(false);
-            this.gbVisionTest.PerformLayout();
+            this.Controls.Add(this.gbTestType);
+            this.Name = "ucScheduledTest";
+            this.Size = new System.Drawing.Size(577, 592);
+            this.gbTestType.ResumeLayout(false);
+            this.gbTestType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gbVisionTest;
+        private System.Windows.Forms.GroupBox gbTestType;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Label lblTestID;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblFees;
         private System.Windows.Forms.Label lblTrial;
         private System.Windows.Forms.Label lblName;
@@ -384,15 +283,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblTestID;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtNote;
-        private System.Windows.Forms.RadioButton rbSuccess;
-        private System.Windows.Forms.RadioButton rbFailed;
-        private System.Windows.Forms.Label lblDate;
     }
 }

@@ -64,7 +64,6 @@
             this.label1.Size = new System.Drawing.Size(511, 37);
             this.label1.TabIndex = 37;
             this.label1.Text = "International License Application";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // gbApplicationInfo
             // 
@@ -91,7 +90,6 @@
             this.gbApplicationInfo.TabIndex = 38;
             this.gbApplicationInfo.TabStop = false;
             this.gbApplicationInfo.Text = "Application Info";
-            this.gbApplicationInfo.Enter += new System.EventHandler(this.gbApplicationInfo_Enter);
             // 
             // lblCreatedBy
             // 
@@ -326,11 +324,13 @@
             // 
             // ucFilterDriverLicenseInfo1
             // 
+            this.ucFilterDriverLicenseInfo1.FilterEnabled = true;
             this.ucFilterDriverLicenseInfo1.Location = new System.Drawing.Point(12, 83);
             this.ucFilterDriverLicenseInfo1.Name = "ucFilterDriverLicenseInfo1";
+            this.ucFilterDriverLicenseInfo1.ShowAddLicense = true;
             this.ucFilterDriverLicenseInfo1.Size = new System.Drawing.Size(1094, 585);
             this.ucFilterDriverLicenseInfo1.TabIndex = 41;
-            this.ucFilterDriverLicenseInfo1.Load += new System.EventHandler(this.ucFilterDriverLicenseInfo1_Load);
+            this.ucFilterDriverLicenseInfo1.OnLicenseSelected += new System.Action<int>(this.ucFilterDriverLicenseInfo1_OnLicenseSelected);
             // 
             // frmNewInternationalLicenseApplication
             // 

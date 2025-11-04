@@ -75,10 +75,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
             
             lblPersonID.Text = _Person.PersonID.ToString();
 
-            lblName.Text = (_Person.ThirdName == "") ?
-                $"{_Person.FirstName} {_Person.SecondName} {_Person.LastName}" :
-                $"{_Person.FirstName} {_Person.SecondName} {_Person.ThirdName} {_Person.LastName}";
-
+            lblName.Text = _Person.FullName;
+                
             lblNationalNo.Text = _Person.NationalNo;
 
             if (_Person.Gendor == 0)
@@ -134,6 +132,8 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
 
         private void _LoadPersonImage()
         {
+            pbPerson.Image = _Person.Gendor == 0 ? Resources.man : Resources.woman;
+
             string ImagePath = _Person.ImagePath;
 
             if (ImagePath != "")
@@ -143,10 +143,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.UserControls
                 else
                     MessageBox.Show($"Could Not Find This Image : = {ImagePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-            {
-                pbPerson.Image = _Person.Gendor == 0 ? Resources.man : Resources.woman;
-            }
+            
         }
 
 

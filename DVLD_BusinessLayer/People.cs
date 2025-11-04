@@ -35,7 +35,17 @@ namespace DVLD_BusinessLayer
             set { _ImagePath = value; }
         }
 
-       
+        public string FullName
+        {
+            get
+            {
+                return (this.ThirdName == "") ?
+                     $"{this.FirstName} {this.SecondName} {this.LastName}" :
+                     $"{this.FirstName} {this.SecondName} {this.ThirdName} {this.LastName}";
+            }
+
+        }
+
 
         public clsPerson()
         {
@@ -235,6 +245,10 @@ namespace DVLD_BusinessLayer
             return (byte)(DateTime.Now.Year - DateOfBirth.Year);
 
         }
+
+
+       
+
 
 
     }
