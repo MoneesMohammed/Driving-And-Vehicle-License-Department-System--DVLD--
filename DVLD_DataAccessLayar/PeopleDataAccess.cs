@@ -457,8 +457,6 @@ namespace DVLD_DataAccessLayar
 
         }
        
-        
-        
         public static bool GetImagePathByID(int PersonID ,ref string ImagePath)
         {
             bool Isfound = false;
@@ -501,6 +499,7 @@ namespace DVLD_DataAccessLayar
 
             return Isfound;
         }
+
 
     }
 

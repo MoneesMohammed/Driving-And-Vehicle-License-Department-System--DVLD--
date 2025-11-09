@@ -39,7 +39,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Detain_Licens
 
         private void _FormatDGV()
         {
-            if (dgvAllDetainedLicenses.Columns.Count <= 0)
+            if (dgvAllDetainedLicenses.Rows.Count <= 0)
                 return;
 
             dgvAllDetainedLicenses.Columns[0].Width = 100;

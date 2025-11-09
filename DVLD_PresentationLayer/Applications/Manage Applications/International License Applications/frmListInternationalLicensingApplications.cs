@@ -38,7 +38,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Manage_Applic
 
         private void _FormatDGV()
         {
-            if (dgvAllIntDLicenses.Columns.Count <= 0)
+            if (dgvAllIntDLicenses.Rows.Count <= 0)
                 return;
 
             dgvAllIntDLicenses.Columns[0].Width = 100;
