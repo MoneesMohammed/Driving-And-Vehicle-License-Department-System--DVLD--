@@ -126,7 +126,7 @@
             // 
             this.localLicenseToolStripMenuItem.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.home1;
             this.localLicenseToolStripMenuItem.Name = "localLicenseToolStripMenuItem";
-            this.localLicenseToolStripMenuItem.Size = new System.Drawing.Size(400, 66);
+            this.localLicenseToolStripMenuItem.Size = new System.Drawing.Size(356, 44);
             this.localLicenseToolStripMenuItem.Text = "Local License";
             this.localLicenseToolStripMenuItem.Click += new System.EventHandler(this.localLicenseToolStripMenuItem_Click);
             // 
@@ -134,7 +134,7 @@
             // 
             this.internationalLicenseToolStripMenuItem.Image = global::Driving___Vehicle_License_Department__DVLD_.Properties.Resources.international;
             this.internationalLicenseToolStripMenuItem.Name = "internationalLicenseToolStripMenuItem";
-            this.internationalLicenseToolStripMenuItem.Size = new System.Drawing.Size(400, 66);
+            this.internationalLicenseToolStripMenuItem.Size = new System.Drawing.Size(356, 44);
             this.internationalLicenseToolStripMenuItem.Text = "International License";
             this.internationalLicenseToolStripMenuItem.Click += new System.EventHandler(this.internationalLicenseToolStripMenuItem_Click);
             // 

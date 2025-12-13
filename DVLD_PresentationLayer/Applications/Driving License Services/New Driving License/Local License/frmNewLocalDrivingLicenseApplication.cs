@@ -130,7 +130,7 @@ namespace Driving___Vehicle_License_Department__DVLD_.Applications.Driving_Licen
 
             if (_LocalLDApplication == null)
             {
-                MessageBox.Show($"No Application With ID = {_LocalLDApplication}", "No Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No Application With ID = {_LocalLDApplicationID}", "No Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
             }

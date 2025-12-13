@@ -149,7 +149,7 @@
             // 
             this.ucUserDetails1.Location = new System.Drawing.Point(12, 12);
             this.ucUserDetails1.Name = "ucUserDetails1";
-            this.ucUserDetails1.Size = new System.Drawing.Size(1192, 556);
+            this.ucUserDetails1.Size = new System.Drawing.Size(1058, 556);
             this.ucUserDetails1.TabIndex = 20;
             // 
             // frmChangePassword

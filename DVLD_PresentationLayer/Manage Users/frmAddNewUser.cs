@@ -57,7 +57,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             {
 
                 lblMode.Text = "Update User";
-                this.Text = "Add New User";
+                this.Text = "Update User";
                 tpLoginInfo.Enabled = true;
                 btnSave.Enabled = true;
             }
