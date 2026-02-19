@@ -1,6 +1,7 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.Properties;
-using DVLD_BusinessLayer;
 using DVLD.Classes;
+using DVLD_BusinessLayer;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
 {
     public partial class frmLogin : Form
     {
+        private string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\YourSoftware\DVLD";
 
         public frmLogin()
         {
@@ -45,6 +47,43 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 
         }
 
+        private void _WriteUserNameAndPasswordOnRegistry(string Username, string Password)
+        {
+            try
+            {
+                Registry.SetValue(keyPath, "Username", Username, RegistryValueKind.String);
+                Registry.SetValue(keyPath, "Password", Password, RegistryValueKind.String);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private bool _ReadUserNameAndPasswordOnRegistry(ref string Username, ref string Password)
+        {
+            try
+            {
+                Username = Registry.GetValue(keyPath, "Username", null) as string;
+                Password = Registry.GetValue(keyPath, "Password", null) as string;
+
+                if (Username == null || Password == null)
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return true;
+        }
+
+
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -58,11 +97,11 @@ namespace Driving___Vehicle_License_Department__DVLD_
                 {
                     if (cbRememberMe.Checked )
                     {
-                        clsGlobal.RememberUsernameAndPassword(txtUserName.Text.Trim(), txtPassword.Text.Trim());
+                        _WriteUserNameAndPasswordOnRegistry(txtUserName.Text.Trim(), txtPassword.Text.Trim());
                     }
                     else 
                     {
-                        clsGlobal.RememberUsernameAndPassword("","");
+                        _WriteUserNameAndPasswordOnRegistry("","");
                     }
 
                     clsGlobal.CurrentUser = user;
@@ -88,12 +127,12 @@ namespace Driving___Vehicle_License_Department__DVLD_
         private void frmLogin_Load(object sender, EventArgs e)
         {
 
-            string UserName = "" , Password = "" ;
+            string Username = "" , Password = "" ;
 
-            if (clsGlobal.GetStoredCredential(ref UserName,ref Password))
+            if (_ReadUserNameAndPasswordOnRegistry(ref Username,ref Password))
             {
                 
-               txtUserName.Text = UserName;
+               txtUserName.Text = Username;
                txtPassword.Text = Password;
                cbRememberMe.Checked = true;
             }
