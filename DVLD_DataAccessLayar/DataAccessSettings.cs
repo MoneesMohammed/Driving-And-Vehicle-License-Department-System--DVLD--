@@ -8,6 +8,6 @@ namespace DVLD_DataAccessLayar
 {
     public class clsDataAccessSettings
     {
-        public static string ConnectionString = "Server=.;Database=DVLD;User ID=sa;Password=sa123456;";
+        public static string ConnectionString = "Server=.;Database=DVLD;Trusted_Connection=True;";
     }
 }

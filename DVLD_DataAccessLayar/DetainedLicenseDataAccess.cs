@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
@@ -46,8 +47,9 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch//(Exception e)
+            catch (Exception ex)
             {
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 isFound = false;
                 
             }
@@ -102,8 +104,10 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch//(Exception e)
+            catch (Exception ex)
             {
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
+
                 isFound = false;
 
             }
@@ -162,8 +166,9 @@ namespace DVLD_DataAccessLayar
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 ID = -1;
 
             }
@@ -217,8 +222,9 @@ namespace DVLD_DataAccessLayar
 
 
             }
-            catch
+            catch (Exception ex)
             {
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 return false;
             }
             finally
@@ -254,11 +260,9 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
-
-
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
             }
             finally
             {
@@ -295,11 +299,9 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
-
-
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
             }
             finally
             {
@@ -337,8 +339,9 @@ namespace DVLD_DataAccessLayar
 
 
             }
-            catch
+            catch (Exception ex)
             {
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 return false;
             }
             finally
@@ -381,7 +384,7 @@ namespace DVLD_DataAccessLayar
 
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
 
             }
 
@@ -419,9 +422,9 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-                
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 isFound = false;
             }
             finally
@@ -454,9 +457,9 @@ namespace DVLD_DataAccessLayar
 
                 reader.Close();
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-                //Console.WriteLine("Error : " + ex.Message);
+                clsUtil.WriteOnEventLog("DVLD", ex.Message, EventLogEntryType.Error);
                 isFound = false;
             }
             finally
