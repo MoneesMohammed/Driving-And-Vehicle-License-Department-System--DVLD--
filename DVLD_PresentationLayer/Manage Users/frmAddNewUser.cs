@@ -107,15 +107,14 @@ namespace Driving___Vehicle_License_Department__DVLD_
 
             if (clsGlobal.CurrentUser.UserID != _UserID)
             {
-                btnShowHidePassword.Enabled = false;
                 txtUserName.Enabled = false;
-          
             }
             else
             {
                 cbIsActive.Enabled = false;
             }
 
+            btnShowHidePassword.Enabled = false;
             txtPassword.Enabled = false;
             txtConfirmPassword.Enabled = false;
            
@@ -193,7 +192,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             
             _User.PersonID = ucFilterPerson1.PersonID;
             _User.UserName = txtUserName.Text;
-            _User.Password = txtPassword.Text;
+            _User.Password = clsUtil.ComputeHash(txtPassword.Text);
             _User.IsActive = cbIsActive.Checked;
 
             if (_User.Save())

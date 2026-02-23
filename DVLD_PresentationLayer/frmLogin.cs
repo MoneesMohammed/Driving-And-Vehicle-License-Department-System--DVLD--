@@ -88,7 +88,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            clsUser user = clsUser.FindByUserNameAndPassword(txtUserName.Text.Trim(),txtPassword.Text.Trim());
+            clsUser user = clsUser.FindByUserNameAndPassword(txtUserName.Text.Trim(), clsUtil.ComputeHash(txtPassword.Text.Trim()));
 
 
             if (user != null)

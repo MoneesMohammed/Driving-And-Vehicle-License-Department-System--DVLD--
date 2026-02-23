@@ -1,4 +1,5 @@
 ﻿using Driving___Vehicle_License_Department__DVLD_.UserControls;
+using DVLD.Classes;
 using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             {
                 btnSave.Enabled = false;
             }
-            else if (txtCurrentPassword.Text != _User.Password)
+            else if (clsUtil.ComputeHash(txtCurrentPassword.Text.Trim()) != _User.Password)
             {
                 btnSave.Enabled = false;
             }
@@ -98,7 +99,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
                             errorProvider1.SetError(CurrentTextBox, "CurrentPassword should have a Value!");
 
                         }
-                        else if (txtCurrentPassword.Text.Trim() != _User.Password.Trim())
+                        else if (clsUtil.ComputeHash(txtCurrentPassword.Text.Trim()) != _User.Password.Trim())
                         {
                             
                             e.Cancel = true;
@@ -183,7 +184,7 @@ namespace Driving___Vehicle_License_Department__DVLD_
             }
 
 
-            _User.Password = txtNewPassword.Text;
+            _User.Password = clsUtil.ComputeHash(txtNewPassword.Text);
 
 
             if (_User.Save())
