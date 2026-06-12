@@ -52,7 +52,7 @@ It was built for learning purposes and follows the **3-Tier Architecture** patte
 ## ▶️ How to Run
 1. Clone the repository:
    ```bash
-   git clone https://github.com/USERNAME/Driving-And-Vehicle-License-Department-System--DVLD-.git
+   git clone https://github.com/MoneesMohammed/Driving-And-Vehicle-License-Department-System--DVLD-.git
 
 Restore The Database , 
  **Database name should be DVLD**
